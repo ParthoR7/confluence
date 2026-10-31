@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#4f46e5">
-<link rel="icon" href="icon-192.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Confluence Desk — ICT Journal &amp; Market Planner</title>
 <style>
 :root{--bg:#0f1419;--card:#1a2332;--bd:#2d3a4f;--tx:#e2e8f0;--mut:#94a3b8;--ac:#3b82f6;--g:#10b981;--r:#ef4444;--y:#f59e0b;--in:#0f172a}
@@ -55,128 +52,195 @@ button{background:linear-gradient(135deg,#6366f1,#4f46e5);font-weight:600;transi
 button.s{background:#334155}button.gr{background:linear-gradient(135deg,#059669,#047857)}button.rd{background:linear-gradient(135deg,#dc2626,#b91c1c)}
 select:focus,input:focus,textarea:focus{outline:0;border-color:#818cf8;box-shadow:0 0 0 3px #6366f133}
 .stat{background:#0b1220;border:1px solid var(--bd);border-radius:12px}.tr{border-radius:12px}.bx>b{color:#a5b4fc}
+.tl{border-left:2px solid #334155;margin:10px 0 4px 8px;padding-left:14px}.ts{position:relative;margin-bottom:11px}.ts:before{content:"";position:absolute;left:-21px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px #0f1829}
+.ts i{display:block;font-style:normal;font-size:.64rem;letter-spacing:.08em;color:var(--c);font-weight:700}.ts b{font-size:.88rem}.ts span{display:block;font-size:.76rem;color:var(--mut);margin-top:1px}
+.bdg{display:inline-block;padding:2px 8px;border-radius:99px;font-size:.68rem;font-weight:700;background:#1e293b;margin-left:4px}
+.wb{height:6px;border-radius:9px;background:#1e293b;margin-top:5px;overflow:hidden}.wb div{height:100%}
+.rbs{display:flex;gap:5px;flex-wrap:wrap}.rb{padding:5px 8px;border-radius:8px;font-size:.74rem;font-weight:700;background:#0b1220;border:1px solid var(--bd)}
+.hero{background:linear-gradient(135deg,#1e1b4b,#064e3b);border:1px solid #334155;border-radius:16px;padding:14px;margin-bottom:12px}.hero h3{margin:0 0 8px;font-size:.95rem;color:#e0e7ff}
+.card.col>*:not(h2){display:none}.card h2{user-select:none}
+details.td{background:#0b1220;border:1px solid var(--bd);border-left:4px solid #475569;border-radius:12px;padding:9px 11px;margin-bottom:7px}details.td.good{border-left-color:#22c55e}details.td.bad{border-left-color:#ef4444}details.td summary{cursor:pointer;font-size:.88rem}
+details.more>summary{cursor:pointer;padding:12px;border-radius:14px;background:#1e293b;text-align:center;font-weight:700;margin:6px 0 10px;color:#c7d2fe}
+.wc{display:inline-block;margin:3px 4px 3px 0;padding:9px 13px;border:1px solid var(--bd);border-radius:11px;background:var(--in);color:#94a3b8;font-size:.84rem;cursor:pointer;user-select:none}.wc.on{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;border-color:#818cf8}.wc.dis{opacity:.28;pointer-events:none}
+.wc.cell{flex:1;margin:0;text-align:center;padding:8px 2px;line-height:1.35}.wc.cell b{font-size:.9rem}.wc.cell.on{background:#8b5cf633;border-color:#a78bfa;color:#e9d5ff}
+.sn{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#6366f1;color:#fff;font-size:.72rem;margin-right:8px}.hn{margin-top:8px;padding:8px 10px;border-radius:10px;background:#1e1b4b66;color:#c7d2fe}
+.dd{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:8px;margin:2px;font-size:.68rem;font-weight:700;color:#fff}.dd.g{background:#166534}.dd.r{background:#991b1b}.dd.y{background:#854d0e}.sel{box-shadow:0 0 0 2px #a5b4fc}
 </style>
 </head>
 <body>
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="brand"><div class="logo">CD</div><div><h1>Confluence Desk</h1><small>ICT Journal &amp; Market Planner</small></div></div><div class="bal"><small>Balance</small><b id="balTop" style="font-size:1.2rem"></b></div></div>
-<p class="sub">Offline • Data is saved in this browser • Checklist + auto analysis on every trade</p>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="brand"><div class="logo">CD</div><div><h1>Confluence Desk</h1><small>ICT Journal &amp; Market Planner</small></div></div><div class="bal"><small>ব্যালেন্স</small><b id="balTop" style="font-size:1.2rem"></b></div></div>
+<p class="sub">অফলাইন • ডেটা এই ব্রাউজারে সেভ থাকে • প্রতি ট্রেডে চেকলিস্ট ও অটো বিশ্লেষণ</p>
 <div id="newsBar" class="alert w" style="display:none"></div>
 <div id="alert" class="alert"></div>
 <div class="tabs">
-  <div class="tab on" data-t="new">New Trade</div>
-  <div class="tab" data-t="list">Trade List</div>
-  <div class="tab" data-t="ana">Analysis</div>
-  <div class="tab" data-t="acc">Account</div>
-  <div class="tab" data-t="pred">Predictions</div>
-  <div class="tab" data-t="news">News</div>
+  <div class="tab on" data-t="new">নতুন ট্রেড</div>
+  <div class="tab" data-t="list">ট্রেড লিস্ট</div>
+  <div class="tab" data-t="ana">বিশ্লেষণ</div>
+  <div class="tab" data-t="acc">অ্যাকাউন্ট</div>
+  <div class="tab" data-t="pred">প্রেডিকশন</div>
+  <div class="tab" data-t="news">নিউজ</div>
 </div>
 
 <div id="t-new">
-  <div class="card"><h2>Trade Details</h2>
+  <div class="card"><h2>ট্রেডের তথ্য</h2>
     <div class="row">
-      <div class="f"><span>Date</span><input type="date" id="date"></div>
-      <div class="f"><span>Pair</span><select id="pair"><option>EURUSD</option><option>GBPUSD</option><option>XAUUSD</option></select></div>
-      <div class="f"><span>Direction</span><select id="dir"><option>Buy</option><option>Sell</option></select></div>
+      <div class="f"><span>তারিখ</span><input type="date" id="date"></div>
+      <div class="f"><span>পেয়ার</span><select id="pair"><option>EURUSD</option><option>GBPUSD</option><option>XAUUSD</option></select></div>
+      <div class="f"><span>দিক</span><select id="dir"><option value="Buy">Buy (কিনেছি)</option><option value="Sell">Sell (বেচেছি)</option></select></div>
     </div>
     <div class="row">
-      <div class="f"><span>Risk ($)</span><input type="number" id="risk" min="0" step="0.1" value="25"></div>
-      <div class="f"><span>Result</span><select id="res"><option value="pending">Pending</option><option value="win">Win</option><option value="loss">Loss</option></select></div>
-      <div class="f"><span>P&amp;L $ (optional)</span><input type="number" id="pnl" step="0.1" placeholder="e.g. 75 or -25"></div>
-      <div class="f"><span>Commission ($)</span><input type="number" id="comm" min="0" step="0.01" placeholder="0"></div>
+      <div class="f"><span>ঝুঁকি ($১–$২৭)</span><input type="number" id="risk" min="1" max="27" step="0.1" value="25"></div>
+      <div class="f"><span>ফলাফল</span><select id="res"><option value="pending">চলমান</option><option value="win">জয়</option><option value="loss">লস</option><option value="be">ব্রেক ইভেন</option></select></div>
+      <div class="f"><span>লাভ/লোকসান $ (ঐচ্ছিক)</span><input type="number" id="pnl" step="0.1" placeholder="যেমন 75 বা -25"></div>
+      <div class="f"><span>কমিশন ($)</span><input type="number" id="comm" min="0" step="0.01" placeholder="0"></div>
     </div>
     <div class="sm2" id="autoInfo"></div><div class="chips" id="autoChips"></div>
   </div>
   <div id="form"></div>
-  <div class="card"><h2>Note (optional)</h2><textarea id="note" rows="2" placeholder="How you took the trade / what you learned"></textarea></div>
-  <button style="width:100%" id="saveBtn">Save</button>
+  <div class="card"><h2>নোট (ঐচ্ছিক)</h2><textarea id="note" rows="2" placeholder="কীভাবে ট্রেড নিলাম / কী শিখলাম"></textarea></div>
+  <button style="width:100%" id="saveBtn">সেভ করুন</button>
   <div id="saved" class="card" style="display:none;margin-top:12px"></div>
 </div>
 
 <div id="t-acc" style="display:none">
   <div class="stats" id="accStats"></div>
-  <div class="card"><h2>Deposit / Withdraw</h2>
-    <div class="row"><div class="f"><span>Amount ($)</span><input type="number" id="amt" min="0" step="0.01"></div><div class="f"><span>Note (optional)</span><input type="text" id="amtN"></div></div>
-    <button class="gr" id="depB">+ Deposit</button> <button class="rd" id="wdB">− Withdraw</button>
-    <div class="sm2" style="margin-top:6px">Withdrawals are deducted from your balance.</div></div>
-  <div class="card"><h2>Commission (separate cost)</h2>
-    <div class="row"><div class="f"><span>Commission ($)</span><input type="number" id="cm" min="0" step="0.01"></div><div class="f"><span>Note (optional)</span><input type="text" id="cmN"></div></div>
-    <button class="s" id="cmB">Add Commission</button>
-    <div class="sm2" style="margin-top:6px">Commission entered on trades is added to this total.</div></div>
-  <div class="card"><h2>Transactions</h2><div id="accList"></div></div>
+  <div class="card"><h2>জমা / উত্তোলন</h2>
+    <div class="row"><div class="f"><span>পরিমাণ ($)</span><input type="number" id="amt" min="0" step="0.01"></div><div class="f"><span>নোট (ঐচ্ছিক)</span><input type="text" id="amtN"></div></div>
+    <button class="gr" id="depB">+ জমা</button> <button class="rd" id="wdB">− উত্তোলন</button>
+    <div class="sm2" style="margin-top:6px">উত্তোলন ব্যালেন্স থেকে কাটা হবে।</div></div>
+  <div class="card"><h2>কমিশন (আলাদা খরচ)</h2>
+    <div class="row"><div class="f"><span>কমিশন ($)</span><input type="number" id="cm" min="0" step="0.01"></div><div class="f"><span>নোট (ঐচ্ছিক)</span><input type="text" id="cmN"></div></div>
+    <button class="s" id="cmB">কমিশন যোগ করুন</button>
+    <div class="sm2" style="margin-top:6px">ট্রেডে দেওয়া কমিশনও এই মোটে যোগ হয়।</div></div>
+  <div class="card"><h2>লেনদেন</h2><div id="accList"></div></div>
 </div>
 
 <div id="t-list" style="display:none"><div class="pills" data-p></div><div id="list"></div></div>
 
 <div id="t-ana" style="display:none">
   <div class="pills" data-p></div><div id="ana"></div>
-  <div class="card"><h2>Backup</h2>
-    <div class="sm2" style="margin-bottom:8px">Data is lost if browser data is cleared, so back up regularly.</div>
-    <button class="sm gr" id="exp">Download Backup</button>
-    <button class="sm s" id="impB">Load Backup</button><input type="file" id="imp" accept=".json" style="display:none">
+  <div class="card"><h2>ব্যাকআপ</h2>
+    <div class="sm2" style="margin-bottom:8px">ব্রাউজারের ডেটা মুছলে সব হারিয়ে যাবে, তাই নিয়মিত ব্যাকআপ নিন।</div>
+    <button class="sm gr" id="exp">ব্যাকআপ ডাউনলোড</button>
+    <button class="sm s" id="impB">ব্যাকআপ লোড</button><input type="file" id="imp" accept=".json" style="display:none">
   </div>
 </div>
 
 <div id="t-pred" style="display:none">
-  <div class="stats" id="pStats"></div>
-  <div class="card"><h2>Market Prediction (without a trade)</h2>
-    <div class="row"><div class="f"><span>Date</span><input type="date" id="pdate"></div><div class="f"><span>Pair / Market</span><input type="text" id="ppair" placeholder="e.g. XAUUSD"></div></div>
+  <div class="pills" data-p></div><div id="pStats"></div>
+  <div class="card"><h2>মার্কেট প্রেডিকশন (ট্রেড ছাড়া)</h2>
+    <div class="row"><div class="f"><span>তারিখ</span><input type="date" id="pdate"></div><div class="f"><span>পেয়ার / মার্কেট</span><input type="text" id="ppair" placeholder="e.g. XAUUSD"></div><div class="f"><span>প্রেডিকশনের সময় (কখন করেছি)</span><input type="time" id="ptime"></div></div><div id="ptc"></div>
     <div id="pbias"></div>
-    <div class="bx"><b>Plan</b><textarea id="pplan" rows="3" placeholder="Where the market can go from where, which liquidity/POI to enter from, what the target is"></textarea></div>
-    <button style="width:100%;margin-top:10px" id="pSave">Save Prediction</button></div>
-  <div class="card"><h2>Prediction List</h2><div id="pList"></div></div>
+    <div class="bx"><b>প্ল্যান</b><textarea id="pplan" rows="3" placeholder="মার্কেট কোথা থেকে কোথায় যেতে পারে, কোন লিকুইডিটি/POI থেকে এন্ট্রি, টার্গেট কী"></textarea></div>
+    <button style="width:100%;margin-top:10px" id="pSave">প্রেডিকশন সেভ করুন</button></div>
+  <div class="card"><h2>প্রেডিকশন লিস্ট</h2><div id="pList"></div></div>
 </div>
 <div id="t-news" style="display:none">
-  <div class="card"><h2>🔴 Red-Folder News (High Impact)</h2>
-    <div class="row"><div class="f"><span>Date</span><input type="date" id="nDate"></div><div class="f"><span>Time (your local time)</span><input type="time" id="nTime"></div><div class="f"><span>Currency</span><select id="nCur"><option>USD</option><option>EUR</option><option>GBP</option></select></div></div>
-    <div class="row"><div class="f"><span>Event</span><select id="nEv"></select></div><div class="f" id="nCustW" style="display:none"><span>Custom event</span><input type="text" id="nCust"></div></div>
-    <div class="row"><div class="f"><span>Forecast</span><input type="text" id="nFc"></div><div class="f"><span>Previous</span><input type="text" id="nPv"></div><div class="f"><span>Actual</span><input type="text" id="nAc"></div></div>
-    <textarea id="nNote" rows="2" placeholder="Expected reaction, levels to watch, plan around the news"></textarea>
-    <button style="width:100%;margin-top:10px" id="nSave">Add News</button></div>
+  <div class="pills" data-p></div><div id="nStats"></div>
+  <div class="card"><h2>🔴 রেড-ফোল্ডার নিউজ (হাই ইমপ্যাক্ট)</h2>
+    <div class="row"><div class="f"><span>তারিখ</span><input type="date" id="nDate"></div><div class="f"><span>নিউজের সময় (আপনার লোকাল)</span><input type="time" id="nTime"></div><div class="f"><span>কারেন্সি</span><select id="nCur"><option>USD</option><option>EUR</option><option>GBP</option></select></div></div>
+    <div class="row"><div class="f"><span>ইভেন্ট</span><select id="nEv"></select></div><div class="f" id="nCustW" style="display:none"><span>নিজের ইভেন্ট</span><input type="text" id="nCust"></div></div>
+    <div class="row"><div class="f"><span>ফোরকাস্ট</span><input type="text" id="nFc"></div><div class="f"><span>আগের</span><input type="text" id="nPv"></div><div class="f"><span>আসল</span><input type="text" id="nAc"></div></div>
+    <div class="row"><div class="f"><span>আমার প্রেডিকশন (নিউজে মার্কেট কোন দিকে যাবে)</span><select id="nMy"><option value="">—</option><option value="up">↑ উপরে</option><option value="down">↓ নিচে</option><option value="range">↔ রেঞ্জ / অনিশ্চিত</option></select></div><div class="f"><span>প্রেডিকশনের সময় (কখন করেছি)</span><input type="time" id="nPT"></div></div><div id="nptc"></div><textarea id="nNote" rows="2" placeholder="সম্ভাব্য রিঅ্যাকশন, দেখার লেভেল, নিউজ ঘিরে প্ল্যান"></textarea>
+    <button style="width:100%;margin-top:10px" id="nSave">নিউজ যোগ করুন</button></div>
   <div class="pills" id="nPills"></div>
   <div id="nList"></div>
 </div>
 <script>
 const GROUPS=[
- ['Higher Timeframe Bias',[['b1','Monthly POI / Liquidity checked'],['b2','Weekly refinement present'],['b3','Daily displacement (OB + FVG) seen'],['b4','4H or 1H nested POI present']]],
- ['Entry Condition (select one)',[['en_disp','Displacement'],['en_retest','Retest'],['en_exp','Expansion'],['en_sweep','Liquidity Sweep']]],
- ['Confirmation & Management',[['e3','15m / 5m displacement confirmation received'],['m1','Stop loss outside the POI'],['m2','Lot size calculated'],['m3','Target set at 1:3 R:R'],['m4','No interference after entry']]]
+ ['হায়ার টাইমফ্রেম বায়াস',[['b1','মান্থলি POI / লিকুইডিটি দেখেছি'],['b2','উইকলি রিফাইনমেন্ট আছে'],['b3','ডেইলি ডিসপ্লেসমেন্ট (OB + FVG) দেখেছি'],['b4','৪ঘ বা ১ঘ নেস্টেড POI আছে']]],
+ ['এন্ট্রি কন্ডিশন (একটি বাছুন)',[['en_disp','ডিসপ্লেসমেন্ট'],['en_retest','রিটেস্ট'],['en_exp','এক্সপ্যানশন'],['en_sweep','লিকুইডিটি সুইপ']]],
+ ['কনফার্মেশন ও ম্যানেজমেন্ট',[['e3','১৫মি / ৫মি ডিসপ্লেসমেন্ট কনফার্মেশন পেয়েছি'],['m1','স্টপ লস POI এর বাইরে'],['m2','লট সাইজ হিসাব করেছি'],['m3','টার্গেট ১:৩ R:R এ সেট'],['m4','এন্ট্রির পর হস্তক্ষেপ করিনি']]]
 ];
-const RULES=[['a1','Risk within $24–$27 (auto)'],['a2','Daily total risk within $50 (auto)'],['a3','Max 2 trades per day (auto)'],['p','Liquidity / POI selected'],
- ['b1','Monthly POI / Liquidity'],['b2','Weekly refinement'],['b3','Daily displacement (OB+FVG)'],['b4','4H/1H nested POI'],
- ['e','Entry Condition (Displacement / Retest / Expansion / Sweep)'],['tg','Target selected (Liquidity / POI)'],['e3','15m/5m displacement confirmation'],['m1','Stop loss outside the POI'],['m2','Lot size calculated'],['m3','1:3 R:R target'],['m4','No interference after entry']];
+const RULES=[['a1','ঝুঁকি $১–$২৭ এর মধ্যে (অটো)'],['a2','দিনে মোট ঝুঁকি $৫০ এর মধ্যে (অটো)'],['a3','দিনে সর্বোচ্চ ২ ট্রেড (অটো)'],['h','HTF এরিয়া বেছেছি (POI / লিকুইডিটি)'],['rf','রিফাইনমেন্ট: ডেইলি/৪ঘ/১ঘ POI'],['tr','এন্ট্রি ১৫মি/৫মি স্ট্রাকচারে'],['e','এন্ট্রি কন্ডিশন (ডিসপ্লেসমেন্ট/রিটেস্ট/এক্সপ্যানশন/সুইপ)'],['tg','টার্গেট বিপরীত ৪ঘ+ POI/লিকুইডিটিতে'],['m1','স্টপ লস POI এর বাইরে'],['m2','লট সাইজ হিসাব করেছি'],['m4','এন্ট্রির পর হস্তক্ষেপ করিনি']];
+const TFN={M:'মান্থলি',W:'উইকলি',D:'ডেইলি','4H':'৪ঘণ্টার','1H':'১ঘণ্টার','15m':'১৫মিনিটের','5m':'৫মিনিটের','1m':'১মিনিটের'};
 const K='tc_v3', $=id=>document.getElementById(id);
 let T=[],P='week';
 try{T=JSON.parse(localStorage.getItem(K))||[]}catch(e){}
-const save=()=>{try{localStorage.setItem(K,JSON.stringify(T))}catch(e){alert('Could not save')}};
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(T))}catch(e){alert('সেভ করা যায়নি')}};
 const ds=d=>{d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const ok=(t,id)=>{if(!t.v&&(id==='p'||id==='e3'))return true;if((t.v||0)<5&&id==='tg')return true;if(id==='tg')return Object.keys(t.c).some(k=>/^T(Lq|Po)_/.test(k)&&t.c[k]);if(id==='e')return !!(t.c.e1||t.c.e2||t.c.en_disp||t.c.en_retest||t.c.en_exp||t.c.en_sweep);if(id==='p')return Object.keys(t.c).some(k=>/^(Lq|Po)_/.test(k)&&t.c[k]);return !!t.c[id]};
+const ANY=(t,re)=>Object.keys(t.c).some(k=>re.test(k)&&t.c[k]);
+const ok=(t,id)=>{const c=t.c;switch(id){case 'h':return ANY(t,/^(Lq|Po)_/);case 'rf':return ANY(t,/^RPo_[a-z]+_(D|4H|1H)$/);case 'tr':return t.etf==='15m'||t.etf==='5m';case 'e':return !!(c.en_disp||c.en_retest||c.en_exp||c.en_sweep||c.e1||c.e2);case 'tg':return ANY(t,/^T(Po|Lq)_[a-z]+_(4H|D|W|M)$/);default:return !!c[id]}};
 const broken=t=>RULES.filter(r=>!ok(t,r[0]));
 const score=t=>Math.round((RULES.length-broken(t).length)/RULES.length*100);
 const pct=(a,b)=>b?Math.round(a/b*100):0;
 const rname=id=>RULES.find(r=>r[0]===id)[1];
 
 // build form
-const LQ=[['h','High',['D','W','M']],['l','Low',['D','W','M']],['sh','Swing High',['4H','D','W','M']],['sl','Swing Low',['4H','D','W','M']]],
- LC=['4H','D','W','M'],PO=[['ob','Order Block'],['fvg','FVG'],['gap','Gap / Imbalance'],['mb','Mitigation Block']],TF=['M','W','D','4H','1H'],TAGS=[],TT=[],TR=[];
+const LQ=[['h','হাই',['D','W','M']],['l','লো',['D','W','M']],['sh','সুইং হাই',['4H','D','W','M']],['sl','সুইং লো',['4H','D','W','M']]],
+ LC=['4H','D','W','M'],PO=[['ob','অর্ডার ব্লক'],['fvg','FVG'],['gap','গ্যাপ/ইমব্যালান্স'],['mb','মিটিগেশন ব্লক']],TF=['M','W','D','4H','1H'],TAGS=[],TT=[],TR=[];
 const cell=(id,t)=>`<label class="cb"><input type="checkbox" id="${id}"><span>${t}</span></label>`;
-const mkL=(pre,tg)=>'<table class="gt"><tr><th></th>'+LC.map(c=>`<th>${c}</th>`).join('')+'</tr>'+LQ.map(r=>`<tr><td>${r[1]}</td>`+LC.map(c=>{if(!r[2].includes(c))return '<td></td>';const id=`${pre}Lq_${r[0]}_${c}`;tg.push([id,c+' '+r[1]]);return `<td>${cell(id,c)}</td>`}).join('')+'</tr>').join('')+'</table>';
-const mkP=(pre,tg,cols=TF)=>'<table class="gt"><tr><th></th>'+cols.map(c=>`<th>${c}</th>`).join('')+'</tr>'+PO.map(r=>`<tr><td>${r[1]}</td>`+cols.map(c=>{const id=`${pre}Po_${r[0]}_${c}`;tg.push([id,c+' '+r[1]]);return `<td>${cell(id,c)}</td>`}).join('')+'</tr>').join('')+'</table>';
+const mkL=(pre,tg)=>'<table class="gt"><tr><th></th>'+LC.map(c=>`<th>${c}</th>`).join('')+'</tr>'+LQ.map(r=>`<tr><td>${r[1]}</td>`+LC.map(c=>{if(!r[2].includes(c))return '<td></td>';const id=`${pre}Lq_${r[0]}_${c}`;tg.push([id,(TFN[c]||c)+' '+r[1]]);return `<td>${cell(id,c)}</td>`}).join('')+'</tr>').join('')+'</table>';
+const mkP=(pre,tg,cols=TF)=>'<table class="gt"><tr><th></th>'+cols.map(c=>`<th>${c}</th>`).join('')+'</tr>'+PO.map(r=>`<tr><td>${r[1]}</td>`+cols.map(c=>{const id=`${pre}Po_${r[0]}_${c}`;tg.push([id,(TFN[c]||c)+' '+r[1]]);return `<td>${cell(id,c)}</td>`}).join('')+'</tr>').join('')+'</table>';
 const grp=(i,n)=>{const g=GROUPS[i];return `<div class="card"><h2>${n}. ${g[0]}</h2>`+g[1].map(x=>`<label class="ck"><input type="checkbox" id="${x[0]}"> ${x[1]}</label>`).join('')+'</div>'};
 const sub=t=>`<div class="sm2" style="margin:8px 0 4px;color:#93c5fd">${t}</div>`;
-$('form').innerHTML=grp(0,1)+grp(1,2)
- +`<div class="card"><h2>3. Entry Basis — What I Saw Before Entry</h2>${sub('Liquidity swept / targeted before entry')}${mkL('',TAGS)}${sub('Main POI (higher timeframe area)')}${mkP('',TAGS)}${sub('Refined POI (inside the main POI)')}${mkP('R',TR,['4H','1H','15m','5m'])}${sub('Entry trigger timeframe')}<select id="etf"><option value="">—</option><option>1H</option><option>15m</option><option>5m</option><option>1m</option></select><div class="sm2 bt" id="chain" style="margin-top:8px"></div></div>`
- +`<div class="card"><h2>4. Target (Liquidity + POI)</h2>${sub('Liquidity')}${mkL('T',TT)}${sub('POI')}${mkP('T',TT)}</div>`+grp(2,5);
+$('form').innerHTML='<div id="hid" style="display:none">'+mkL('',TAGS)+mkP('',TAGS)+mkP('R',TR,['D','4H','1H','15m','5m'])+mkL('T',TT)+mkP('T',TT)+['en_disp','en_retest','en_exp','en_sweep'].map(i=>`<input type="checkbox" id="${i}">`).join('')+'<input id="plan"><select id="etf"><option value=""></option><option>1H</option><option>15m</option><option>5m</option><option>1m</option></select><select id="lqm"><option value=""></option><option value="sweep"></option><option value="target"></option><option value="poi"></option></select><div id="chain"></div></div><div id="wiz"></div>'
+ +'<div class="card"><h2><span class="sn">৬</span>কারণ ও ম্যানেজমেন্ট</h2><input type="text" id="why" placeholder="এন্ট্রির কারণ এক লাইনে (যেমন: ডেইলি হাই সুইপ, ১ঘ OB তে ১৫মি ডিসপ্লেসমেন্ট)"><input type="text" id="tgt" placeholder="টার্গেট কতদূর (যেমন: ডেইলি লো ১.০৮৫০)" style="margin-top:6px"><div class="sm2" style="margin:12px 0 4px">💰 টেক প্রফিট — R:R বাছুন, অথবা নিজের মতো $ লিখুন (৭৫ এর বেশি/কম যা খুশি)</div><div id="rrc" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px"></div><div class="row"><div class="f"><span>টার্গেট লাভ ($)</span><input type="number" id="tpa" min="0" step="0.1" placeholder="যেমন 75, 90, 60"></div><div class="f"><span>R:R (অটো হিসাব)</span><input type="text" id="rrt" readonly></div></div><label class="ck"><input type="checkbox" id="m1"> স্টপ লস POI এর বাইরে</label><label class="ck"><input type="checkbox" id="m2"> লট সাইজ হিসাব করেছি</label><label class="ck"><input type="checkbox" id="m4"> এন্ট্রির পর হস্তক্ষেপ করিনি</label></div>';
 $('date').value=ds();
+
+const RRS=[1,1.5,2,2.5,3,4,5],fmtN=n=>String(+(+n).toFixed(2));let RRV=3;
+function rrPaint(){const r=+$('risk').value||0,tp=+$('tpa').value||0;
+  $('rrc').innerHTML=RRS.map(v=>`<button type="button" class="sm s ${RRV===v?'sel':''}" data-rr="${v}">১:${v}</button>`).join(' ');
+  $('rrt').value=r&&tp?'১:'+fmtN(tp/r):'—';}
+function rrSet(v){RRV=v;const r=+$('risk').value||0;$('tpa').value=r?fmtN(r*v):'';rrPaint();}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-rr]');if(b)rrSet(+b.dataset.rr)});
+$('tpa').addEventListener('input',()=>{const r=+$('risk').value||0,t=+$('tpa').value||0;RRV=RRS.find(v=>Math.abs(t-r*v)<0.005)||null;rrPaint()});
+$('risk').addEventListener('input',()=>{if(RRV)rrSet(RRV);else rrPaint()});
+rrSet(3);
+function setTp(id){const t=T.find(x=>x.id===id);const v=prompt('টার্গেট লাভ ($) লিখুন, যেমন 75 বা 120 (ফাঁকা = মুছে ফেলুন)',t.tp??'');if(v===null)return;if(v.trim()===''){t.tp=null;t.rr=null}else if(!isNaN(+v)&&+v>0){t.tp=+v;t.rr=t.risk?+(+v/t.risk).toFixed(2):null}else return;save();render();}
+window.setTp=setTp;
+function setTpV(id,v){const t=T.find(x=>x.id===id);if(!t)return;v=(''+v).trim();if(v===''){t.tp=null;t.rr=null}else if(+v>0){t.tp=+v;t.rr=t.risk?+(+v/t.risk).toFixed(2):null}else return;save();render();}
+function setTpR(id,r){const t=T.find(x=>x.id===id);if(!t||!t.risk)return;t.rr=r;t.tp=+(t.risk*r).toFixed(2);save();render();}
+window.setTpV=setTpV;window.setTpR=setTpR;
+
+let S={};const TN={ob:'OB',fvg:'FVG',gap:'গ্যাপ',mb:'MB'};
+const clrp=re=>document.querySelectorAll('#hid input[type=checkbox]').forEach(i=>{if(re.test(i.id))i.checked=false});
+function cm(pre,ty,tf){clrp(new RegExp('^'+pre));if(ty&&tf){const e=$(pre+ty+'_'+tf);if(e)e.checked=true}}
+const tgl=(k,v)=>{S[k]=S[k]===v?'':v};
+const ACT={plan:v=>{if(v==='chain')v=['poi','liq'].includes($('plan').value)?$('plan').value:'poi';$('plan').value=($('plan').value===v&&v==='ref')?'':v;const p=$('plan').value;$('lqm').value=p==='liq'?'sweep':p?'poi':'';if(p==='ref'){if(!$('etf').value)$('etf').value='15m';if(!S.ttf)S.ttf='4H'}},
+ ptf:v=>{tgl('ptf',v);cm('Po_',S.pty,S.ptf)},pty:v=>{tgl('pty',v);cm('Po_',S.pty,S.ptf)},
+ ltf:v=>{tgl('ltf',v);cm('Lq_',S.lty,S.ltf)},lty:v=>{tgl('lty',v);cm('Lq_',S.lty,S.ltf)},
+ role:v=>{$('lqm').value=v},
+ ch:v=>{const O=['','ob','fvg','gap','mb'],e=[...document.querySelectorAll('#hid input')].find(i=>i.checked&&i.id.startsWith('RPo_')&&i.id.endsWith('_'+v)),cur=e?e.id.split('_')[1]:'';clrp(new RegExp('^RPo_[a-z]+_'+v+'$'));const n=O[(O.indexOf(cur)+1)%O.length];if(n)$('RPo_'+n+'_'+v).checked=true},
+ trg:v=>{$('etf').value=$('etf').value===v?'':v},
+ en:v=>{const was=$(v).checked;EN.forEach(o=>$(o).checked=false);$(v).checked=!was},
+ tty:v=>{tgl('tty',v);ctg()},ttf:v=>{tgl('ttf',v);ctg()}};
+function ctg(){clrp(/^T(Po|Lq)_/);if(S.tty&&S.ttf){const[k,ty]=S.tty.split(':'),e=$('T'+k+'_'+ty+'_'+S.ttf);if(e)e.checked=true}}
+document.addEventListener('click',e=>{const c=e.target.closest('.wc');if(!c)return;ACT[c.dataset.a](c.dataset.v);paintW()});
+const upd=()=>{S={};$('plan').value='';paintW()};
+function paintW(){
+ const plan=$('plan').value,ch=(a,v,t,on,x)=>`<span class="wc ${on?'on':''} ${x||''}" data-a="${a}" data-v="${v}">${t}</span>`,ex=(p,ty,tf)=>!!$(p+ty+'_'+tf);
+ const REC={M:['D','1H','15m'],W:['4H','15m'],D:['1H','15m','5m'],'4H':['1H','15m']},base=plan==='liq'?S.ltf:S.ptf,rec=plan==='ref'?['4H']:(REC[base]||[]);
+ const HP={M:'মান্থলি POI → ডেইলি OB/FVG (ডিসপ্লেসমেন্ট) → ১ঘ OB/FVG → ১৫মি/৫মি POI তে এন্ট্রি',W:'উইকলি POI → ৪ঘ OB/FVG → ১৫মি ডিসপ্লেসমেন্টে এন্ট্রি',D:'ডেইলি POI → ১ঘ OB/FVG → ১৫মি/৫মি ডিসপ্লেসমেন্টে এন্ট্রি'},
+  HL={M:'মান্থলি সুইপ → ডেইলি OB/FVG → এন্ট্রি',W:'উইকলি সুইপ → ৪ঘ POI → ১৫মি ডিসপ্লেসমেন্টে এন্ট্রি',D:'ডেইলি সুইপ → ১ঘ POI → ১৫মি/৫মি ডিসপ্লেসমেন্টে এন্ট্রি','4H':'৪ঘ সুইপ → ১ঘ POI → ১৫মি এন্ট্রি'};
+ const sn=(n,t)=>`<h2><span class="sn">${n}</span>${t}</h2>`,hint=t=>t?`<div class="sm2 hn">💡 ${t}</div>`:'';
+ const HT=[['M','মান্থলি'],['W','উইকলি'],['D','ডেইলি']],PT=['ob','fvg','gap','mb'],LT=[['h','হাই'],['l','লো'],['sh','সুইং হাই'],['sl','সুইং লো']];
+ let h=`<div class="card">${sn('১','আজকের এন্ট্রি প্ল্যান কোনটা?')}${ch('plan','ref','⚡ রিফাইন প্ল্যান',plan==='ref')}${ch('plan','chain','⛓ ডিসপ্লেসমেন্ট চেইন প্ল্যান',plan==='poi'||plan==='liq')}${plan==='poi'||plan==='liq'?`<div class="sm2" style="margin-top:6px">শুরু কোথা থেকে?</div>`+ch('plan','poi','HTF POI থেকে',plan==='poi')+ch('plan','liq','লিকুইডিটি সুইপ থেকে',plan==='liq'):''}${hint(plan==='ref'?'HTF POI তে মার্কেট এলে → ৪ঘ POI (না পেলে ১ঘ) রিফাইন → ১৫মি OB/FVG তৈরি হলে এন্ট্রি → টার্গেট বিপরীত ৪ঘ POI':plan?'HTF POI বা লিকুইডিটি সুইপের পর নিচের টাইমফ্রেমে ডিসপ্লেসমেন্টে OB/FVG তৈরি → ধাপে ধাপে নেমে ১৫মি/৫মি এন্ট্রি':'')}</div>`;
+ h+=`<div class="card">${sn('২','HTF এরিয়া — মার্কেট কোথায়?')}`;
+ if(plan==='liq'){h+=`<div class="sm2">কোন লিকুইডিটি?</div>`+LT.map(x=>ch('lty',x[0],x[1],S.lty===x[0])).join('')+`<div class="sm2" style="margin-top:6px">কোন টাইমফ্রেমের?</div>`+['4H','D','W','M'].map(t=>ch('ltf',t,TFN[t].replace('র',''),S.ltf===t,S.lty&&!ex('Lq_',S.lty,t)?'dis':'')).join('')+`<div class="sm2" style="margin-top:6px">সুইপের অবস্থা</div>`+[['sweep','সুইপ হয়ে গেছে'],['target','এখনো হয়নি (টার্গেট)']].map(x=>ch('role',x[0],x[1],$('lqm').value===x[0])).join('')+hint(HL[S.ltf]);}
+ else if(plan==='poi'||plan==='ref'){h+=`<div class="sm2">কোন টাইমফ্রেমের POI?</div>`+HT.map(x=>ch('ptf',x[0],x[1],S.ptf===x[0])).join('')+`<div class="sm2" style="margin-top:6px">ধরন</div>`+PT.map(t=>ch('pty',t,TN[t],S.pty===t)).join('')+hint(plan==='ref'?'মার্কেট যে HTF POI তে গেছে সেটা বাছুন':HP[S.ptf]);}
+ else h+='<div class="sm2">আগে ১ নম্বরে প্ল্যান বাছুন ☝</div>';
+ h+='</div>';
+ const cell=t=>{const e=[...document.querySelectorAll('#hid input')].find(i=>i.checked&&i.id.startsWith('RPo_')&&i.id.endsWith('_'+t)),ty=e?TN[e.id.split('_')[1]]:'—';return ch('ch',t,`<small>${rec.includes(t)?'⭐':''}${t==='D'?'ডেইলি':t}</small><br><b>${ty}</b>`,!!e,'cell')};
+ h+=`<div class="card">${sn('৩',plan==='ref'?'রিফাইনমেন্ট — আগে ৪ঘ, না পেলে ১ঘ':'রিফাইনমেন্ট — ডিসপ্লেসমেন্টে কী তৈরি হলো?')}<div class="sm2">ট্যাপ করলে ঘুরবে: — → OB → FVG → গ্যাপ → MB ${rec.length?'• ⭐ = প্রস্তাবিত':''}</div><div style="display:flex;gap:5px;margin-top:6px">`+(plan==='ref'?['4H','1H']:['D','4H','1H','15m','5m']).map(t=>cell(t)).join('')+'</div></div>';
+ h+=`<div class="card">${sn('৪','এন্ট্রি — কোথায় কনফার্মেশন?')}${plan==='ref'?'<div class="sm2">১৫মি এ স্ট্রাকচার (OB/FVG) তৈরি হয়েছে?</div><div style="display:flex;margin-bottom:6px">'+cell('15m')+'</div>':''}<div class="sm2">ট্রিগার টাইমফ্রেম</div>`+['15m','5m','1m','1H'].map(t=>ch('trg',t,TFN[t].replace('র',''),$('etf').value===t)).join('')+`<div class="sm2" style="margin-top:6px">কী দেখে নিলাম</div>`+[['en_disp','ডিসপ্লেসমেন্ট'],['en_retest','রিটেস্ট'],['en_exp','এক্সপ্যানশন'],['en_sweep','লিকুইডিটি সুইপ']].map(x=>ch('en',x[0],x[1],$(x[0]).checked)).join('')+'</div>';
+ h+=`<div class="card">${sn('৫','টার্গেট — কোথায় পর্যন্ত?')}<div class="sm2">${plan==='ref'?'মূল টার্গেট: এন্ট্রির উল্টো দিকের ৪ঘ POI':'এন্ট্রির উল্টো দিকের ৪ঘ বা বড় POI / লিকুইডিটি'}</div>`+[['Po:ob','OB'],['Po:fvg','FVG'],['Po:gap','গ্যাপ'],['Po:mb','MB'],['Lq:h','হাই'],['Lq:l','লো'],['Lq:sh','সুইং হাই'],['Lq:sl','সুইং লো']].map(x=>ch('tty',x[0],x[1],S.tty===x[0])).join('')+`<div class="sm2" style="margin-top:6px">টাইমফ্রেম</div>`+['1H','4H','D','W','M'].map(t=>{const[k,ty]=(S.tty||':').split(':');return ch('ttf',t,TFN[t].replace('র',''),S.ttf===t,S.tty&&!ex('T'+k+'_',ty,t)?'dis':'')}).join('')+'</div>';
+ chain();const tl=TT.filter(x=>$(x[0])&&$(x[0]).checked).map(x=>x[1]).join(', '),pv=[$('chain').textContent,tl&&'টার্গেট: '+tl].filter(Boolean).join('  →  ');
+ const c={};document.querySelectorAll('#form input').forEach(i=>c[i.id]=i.checked);const a=auto();Object.assign(c,{a1:a.a1,a2:a.a2,a3:a.a3});const tt={c,etf:$('etf').value},bk=broken(tt),sc=score(tt);
+ h=`<div class="hero" style="margin-top:10px"><h3>🧭 লাইভ চেইন</h3><div class="sm2" style="color:#e2e8f0">${pv||'এখনো কিছু বাছা হয়নি'}</div><div class="wb"><div style="width:${sc}%;background:${sc>=90?'#22c55e':sc>=60?'#eab308':'#ef4444'}"></div></div><div class="sm2" style="margin-top:4px">নিয়ম স্কোর ${sc}%${bk.length?' • বাকি: '+bk.slice(0,4).map(r=>r[1]).join(' | ')+(bk.length>4?' …':''):' ✓ সব ঠিক'}</div></div>`+h;
+ $('wiz').innerHTML=h;}
+$('risk').addEventListener('input',paintW);$('form').addEventListener('change',paintW);
+upd();
 
 function auto(){
   const d=$('date').value,r=+$('risk').value||0,day=T.filter(t=>t.date===d),used=day.reduce((s,t)=>s+t.risk,0);
-  return {a1:r>=24&&r<=27,a2:used+r<=50,a3:day.length<2,used,n:day.length};
+  return {a1:r>=1&&r<=27,a2:used+r<=50,a3:day.length<2,used,n:day.length};
 }
 function showAuto(){
   const a=auto();
-  $('autoInfo').textContent=`Already today: ${a.n} trades, total risk $${a.used.toFixed(1)}`;
-  $('autoChips').innerHTML=[['a1','Risk $24–27'],['a2','Daily $50'],['a3','Under 2 trades']].map(x=>`<span class="chip ${a[x[0]]?'ok':'no'}">${a[x[0]]?'✓':'✗'} ${x[1]}</span>`).join('');
+  $('autoInfo').textContent=`আজ ইতিমধ্যে: ${a.n}টি ট্রেড, মোট ঝুঁকি $${a.used.toFixed(1)}`;
+  $('autoChips').innerHTML=[['a1','ঝুঁকি $১–২৭'],['a2','দৈনিক $৫০'],['a3','২ ট্রেডের নিচে']].map(x=>`<span class="chip ${a[x[0]]?'ok':'no'}">${a[x[0]]?'✓':'✗'} ${x[1]}</span>`).join('');
 }
 ['date','risk'].forEach(i=>$(i).addEventListener('input',showAuto));
 
@@ -187,28 +251,35 @@ function inP(d,p){
   if(p==='month')return d.slice(0,7)===today.slice(0,7);
   const m=new Date(n);m.setDate(n.getDate()-(n.getDay()+6)%7);return d>=ds(m);
 }
-const PL=[['day','Today'],['week','This week'],['month','This month'],['all','All']];
+const PL=[['day','আজ'],['week','এই সপ্তাহ'],['month','এই মাস'],['all','সব']];
 function pills(){document.querySelectorAll('[data-p]').forEach(e=>{e.innerHTML=PL.map(p=>`<div class="pill ${P===p[0]?'on':''}" data-pp="${p[0]}">${p[1]}</div>`).join('')})}
 
 // tabs & pills
 document.addEventListener('click',e=>{
   const t=e.target.closest('.tab'),p=e.target.closest('.pill');
   if(t){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));['new','list','ana','acc','pred','news'].forEach(k=>$('t-'+k).style.display=k===t.dataset.t?'block':'none');render();}
-  if(p){P=p.dataset.pp;render();}
+  if(p&&p.dataset.pp){P=p.dataset.pp;render();}
 });
 
-const BTF=[['M','Monthly'],['W','Weekly'],['D','Daily']],arr={up:'↑',down:'↓',range:'↔'};
-const bo='<option value="">—</option><option value="up">Up ↑</option><option value="down">Down ↓</option><option value="range">Range ↔</option>';
-const mkBias=pre=>BTF.map(x=>`<div class="bx"><b>${x[1]}</b><div class="row"><div class="f"><span>Overall Bias</span><select id="${pre}_${x[0]}_o">${bo}</select></div><div class="f"><span>Short-term Bias</span><select id="${pre}_${x[0]}_s">${bo}</select></div></div><div class="sm2 bt" id="${pre}_${x[0]}_t"></div><textarea id="${pre}_${x[0]}_n" rows="2" placeholder="Where can it go from where? Where can I enter from?"></textarea></div>`).join('');
-function biasTag(o,s){if(!o||!s)return '';if(o===s)return o==='range'?'Range':'Aligned '+arr[o];if(o==='range'||s==='range')return 'Overall '+arr[o]+' / Short-term '+arr[s];return 'Pullback: Overall '+arr[o]+', Short-term '+arr[s];}
+
+const nowT=()=>{const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};
+const TCH=[['এখন',''],['সকাল','09:00'],['দুপুর','13:00'],['বিকেল','16:00'],['সন্ধ্যা','19:00'],['রাত','22:00']];
+const tchips=id=>'<div style="display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 8px">'+TCH.map(c=>`<button type="button" class="sm s" data-tc="${id}" data-v="${c[1]}">${c[0]}${c[1]?' '+c[1]:''}</button>`).join('')+'</div>';
+document.addEventListener('click',e=>{const b=e.target.closest('[data-tc]');if(b)$(b.dataset.tc).value=b.dataset.v||nowT()});
+const gapM=(a,b)=>{if(!a||!b)return '';const f=q=>+q.slice(0,2)*60+ +q.slice(3,5),m=f(b)-f(a);if(m<0)return '';return m>=60?Math.floor(m/60)+' ঘণ্টা'+(m%60?' '+(m%60)+' মিনিট':''):m+' মিনিট'};
+const tmHtml=(fn,id,fields,gp)=>`<div class="row" style="margin-top:8px">${fields.map(f=>`<div class="f"><span>${f[0]}</span><input type="${f[2]}" value="${f[3]||''}" onchange="${fn}(${id},'${f[1]}',this.value)"></div>`).join('')}</div>${gp?`<div class="sm2">⏱ প্রেডিকশনের ${gp} পর মার্কেট চলেছে</div>`:''}`;
+const BTF=[['M','মান্থলি'],['W','উইকলি'],['D','ডেইলি']],arr={up:'↑',down:'↓',range:'↔'};
+const bo='<option value="">—</option><option value="up">ঊর্ধ্বমুখী ↑</option><option value="down">নিম্নমুখী ↓</option><option value="range">রেঞ্জ ↔</option>';
+const mkBias=pre=>BTF.map(x=>`<div class="bx"><b>${x[1]}</b><div class="row"><div class="f"><span>ওভারঅল বায়াস</span><select id="${pre}_${x[0]}_o">${bo}</select></div><div class="f"><span>শর্ট-টার্ম বায়াস</span><select id="${pre}_${x[0]}_s">${bo}</select></div></div><div class="sm2 bt" id="${pre}_${x[0]}_t"></div><textarea id="${pre}_${x[0]}_n" rows="2" placeholder="কোথা থেকে কোথায় যেতে পারে? কোথা থেকে এন্ট্রি নিতে পারি?"></textarea></div>`).join('');
+function biasTag(o,s){if(!o||!s)return '';if(o===s)return o==='range'?'রেঞ্জ':'একই দিকে '+arr[o];if(o==='range'||s==='range')return 'ওভারঅল '+arr[o]+' / শর্ট-টার্ম '+arr[s];return 'পুলব্যাক: ওভারঅল '+arr[o]+', শর্ট-টার্ম '+arr[s];}
 function wireBias(pre){BTF.forEach(x=>['o','s'].forEach(k=>$(`${pre}_${x[0]}_${k}`).onchange=()=>{$(`${pre}_${x[0]}_t`).textContent=biasTag($(`${pre}_${x[0]}_o`).value,$(`${pre}_${x[0]}_s`).value)}))}
 function getBias(pre){const b={};BTF.forEach(x=>{const o=$(`${pre}_${x[0]}_o`).value,s=$(`${pre}_${x[0]}_s`).value,n=$(`${pre}_${x[0]}_n`).value.trim();if(o||s||n)b[x[0]]={o,s,n}});return Object.keys(b).length?b:null}
 function clearBias(pre){BTF.forEach(x=>{['o','s'].forEach(k=>$(`${pre}_${x[0]}_${k}`).value='');$(`${pre}_${x[0]}_n`).value='';$(`${pre}_${x[0]}_t`).textContent=''})}
 const biasHtml=t=>t.bias?BTF.filter(x=>t.bias[x[0]]).map(x=>{const b=t.bias[x[0]],g=biasTag(b.o,b.s);return `<div class="sm2">${x[1]}: ${arr[b.o]||'—'} / short ${arr[b.s]||'—'}${g?' ('+g+')':''}${b.n?' — '+esc(b.n):''}</div>`}).join(''):'';
 function chain(){const g=L=>L.filter(x=>$(x[0])&&$(x[0]).checked).map(x=>x[1]).join(', '),
- ps=[['Swept',g(TAGS.filter(x=>x[0][0]==='L'))],['Main POI',g(TAGS.filter(x=>x[0][0]==='P'))],['Refined',g(TR)],['Trigger',$('etf').value]].filter(x=>x[1]);
+ ps=[['লিকুইডিটি',g(TAGS.filter(x=>x[0][0]==='L'))],['মেইন POI',g(TAGS.filter(x=>x[0][0]==='P'))],['রিফাইন্ড',g(TR)],['ট্রিগার',TFN[$('etf').value]||$('etf').value]].filter(x=>x[1]);
  $('chain').textContent=ps.map(x=>x[0]+': '+x[1]).join('  →  ');}
-$('form').addEventListener('change',chain);$('etf').addEventListener('change',chain);
+$('form').addEventListener('change',chain);$('lqm').addEventListener('change',chain);$('etf').addEventListener('change',chain);
 const EN=['en_disp','en_retest','en_exp','en_sweep'];
 EN.forEach(id=>{$(id).addEventListener('change',()=>{if($(id).checked)EN.forEach(o=>{if(o!==id)$(o).checked=false})})});
 $('saveBtn').onclick=()=>{
@@ -216,26 +287,26 @@ $('saveBtn').onclick=()=>{
   document.querySelectorAll('#form input').forEach(i=>c[i.id]=i.checked);
   const pn=$('pnl').value;
   const t={id:Date.now(),date:$('date').value||ds(),pair:$('pair').value,dir:$('dir').value,risk:+$('risk').value||0,
-    result:$('res').value,pnl:pn===''?null:+pn,comm:+$('comm').value||0,v:5,etf:$('etf').value,c,note:$('note').value.trim()};
+    result:$('res').value,pnl:pn===''?($('res').value==='be'?0:null):+pn,comm:+$('comm').value||0,v:5,etf:$('etf').value,plan:$('plan').value,lqm:$('lqm').value,why:$('why').value.trim(),tgt:$('tgt').value.trim(),tp:(+$('tpa').value>0?+$('tpa').value:null),rr:(+$('tpa').value>0&&(+$('risk').value)>0?+(+$('tpa').value/+$('risk').value).toFixed(2):null),c,note:$('note').value.trim()};delete t.c.tpa;delete t.c.rrt;
   T.unshift(t);save();
   const b=broken(t),s=score(t);
   $('saved').style.display='block';
-  $('saved').innerHTML=`<h2 class="${b.length?'r':'g'}">${b.length?'✗ Rules broken':'✓ All rules followed'} — Score ${s}%</h2>`+
-   (b.length?'<div class="sm2" style="margin-bottom:4px">Not followed:</div>'+b.map(r=>`<div class="r">• ${r[1]}</div>`).join(''):'<div class="g">Great, everything on the checklist was in order.</div>');
-  document.querySelectorAll('#form input').forEach(i=>i.checked=false);$('etf').value='';chain();
+  $('saved').innerHTML=`<h2 class="${b.length?'r':'g'}">${b.length?'✗ নিয়ম ভাঙা হয়েছে':'✓ সব নিয়ম মানা হয়েছে'} — স্কোর ${s}%</h2>`+
+   (b.length?'<div class="sm2" style="margin-bottom:4px">যেগুলো মানা হয়নি:</div>'+b.map(r=>`<div class="r">• ${r[1]}</div>`).join(''):'<div class="g">চমৎকার, চেকলিস্টের সবকিছু ঠিক ছিল।</div>');
+  document.querySelectorAll('#form input').forEach(i=>i.checked=false);$('etf').value='';$('lqm').value='';$('why').value='';$('tgt').value='';rrSet(3);chain();upd();
   $('note').value='';$('pnl').value='';$('comm').value='';$('res').value='pending';
   showAuto();render();
 };
 
-function setRes(id,r){const t=T.find(x=>x.id===id);if(t){t.result=r;if(r==='pending')t.pnl=null;save();render();}}
-function setPnl(id){const t=T.find(x=>x.id===id);const v=prompt('Enter P&L ($), e.g. 75 or -25',t.pnl??'');if(v!==null&&v!==''&&!isNaN(+v)){t.pnl=+v;save();render();}}
-function del(id){if(confirm('Delete this trade?')){T=T.filter(x=>x.id!==id);save();render();}}
+function setRes(id,r){const t=T.find(x=>x.id===id);if(t){t.result=r;if(r==='pending')t.pnl=null;if(r==='be')t.pnl=0;save();render();}}
+function setPnl(id){const t=T.find(x=>x.id===id);const v=prompt('আসল লাভ/লোকসান ($) লিখুন, যেমন 75 বা -25',t.pnl??(t.result==='loss'?-t.risk:(t.result==='win'&&t.tp?t.tp:'')));if(v!==null&&v!==''&&!isNaN(+v)){t.pnl=+v;save();render();}}
+function del(id){if(confirm('এই ট্রেড মুছবেন?')){T=T.filter(x=>x.id!==id);save();render();}}
 window.setRes=setRes;window.setPnl=setPnl;window.del=del;
 
 function renderAlert(){
   const td=ds(),l=T.filter(t=>t.date===td&&t.result==='loss').reduce((s,t)=>s+t.risk,0),el=$('alert');
-  if(l>=50){el.className='alert show';el.innerHTML=`<b>⚠ Daily loss limit hit!</b> Today $${l.toFixed(1)} loss. Do not take more trades.`;}
-  else if(l>=35){el.className='alert w show';el.innerHTML=`<b>Warning:</b> Today $${l.toFixed(1)} loss, close to the limit.`;}
+  if(l>=50){el.className='alert show';el.innerHTML=`<b>⚠ দৈনিক লস লিমিট শেষ!</b> আজ $${l.toFixed(1)} লস। আর ট্রেড নেবেন না।`;}
+  else if(l>=35){el.className='alert w show';el.innerHTML=`<b>সতর্কতা:</b> আজ $${l.toFixed(1)} লস, লিমিটের কাছাকাছি।`;}
   else el.className='alert';
 }
 
@@ -243,19 +314,94 @@ function renderList(){
   const a=T.filter(t=>inP(t.date,P));
   $('list').innerHTML=a.length?a.map(t=>{
     const b=broken(t),s=score(t);
-    const st=t.result==='win'?'<b class="g">Win</b>':t.result==='loss'?'<b class="r">Loss</b>':'<span class="y">Pending</span>';
-    const btn=t.result==='pending'?`<button class="sm gr" onclick="setRes(${t.id},'win')">Win</button> <button class="sm rd" onclick="setRes(${t.id},'loss')">Loss</button>`:`<button class="sm s" onclick="setRes(${t.id},'pending')">Change result</button>`;
-    return `<div class="tr ${b.length?'bad':'good'}"><b>${t.pair}</b> ${t.dir} • $${t.risk} • ${st}${t.pnl!=null?` • <span class="${t.pnl>=0?'g':'r'}">${t.pnl>=0?'+':''}${t.pnl}$</span>`:''}${t.comm?` • Commission $${t.comm}`:''} • Score <b>${s}%</b>
-    <div class="sm2">${t.date}</div>${biasHtml(t)}${(()=>{const f=L=>L.filter(x=>t.c[x[0]]).map(x=>x[1]).join(', '),en=[['en_disp','Displacement'],['en_retest','Retest'],['en_exp','Expansion'],['en_sweep','Sweep']].filter(x=>t.c[x[0]]).map(x=>x[1]).join(', ');return (en?`<div class="sm2">Entry: ${en}</div>`:'')+(f(TAGS)?`<div class="sm2">Based on: ${f(TAGS)}</div>`:'')+(f(TR)?`<div class="sm2">Refined: ${f(TR)}</div>`:'')+(t.etf?`<div class="sm2">Trigger TF: ${t.etf}</div>`:'')+(f(TT)?`<div class="sm2">Target: ${f(TT)}</div>`:'')})()}
-    ${b.length?'<div class="r" style="margin-top:5px">Broken: '+b.map(r=>r[1]).join(' | ')+'</div>':'<div class="g" style="margin-top:5px">All rules were followed ✓</div>'}
+    const st=t.result==='win'?'<b class="g">জয়</b>':t.result==='loss'?'<b class="r">লস</b>':t.result==='be'?'<b class="y">ব্রেক ইভেন</b>':'<span class="y">চলমান</span>';
+    const btn=t.result==='pending'?`<button class="sm gr" onclick="setRes(${t.id},'win')">জয়</button> <button class="sm rd" onclick="setRes(${t.id},'loss')">লস</button> <button class="sm s" onclick="setRes(${t.id},'be')">ব্রেক ইভেন</button>`:`<button class="sm s" onclick="setRes(${t.id},'pending')">ফলাফল বদলান</button>`;
+    return `<div class="tr ${b.length?'bad':'good'}"><b>${t.pair}</b> ${t.dir} • $${t.risk} • ${st}${t.pnl!=null?` • <span class="${t.pnl>=0?'g':'r'}">${t.pnl>=0?'+':''}${t.pnl}$</span>`:''}${t.tp?` • 🎯 TP $${t.tp} (১:${t.rr})`:''}${t.comm?` • কমিশন $${t.comm}`:''} • স্কোর <b>${s}%</b>
+    <div class="sm2">${t.date}</div>${biasHtml(t)}${storyHtml(t)}
+    ${b.length?'<div class="r" style="margin-top:5px">ভাঙা নিয়ম: '+b.map(r=>r[1]).join(' | ')+'</div>':'<div class="g" style="margin-top:5px">সব নিয়ম মানা হয়েছে ✓</div>'}
     ${t.note?`<div class="sm2" style="margin-top:4px">📝 ${esc(t.note)}</div>`:''}
-    <div style="margin-top:7px;display:flex;gap:6px;flex-wrap:wrap">${btn} <button class="sm s" onclick="setPnl(${t.id})">P&amp;L</button> <button class="sm s" onclick="del(${t.id})">Delete</button></div></div>`}).join(''):'<p class="sm2">No trades in this period.</p>';
+    <div class="sm2" style="margin-top:8px">🎯 টেক প্রফিট বদলান</div><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px">${RRS.map(v=>`<button class="sm s ${t.rr===v?'sel':''}" onclick="setTpR(${t.id},${v})">১:${v}</button>`).join(' ')} <input type="number" step="0.1" min="0" value="${t.tp??''}" placeholder="$ লিখুন" style="width:96px" onchange="setTpV(${t.id},this.value)"></div>
+    <div style="margin-top:7px;display:flex;gap:6px;flex-wrap:wrap">${btn} <button class="sm s" onclick="setPnl(${t.id})">লাভ/লস</button>  <button class="sm s" onclick="del(${t.id})">মুছুন</button></div></div>`}).join(''):'<p class="sm2">এই সময়ে কোনো ট্রেড নেই।</p>';
 }
 
+
+function steps(t){
+ const f=L=>L.filter(x=>t.c[x[0]]).map(x=>x[1]),
+ lq=f(TAGS.filter(x=>x[0][0]==='L')),po=f(TAGS.filter(x=>x[0][0]==='P')),rp=f(TR),tg=f(TT),
+ sell=t.dir==='Sell',EN={en_disp:'ডিসপ্লেসমেন্ট',en_retest:'রিটেস্ট',en_exp:'এক্সপ্যানশন',en_sweep:'লিকুইডিটি সুইপ'},
+ ent=Object.keys(EN).filter(k=>t.c[k]).map(k=>EN[k]),S=[];
+ const L=lq.join(', ');
+ if(L){
+  if(t.lqm==='sweep')S.push(`<b>${L}</b> সুইপ হয়ে লিকুইডিটি নেওয়া হয়েছে — এরপর দাম ${sell?'নিচের':'ওপরের'} দিকে ফিরে আসার সম্ভাবনা তৈরি হয়েছে।`);
+  else if(t.lqm==='target')S.push(`<b>${L}</b> এখনো সুইপ হয়নি — ওটাই দামের টার্গেট/টানার জায়গা।`);
+  else if(t.lqm==='poi')S.push(`লিকুইডিটি (${L}) ছিল, কিন্তু আমি সুইপের ওপর নয়, POI এর রিঅ্যাকশনের ওপর নির্ভর করেছি।`);
+  else S.push(`লিকুইডিটি: <b>${L}</b> (সুইপ হয়েছে নাকি টার্গেট — নির্বাচন করা হয়নি)।`);
+ }
+ if(po.length)S.push(`দাম এসে <b>${po.join(', ')}</b> (মেইন POI) এ পৌঁছেছে।`);
+ if(rp.length)S.push(`মেইন POI এর ভেতরে রিফাইন্ড POI: <b>${rp.join(', ')}</b>।`);
+ if(ent.length||t.etf)S.push(`${t.etf?`<b>${TFN[t.etf]||t.etf}</b> টাইমফ্রেমে `:''}${ent.length?`<b>${ent.join(' / ')}</b> দেখে `:''}<b>${sell?'সেল (Sell)':'বাই (Buy)'}</b> এন্ট্রি নিয়েছি, ঝুঁকি $${t.risk}।`);
+ else S.push(`<b>${sell?'সেল (Sell)':'বাই (Buy)'}</b> এন্ট্রি নিয়েছি, ঝুঁকি $${t.risk}।`);
+ if(tg.length)S.push(`টার্গেট ছিল <b>${tg.join(', ')}</b>।`);
+ S.push(t.result==='win'?`ফলাফল: <b class="g">জয়</b> — দাম ${tg.length?tg[0]+' এর দিকে ':'টার্গেটের দিকে '}গেছে${t.pnl!=null?` (${t.pnl>=0?'+':''}${t.pnl}$)`:''}।`:t.result==='loss'?`ফলাফল: <b class="r">লস</b> — স্টপ লস হিট করেছে${t.pnl!=null?` (${t.pnl}$)`:''}।`:t.result==='be'?'ফলাফল: <b class="y">ব্রেক ইভেন</b> — এন্ট্রির দামে বেরিয়ে এসেছি, লাভও নেই লসও নেই।':'ফলাফল: এখনো চলমান।');
+ return S;
+}
+const PN={ref:'⚡ রিফাইন প্ল্যান',poi:'⛓ চেইন প্ল্যান (HTF POI থেকে)',liq:'⛓ চেইন প্ল্যান (লিকুইডিটি সুইপ থেকে)'};
+const storyHtml=t=>{
+ const f=L=>L.filter(x=>t.c[x[0]]).map(x=>x[1]).join(', '),sell=t.dir==='Sell',
+ lq=f(TAGS.filter(x=>x[0][0]==='L')),po=f(TAGS.filter(x=>x[0][0]==='P')),rp=f(TR),tg=f(TT),
+ EN={en_disp:'ডিসপ্লেসমেন্ট',en_retest:'রিটেস্ট',en_exp:'এক্সপ্যানশন',en_sweep:'লিকুইডিটি সুইপ'},ent=Object.keys(EN).filter(k=>t.c[k]).map(k=>EN[k]).join('/'),
+ role={sweep:`সুইপ হয়ে গেছে → দাম ${sell?'নিচে':'ওপরে'} ফিরেছে`,target:'এখনো সুইপ হয়নি (টান/টার্গেট)',poi:'সুইপ নয়, POI রিঅ্যাকশনই মূল'}[t.lqm]||'',
+ R=t.pnl!=null&&t.risk?(t.pnl/t.risk):null,
+ st=(c,ic,ti,v,sub)=>v||sub?`<div class="ts" style="--c:${c}"><i>${ic} ${ti}</i><b>${v||'—'}</b>${sub?`<span>${sub}</span>`:''}</div>`:'';
+ return '<div class="tl">'+st('#64748b','📋','প্ল্যান',PN[t.plan]||'')+st('#f59e0b','🧲','লিকুইডিটি',lq,role)+st('#6366f1','📦','মেইন POI',po,'হায়ার টাইমফ্রেম এরিয়া যেখানে দাম এসেছে')+st('#a78bfa','🔍','রিফাইন্ড POI',rp,'মেইন POI এর ভেতরে সূক্ষ্ম এন্ট্রি জোন')
+ +st('#06b6d4','⚡','এন্ট্রি ট্রিগার',`${sell?'সেল':'বাই'}${t.etf?' • '+(TFN[t.etf]||t.etf):''}${ent?' • '+ent:''}`,t.why?esc(t.why):'')
+ +st('#ef4444','🛑','স্টপ ও ঝুঁকি',`$${t.risk}`,t.c.m1?'স্টপ লস POI এর বাইরে ✓':'স্টপ লস POI এর বাইরে ছিল না ✗')
+ +st('#10b981','🎯','টার্গেট (কোথায় পর্যন্ত)',tg,(t.tgt?esc(t.tgt):'')+(t.c.m3?' • ১:৩ R:R সেট ✓':'')+(t.tp?' • টেক প্রফিট $'+t.tp+' (১:'+t.rr+')':''))
+ +st(t.result==='win'?'#22c55e':t.result==='loss'?'#ef4444':'#eab308','🏁','ফলাফল',t.result==='win'?'জয়':t.result==='loss'?'লস':t.result==='be'?'ব্রেক ইভেন':'চলমান',R!=null?`${R>=0?'+':''}${R.toFixed(1)}R • ${t.pnl>=0?'+':''}${t.pnl}$${t.rr?' • প্ল্যান ছিল ১:'+t.rr:''}`:'')+'</div>';};
+const grpBy=(a,fn)=>{const m={};a.forEach(t=>{const k=fn(t);if(k)(m[k]=m[k]||[]).push(t)});return Object.entries(m).sort((p,q)=>q[1].length-p[1].length)};
+
+let AIS='',AIB=false,AIE='';
+const mdh=x=>esc(x).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/^#+ ?(.+)$/gm,'<b style="color:#c7d2fe;display:block;margin-top:12px;font-size:.92rem">$1</b>').replace(/\n/g,'<br>');
+function aiCard(){return `<div class="hero" id="aiCard"><h3>🤖 AI সামারি — আমার নিয়মে কোথায় ঠিক, কোথায় ভুল</h3>${AIS?`<div style="font-size:.86rem;line-height:1.65">${mdh(AIS)}</div>`:'<div class="sm2">বাটন চাপলে AI আপনার চেকলিস্ট-নিয়ম ও ট্রেডগুলো মিলিয়ে দেখবে — কোথায় নিয়ম মানা হয়েছে, কোথায় ভাঙা হয়েছে, আর ICT লজিক ঠিক ছিল কিনা।</div>'}${AIE?`<div class="r sm2" style="margin-top:6px">${AIE}</div>`:''}<button style="width:100%;margin-top:10px" onclick="runAI()" ${AIB?'disabled':''}>${AIB?'⏳ বিশ্লেষণ চলছে…':AIS?'🔄 আবার বিশ্লেষণ করুন':'✨ AI বিশ্লেষণ করুন'}</button><div class="sm2" style="margin-top:6px">নির্বাচিত সময়ের (${PL.find(p=>p[0]===P)[1]}) সর্বোচ্চ ২৫টি ট্রেড দেখা হবে।</div></div>`}
+const paintAI=()=>{const e=$('aiCard');if(e)e.outerHTML=aiCard()};
+function tradeData(t,i){const f=L=>L.filter(x=>t.c[x[0]]).map(x=>x[1]).join(', '),EN={en_disp:'ডিসপ্লেসমেন্ট',en_retest:'রিটেস্ট',en_exp:'এক্সপ্যানশন',en_sweep:'লিকুইডিটি সুইপ'};
+ return {নং:i+1,তারিখ:t.date,প্ল্যান:t.plan||'',পেয়ার:t.pair,দিক:t.dir,ঝুঁকি$:t.risk,ফলাফল:t.result,pnl:t.pnl,
+  লিকুইডিটি:f(TAGS.filter(x=>x[0][0]==='L')),লিকুইডিটির_ভূমিকা:{sweep:'সুইপ হয়ে রিভার্সাল',target:'শুধু টার্গেট, সুইপ হয়নি',poi:'শুধু POI রিঅ্যাকশন'}[t.lqm]||'নির্বাচন করা হয়নি',
+  মেইন_POI:f(TAGS.filter(x=>x[0][0]==='P')),রিফাইন্ড_POI:f(TR),ট্রিগার_TF:t.etf,এন্ট্রি_কন্ডিশন:Object.keys(EN).filter(k=>t.c[k]).map(k=>EN[k]).join('/'),
+  টার্গেট:f(TT),এন্ট্রির_কারণ:t.why||'',টার্গেট_কোথায়:t.tgt||'',টেক_প্রফিট_RR:t.rr?'১:'+t.rr:'',টার্গেট_লাভ_ডলার:t.tp??'',ভাঙা_নিয়ম:broken(t).map(r=>r[1]),নোট:t.note||''};}
+async function runAI(){
+  if(AIB)return;const a=T.filter(t=>inP(t.date,P)).slice(0,25);
+  if(!a.length){AIE='এই সময়ে কোনো ট্রেড নেই।';paintAI();return}
+  AIB=true;AIE='';paintAI();
+  try{
+    const sample=window.claude?await claude.use('sample'):null;
+    if(!sample){AIE='AI বিশ্লেষণ শুধু Claude অ্যাপের ভেতরে খোলা পেজে চলে।';return}
+    const prompt=`তুমি একজন অভিজ্ঞ ICT (Inner Circle Trader) মেন্টর। নিচে একজন ট্রেডারের নিজের বানানো নিয়মের তালিকা এবং তার ট্রেডগুলোর ডেটা দেওয়া হলো। শুধু ডেটার ভিত্তিতে বিশ্লেষণ করো, ডেটায় নেই এমন কিছু বানিয়ে বলবে না। পুরো উত্তর সহজ বাংলায় লিখবে (ICT টার্ম যেমন Liquidity, POI, FVG, Order Block ইংরেজিতে থাকতে পারে)।
+
+ট্রেডারের নিয়ম: ${JSON.stringify(RULES.map(r=>r[1]))}
+ট্রেডারের দুই ধরনের এন্ট্রি প্ল্যান: (১) রিফাইন প্ল্যান (প্ল্যান='ref') — মার্কেট HTF (যেমন ডেইলি) OB/FVG তে গেলে সেটাকে রিফাইন করা: আগে ৪ঘ POI দেখা, না পেলে ১ঘ; মার্কেট ওখানে এসে ট্যাপ করার পর ১৫মি এ OB/FVG স্ট্রাকচার তৈরি হলে এন্ট্রি; টার্গেট প্রধানত এন্ট্রির উল্টো দিকের ৪ঘ POI। (২) ডিসপ্লেসমেন্ট চেইন প্ল্যান (প্ল্যান='poi' বা 'liq') — HTF POI তে এলে বা লিকুইডিটি সুইপ হলে অপেক্ষা করা, নিচের টাইমফ্রেমে ডিসপ্লেসমেন্টে OB/FVG তৈরি (মান্থলি→ডেইলি→১ঘ→১৫/৫মি; উইকলি→৪ঘ→১৫মি; উইকলি লো সুইপ→৪ঘ POI→১৫মি ডিসপ্লেসমেন্ট; ডেইলি লো সুইপ→১ঘ POI→১৫/৫মি) তারপর এন্ট্রি। দুই প্ল্যানই আলাদা করে মূল্যায়ন করবে, মিশিয়ে ফেলবে না। ঝুঁকি $১–$২৭, দিনে মোট $৫০, দিনে সর্বোচ্চ ২ ট্রেড। "ভাঙা_নিয়ম" ফিল্ডে প্রতিটি ট্রেডে কোন নিয়ম মানা হয়নি তা আছে।
+
+ট্রেডের ডেটা (নং অনুযায়ী): ${JSON.stringify(a.map(tradeData))}
+
+নিচের ফরম্যাটে লেখো, প্রতিটি পয়েন্টে ট্রেড নং উল্লেখ করো:
+## ✅ কোথায় সঠিক ছিল
+(যে নিয়ম ও ধাপগুলো ঠিকমতো মানা হয়েছে, কোন সেটআপে ভালো ফল এসেছে)
+## ❌ কোথায় ভুল হয়েছে
+(কোন নিয়ম ভাঙা হয়েছে, কতবার, কোন ট্রেডে, আর লসের সাথে এর সম্পর্ক আছে কিনা)
+## 🧠 ICT লজিক চেক
+(লিকুইডিটি → মেইন POI → রিফাইন্ড POI → ট্রিগার → টার্গেট ধারাটা যুক্তিসঙ্গত ছিল কিনা। যেমন: সেলে উপরের লিকুইডিটি সুইপ, বাইয়ে নিচের লিকুইডিটি সুইপ মিলেছে কিনা; টার্গেট বিপরীত দিকের লিকুইডিটি/POI তে ছিল কিনা; সুইপ নাকি শুধু POI রিঅ্যাকশন — কোনটা বেশি কাজ করছে। তথ্য না থাকলে পরিষ্কার বলো "তথ্য নেই")
+## 🔁 বারবার হওয়া প্যাটার্ন
+## 🎯 পরের ট্রেডগুলোর জন্য ৩টি কাজ
+সংক্ষেপে, সরাসরি ও বন্ধুত্বপূর্ণ ভাষায় লেখো। নিজেকে দোষারোপ করতে বোলো না, নিয়ম-ভিত্তিক থাকো।`;
+    AIS='';await sample(prompt,{modelTier:'default',cache:false,onText:({text})=>{AIS=text;paintAI()}});
+  }catch(e){AIE=e&&e.code==='not_granted'?'AI ব্যবহারের অনুমতি দেওয়া হয়নি।':e&&e.code==='rate_limited'?'অনেকবার চেষ্টা হয়েছে, একটু পরে আবার চাপুন।':'বিশ্লেষণ করা যায়নি, আবার চেষ্টা করুন।'}
+  finally{AIB=false;paintAI()}
+}
+window.runAI=runAI;
 function renderAna(){
   const a=T.filter(t=>inP(t.date,P));
-  if(!a.length){$('ana').innerHTML='<div class="card sm2">No trades in this period.</div>';return;}
-  const cl=a.filter(t=>t.result!=='pending'),w=cl.filter(t=>t.result==='win'),l=cl.filter(t=>t.result==='loss');
+  if(!a.length){$('ana').innerHTML='<div class="card sm2">এই সময়ে কোনো ট্রেড নেই।</div>';return;}
+  const cl=a.filter(t=>(t.result==='win'||t.result==='loss')),w=cl.filter(t=>t.result==='win'),l=cl.filter(t=>t.result==='loss');
   const F=a.filter(t=>!broken(t).length),B=a.filter(t=>broken(t).length);
   const cF=cl.filter(t=>!broken(t).length),cB=cl.filter(t=>broken(t).length);
   const wr=x=>x.length?pct(x.filter(t=>t.result==='win').length,x.length):null;
@@ -263,116 +409,167 @@ function renderAna(){
   const net=x=>x.filter(t=>t.pnl!=null).reduce((s,t)=>s+t.pnl-(t.comm||0),0);
   const hasPnl=a.some(t=>t.pnl!=null);
   let h=`<div class="stats">
-   <div class="stat"><b>${a.length}</b><i>Trades</i></div>
-   <div class="stat"><b class="${pct(F.length,a.length)>=80?'g':'r'}">${pct(F.length,a.length)}%</b><i>Rule-following trades</i></div>
-   <div class="stat"><b>${avg}%</b><i>Avg score</i></div>
-   <div class="stat"><b>${cl.length?pct(w.length,cl.length)+'%':'—'}</b><i>Win rate</i></div>
-   ${hasPnl?`<div class="stat"><b class="${net(a)>=0?'g':'r'}">${net(a)>=0?'+':''}${net(a).toFixed(1)}$</b><i>Net P&amp;L (after commission)</i></div>`:''}</div>`;
+   <div class="stat"><b>${a.length}</b><i>ট্রেড</i></div>
+   <div class="stat"><b class="${pct(F.length,a.length)>=80?'g':'r'}">${pct(F.length,a.length)}%</b><i>নিয়ম মানা ট্রেড</i></div>
+   <div class="stat"><b>${avg}%</b><i>গড় স্কোর</i></div>
+   <div class="stat"><b>${cl.length?pct(w.length,cl.length)+'%':'—'}</b><i>জয়ের হার</i></div>
+   ${hasPnl?`<div class="stat"><b class="${net(a)>=0?'g':'r'}">${net(a)>=0?'+':''}${net(a).toFixed(1)}$</b><i>নিট লাভ/লস (কমিশন বাদে)</i></div>`:''}</div>`;
 
+  const H0=h;h='';
   // insights
   const ins=[];
   const cnt=RULES.map(r=>[r[0],r[1],a.filter(t=>!ok(t,r[0])).length,l.filter(t=>!ok(t,r[0])).length]).sort((x,y)=>y[2]-x[2]);
-  if(cnt[0][2]>0)ins.push(['r',`Most broken rule: <b>${cnt[0][1]}</b> — ${a.length} trades: broken ${cnt[0][2]} times.`]);
-  else ins.push(['g','You did not break a single rule in this period. Keep going!']);
+  if(cnt[0][2]>0)ins.push(['r',`সবচেয়ে বেশি ভাঙা নিয়ম: <b>${cnt[0][1]}</b> — ${a.length}টি ট্রেডের মধ্যে ${cnt[0][2]} বার ভাঙা হয়েছে।`]);
+  else ins.push(['g','এই সময়ে একটি নিয়মও ভাঙেননি। চালিয়ে যান!']);
   if(l.length){
     const lb=l.filter(t=>broken(t).length).length;
-    ins.push([lb?'r':'y',`${l.length} losses, of which <b>${lb} had broken rules</b>.`+(l.length-lb?` The other ${l.length-lb} losses happened even with rules followed — these are normal losses, do not blame yourself.`:'')]);
+    ins.push([lb?'r':'y',`${l.length}টি লসের মধ্যে <b>${lb}টিতে নিয়ম ভাঙা ছিল</b>।`+(l.length-lb?` বাকি ${l.length-lb}টি লস নিয়ম মেনেও হয়েছে — এগুলো স্বাভাবিক লস, নিজেকে দোষ দেবেন না।`:'')]);
   }
-  if(cF.length&&cB.length)ins.push([wr(cF)>=wr(cB)?'g':'y',`Win rate on rule-following trades <b>${wr(cF)}%</b> (${cF.length} trades), on rule-breaking trades <b>${wr(cB)}%</b> (${cB.length} trades).`]);
+  if(cF.length&&cB.length)ins.push([wr(cF)>=wr(cB)?'g':'y',`নিয়ম মানা ট্রেডে জয়ের হার <b>${wr(cF)}%</b> (${cF.length}টি), নিয়ম ভাঙা ট্রেডে <b>${wr(cB)}%</b> (${cB.length}টি)।`]);
   const days={};a.forEach(t=>{(days[t.date]=days[t.date]||[]).push(t)});
   const bd=Object.keys(days).filter(d=>days[d].length>2||days[d].reduce((s,t)=>s+t.risk,0)>50);
-  if(bd.length)ins.push(['r',`Daily limit (2 trades / $50) broken: ${bd.join(', ')}`]);
-  const bias=a.filter(t=>!ok(t,'b1')||!ok(t,'b2')||!ok(t,'b3')||!ok(t,'b4')).length;
-  if(bias)ins.push(['y',`${bias} trades without the full Higher Timeframe bias check.`]);
-  h+='<div class="card"><h2>Auto Insights</h2>'+ins.map(i=>`<div class="ins ${i[0]}">${i[1]}</div>`).join('')+'</div>';
+  if(bd.length)ins.push(['r',`দৈনিক লিমিট (২ ট্রেড / $৫০) ভাঙা হয়েছে: ${bd.join(', ')}`]);
+  h+='<div class="card"><h2>অটো ইনসাইট</h2>'+ins.map(i=>`<div class="ins ${i[0]}">${i[1]}</div>`).join('')+'</div>';
 
   // compare
-  h+=`<div class="card"><h2>Rules followed vs broken</h2><div class="stats">
-   <div class="stat"><b class="g">${F.length}</b><i>Rules followed</i><div class="sm2">Win ${wr(cF)==null?'—':wr(cF)+'%'}${hasPnl?` • ${net(F)>=0?'+':''}${net(F).toFixed(1)}$`:''}</div></div>
-   <div class="stat"><b class="r">${B.length}</b><i>Rules broken</i><div class="sm2">Win ${wr(cB)==null?'—':wr(cB)+'%'}${hasPnl?` • ${net(B)>=0?'+':''}${net(B).toFixed(1)}$`:''}</div></div></div></div>`;
+  h+=`<div class="card"><h2>নিয়ম মানা বনাম ভাঙা</h2><div class="stats">
+   <div class="stat"><b class="g">${F.length}</b><i>নিয়ম মানা</i><div class="sm2">জয় ${wr(cF)==null?'—':wr(cF)+'%'}${hasPnl?` • ${net(F)>=0?'+':''}${net(F).toFixed(1)}$`:''}</div></div>
+   <div class="stat"><b class="r">${B.length}</b><i>নিয়ম ভাঙা</i><div class="sm2">জয় ${wr(cB)==null?'—':wr(cB)+'%'}${hasPnl?` • ${net(B)>=0?'+':''}${net(B).toFixed(1)}$`:''}</div></div></div></div>`;
 
   // rule table
-  h+='<div class="card"><h2>Rule-by-rule analysis (worst to best)</h2>';
+  h+='<div class="card"><h2>নিয়ম ধরে ধরে বিশ্লেষণ (খারাপ থেকে ভালো)</h2>';
   cnt.forEach(c=>{const p=pct(a.length-c[2],a.length),col=p>=90?'var(--g)':p>=60?'var(--y)':'var(--r)';
     h+=`<div style="margin-bottom:9px"><div style="display:flex;justify-content:space-between;gap:8px;font-size:.88rem"><span>${c[1]}</span><b style="color:${col}">${p}%</b></div>
     <div class="bar"><div style="width:${p}%;background:${col}"></div></div>
-    <div class="sm2">${c[2]?`${c[2]} times broken${c[3]?` • of which ${c[3]} losses`:''}`:'Never broken ✓'}</div></div>`});
+    <div class="sm2">${c[2]?`${c[2]} বার ভাঙা${c[3]?` • এর মধ্যে ${c[3]}টি লস`:''}`:'কখনো ভাঙেনি ✓'}</div></div>`});
   h+='</div>';
-  const tg=TAGS.map(x=>{const u=a.filter(t=>t.c[x[0]]),k=u.filter(t=>t.result!=='pending'),wn=k.filter(t=>t.result==='win').length;return[x[1],u.length,k.length?pct(wn,k.length):null]}).filter(x=>x[1]).sort((p,q)=>q[1]-p[1]).slice(0,10);
-  if(tg.length)h+='<div class="card"><h2>Most Used Setups</h2>'+tg.map(x=>`<div class="ins">${x[0]} — ${x[1]} trades • Win ${x[2]==null?'—':x[2]+'%'}</div>`).join('')+'</div>';
-  const tt=TT.map(x=>{const u=a.filter(t=>t.c[x[0]]),k=u.filter(t=>t.result!=='pending'),wn=k.filter(t=>t.result==='win').length;return[x[1],u.length,k.length?pct(wn,k.length):null]}).filter(x=>x[1]).sort((p,q)=>q[1]-p[1]).slice(0,10);
-  if(tt.length)h+='<div class="card"><h2>Most Used Targets</h2>'+tt.map(x=>`<div class="ins">${x[0]} — ${x[1]} trades • Win ${x[2]==null?'—':x[2]+'%'}</div>`).join('')+'</div>';
-  const rf=a.filter(t=>Object.keys(t.c).some(k=>/^RPo_/.test(k)&&t.c[k])),rk=x=>{const k=x.filter(t=>t.result!=='pending');return k.length?pct(k.filter(t=>t.result==='win').length,k.length)+'%':'—'};
-  if(rf.length)h+='<div class="card"><h2>Refinement Impact</h2><div class="ins">With refined POI: '+rf.length+' trades • Win '+rk(rf)+'</div><div class="ins">Without refined POI: '+(a.length-rf.length)+' trades • Win '+rk(a.filter(t=>!rf.includes(t)))+'</div></div>';
-  const rr=TR.map(x=>{const u=a.filter(t=>t.c[x[0]]),k=u.filter(t=>t.result!=='pending'),wn=k.filter(t=>t.result==='win').length;return[x[1],u.length,k.length?pct(wn,k.length):null]}).filter(x=>x[1]).sort((p,q)=>q[1]-p[1]).slice(0,10);
-  if(rr.length)h+='<div class="card"><h2>Most Used Refined POIs</h2>'+rr.map(x=>`<div class="ins">${x[0]} — ${x[1]} trades • Win ${x[2]==null?'—':x[2]+'%'}</div>`).join('')+'</div>';
+  const tg=TAGS.map(x=>{const u=a.filter(t=>t.c[x[0]]),k=u.filter(t=>(t.result==='win'||t.result==='loss')),wn=k.filter(t=>t.result==='win').length;return[x[1],u.length,k.length?pct(wn,k.length):null]}).filter(x=>x[1]).sort((p,q)=>q[1]-p[1]).slice(0,10);
+  if(tg.length)h+='<div class="card"><h2>বেশি ব্যবহৃত সেটআপ (লিকুইডিটি + POI)</h2>'+tg.map(x=>`<div class="ins">${x[0]} — ${x[1]} ট্রেড • জয় ${x[2]==null?'—':x[2]+'%'}</div>`).join('')+'</div>';
+  const tt=TT.map(x=>{const u=a.filter(t=>t.c[x[0]]),k=u.filter(t=>(t.result==='win'||t.result==='loss')),wn=k.filter(t=>t.result==='win').length;return[x[1],u.length,k.length?pct(wn,k.length):null]}).filter(x=>x[1]).sort((p,q)=>q[1]-p[1]).slice(0,10);
+  if(tt.length)h+='<div class="card"><h2>বেশি ব্যবহৃত টার্গেট</h2>'+tt.map(x=>`<div class="ins">${x[0]} — ${x[1]} ট্রেড • জয় ${x[2]==null?'—':x[2]+'%'}</div>`).join('')+'</div>';
+  const rf=a.filter(t=>Object.keys(t.c).some(k=>/^RPo_/.test(k)&&t.c[k])),rk=x=>{const k=x.filter(t=>(t.result==='win'||t.result==='loss'));return k.length?pct(k.filter(t=>t.result==='win').length,k.length)+'%':'—'};
+  if(rf.length)h+='<div class="card"><h2>রিফাইনমেন্টের প্রভাব</h2><div class="ins">রিফাইন্ড POI সহ: '+rf.length+' ট্রেড • জয় '+rk(rf)+'</div><div class="ins">রিফাইন্ড POI ছাড়া: '+(a.length-rf.length)+' ট্রেড • জয় '+rk(a.filter(t=>!rf.includes(t)))+'</div></div>';
+  const rr=TR.map(x=>{const u=a.filter(t=>t.c[x[0]]),k=u.filter(t=>(t.result==='win'||t.result==='loss')),wn=k.filter(t=>t.result==='win').length;return[x[1],u.length,k.length?pct(wn,k.length):null]}).filter(x=>x[1]).sort((p,q)=>q[1]-p[1]).slice(0,10);
+  if(rr.length)h+='<div class="card"><h2>বেশি ব্যবহৃত রিফাইন্ড POI</h2>'+rr.map(x=>`<div class="ins">${x[0]} — ${x[1]} ট্রেড • জয় ${x[2]==null?'—':x[2]+'%'}</div>`).join('')+'</div>';
+
+  const netF=x=>x.filter(t=>t.pnl!=null).reduce((q,t)=>q+t.pnl-(t.comm||0),0);
+  const cp=cl.filter(t=>t.pnl!=null),gw=cp.filter(t=>t.pnl>0).reduce((q,t)=>q+t.pnl,0),gl=Math.abs(cp.filter(t=>t.pnl<0).reduce((q,t)=>q+t.pnl,0)),
+   pf=gl?(gw/gl).toFixed(2):gw?'∞':'—',Rs=cp.filter(t=>t.risk).map(t=>t.pnl/t.risk),avR=Rs.length?(Rs.reduce((q,x)=>q+x,0)/Rs.length):null,
+   ch=[...cl].sort((x,y)=>x.id-y.id);let mx=0,cu=0,cw=0;ch.forEach(t=>{if(t.result==='loss'){cu++;mx=Math.max(mx,cu)}else cu=0});
+   for(let k=ch.length-1;k>=0&&ch[k].result==='win';k--)cw++;
+  const bs=tg.filter(x=>x[2]!=null).sort((p,q)=>q[2]-p[2]||q[1]-p[1])[0];
+  const LQN={sweep:'🧲 সুইপ করে রিভার্সাল',target:'🧲 লিকুইডিটি টার্গেট (সুইপ হয়নি)',poi:'📦 শুধু POI রিঅ্যাকশন'};
+  let X=`<div class="hero"><h3>🎯 ICT স্কোরকার্ড</h3><div class="stats">
+   <div class="stat"><b class="${pf!=='—'&&parseFloat(pf)>=1.5?'g':'y'}">${pf}</b><i>প্রফিট ফ্যাক্টর</i></div>
+   <div class="stat"><b class="${avR>=0?'g':'r'}">${avR==null?'—':(avR>=0?'+':'')+avR.toFixed(2)+'R'}</b><i>গড় R / ট্রেড</i></div>
+   <div class="stat"><b class="g">${cw}</b><i>চলতি জয়ের ধারা</i></div>
+   <div class="stat"><b class="${mx>=3?'r':'y'}">${mx}</b><i>সর্বোচ্চ টানা লস</i></div></div>
+   ${bs?`<div class="sm2" style="margin-top:8px">⭐ সেরা সেটআপ: <b>${bs[0]}</b> — জয় ${bs[2]}% (${bs[1]}টি)</div>`:''}
+   ${Rs.length?`<div class="sm2" style="margin:8px 0 4px">সাম্প্রতিক ট্রেডের R:</div><div class="rbs">`+cp.filter(t=>t.risk).slice(0,12).map(t=>{const r=t.pnl/t.risk;return `<span class="rb ${r>=0?'g':'r'}">${r>=0?'+':''}${r.toFixed(1)}R</span>`}).join('')+'</div>':''}</div>`;
+  let TRD=`<div class="card"><h2>📖 ট্রেডসমূহ — ট্যাপ করলে পুরো কাহিনি</h2>`+a.slice(0,15).map(t=>{const Rr=t.pnl!=null&&t.risk?t.pnl/t.risk:null,res=t.result==='win'?'<b class="g">জয়</b>':t.result==='loss'?'<b class="r">লস</b>':t.result==='be'?'<b class="y">ব্রেক ইভেন</b>':'<span class="y">চলমান</span>';return `<details class="td ${t.result==='win'?'good':t.result==='loss'?'bad':''}"><summary><b>${t.pair}</b> ${t.dir==='Sell'?'সেল':'বাই'} • ${res}${Rr!=null?` <b class="${Rr>=0?'g':'r'}">${Rr>=0?'+':''}${Rr.toFixed(1)}R</b>`:''} <span class="sm2">• ${t.date}</span></summary>${storyHtml(t)}${broken(t).length?`<div class="r sm2">⚠ ভাঙা নিয়ম: ${broken(t).map(r=>r[1]).join(' | ')}</div>`:''}${t.note?`<div class="sm2" style="margin-top:4px">📝 ${esc(t.note)}</div>`:''}</details>`}).join('')+'</div>';
+  const gcard=(title,note,rows)=>rows.length?`<div class="card"><h2>${title}</h2>${note?`<div class="sm2" style="margin-bottom:6px">${note}</div>`:''}`+rows.map(([k,u])=>{const c=u.filter(t=>(t.result==='win'||t.result==='loss')),w=c.filter(t=>t.result==='win').length,p=c.length?pct(w,c.length):null,col=p==null?'#475569':p>=60?'#22c55e':p>=40?'#eab308':'#ef4444';return `<div class="ins" style="border-left-color:${col}"><div style="display:flex;justify-content:space-between;gap:8px"><b>${k}</b><b style="color:${col}">${p==null?'—':p+'%'}</b></div><div class="wb"><div style="width:${p||0}%;background:${col}"></div></div><div class="sm2" style="margin-top:4px">${u.length}টি ট্রেড • জয় ${c.length?w+'/'+c.length:'—'}${hasPnl?` • নিট ${netF(u)>=0?'+':''}${netF(u).toFixed(1)}$`:''}</div></div>`}).join('')+'</div>':'';
+  let MG=gcard('🗺 প্ল্যান অনুযায়ী ফলাফল','রিফাইন প্ল্যান নাকি ডিসপ্লেসমেন্ট চেইন প্ল্যান — কোনটা ভালো চলছে',grpBy(a,t=>PN[t.plan]||''))+gcard('🧲 লিকুইডিটির ভূমিকা — কোনটা কাজ করছে?','সুইপ করে রিভার্সাল নাকি শুধু POI রিঅ্যাকশন',grpBy(a,t=>LQN[t.lqm]||'নির্বাচন করা হয়নি'));
+  X+=gcard('⚡ এন্ট্রি কন্ডিশন','',grpBy(a,t=>{const E={en_disp:'ডিসপ্লেসমেন্ট',en_retest:'রিটেস্ট',en_exp:'এক্সপ্যানশন',en_sweep:'লিকুইডিটি সুইপ'};return Object.keys(E).filter(k=>t.c[k]).map(k=>E[k])[0]}));
+  X+=gcard('⏱ ট্রিগার টাইমফ্রেম','',grpBy(a,t=>t.etf&&(TFN[t.etf]||t.etf)));
+  X+=gcard('💰 টেক প্রফিট R:R অনুযায়ী','প্ল্যান করা R:R এর সাথে ফলাফল',grpBy(a,t=>t.rr?'১:'+(Math.round(t.rr*2)/2):''));
+  MG+=gcard('🔗 লিকুইডিটি → POI → টার্গেট চেইন','কোন কম্বিনেশনে কেমন ফল',grpBy(a,t=>{const f=L=>L.filter(x=>t.c[x[0]]).map(x=>x[1]).join('+');const q=[f(TAGS.filter(x=>x[0][0]==='L')),f(TAGS.filter(x=>x[0][0]==='P')),f(TR),f(TT)];return q[0]||q[1]?`${q[0]||'—'} → ${q[1]||'—'}${q[2]?' → '+q[2]:''} ⇒ 🎯 ${q[3]||'—'}`:''}).slice(0,5));
+  X+=gcard('↕ দিক ও পেয়ার','',[...grpBy(a,t=>t.dir==='Sell'?'সেল (Sell)':'বাই (Buy)'),...grpBy(a,t=>t.pair)]);
+  h=H0+aiCard()+TRD+MG+'<details class="more"><summary>📊 আরও বিশ্লেষণ (স্কোরকার্ড, নিয়ম, অন্যান্য)</summary>'+X+h+'</details>';
   $('ana').innerHTML=h;
 }
 
 const AK='tc_v3_acc';let A=[];
 try{A=JSON.parse(localStorage.getItem(AK))||[]}catch(e){}
-const saveA=()=>{try{localStorage.setItem(AK,JSON.stringify(A))}catch(e){alert('Could not save')}};
+const saveA=()=>{try{localStorage.setItem(AK,JSON.stringify(A))}catch(e){alert('সেভ করা যায়নি')}};
 const fm=n=>(n<0?'-':'')+'$'+Math.abs(n).toFixed(2);
 function bal(){const s=y=>A.filter(x=>x.type===y).reduce((a,x)=>a+x.amt,0);
   const dep=s('dep'),wd=s('wd'),cm=s('com')+T.reduce((a,t)=>a+(t.comm||0),0),pl=T.reduce((a,t)=>a+(t.pnl||0),0);
   return {dep,wd,cm,pl,b:dep+pl-cm-wd};}
-function addTx(y,ai,ni){const v=+$(ai).value;if(!(v>0))return alert('Enter a valid amount');
-  if(y==='wd'&&v>bal().b+1e-9)return alert('Cannot withdraw more than your balance. Balance: '+fm(bal().b));
+function addTx(y,ai,ni){const v=+$(ai).value;if(!(v>0))return alert('সঠিক পরিমাণ দিন');
+  if(y==='wd'&&v>bal().b+1e-9)return alert('ব্যালেন্সের বেশি তোলা যাবে না। ব্যালেন্স: '+fm(bal().b));
   A.unshift({id:Date.now(),type:y,amt:v,date:ds(),note:$(ni).value.trim()});saveA();$(ai).value='';$(ni).value='';render();}
-function delTx(id){if(confirm('Delete this entry? The balance will be recalculated.')){A=A.filter(x=>x.id!==id);saveA();render();}}
+function delTx(id){if(confirm('এটি মুছবেন? ব্যালেন্স নতুন করে হিসাব হবে।')){A=A.filter(x=>x.id!==id);saveA();render();}}
 window.delTx=delTx;
 $('depB').onclick=()=>addTx('dep','amt','amtN');$('wdB').onclick=()=>addTx('wd','amt','amtN');$('cmB').onclick=()=>addTx('com','cm','cmN');
 function renderAcc(){const b=bal(),c=b.b>=0?'g':'r';
   $('balTop').textContent=fm(b.b);$('balTop').className=c;
-  $('accStats').innerHTML=`<div class="stat" style="flex-basis:100%"><b class="acc ${c}">${fm(b.b)}</b><i>Current Balance</i></div>
-   <div class="stat"><b>${fm(b.dep)}</b><i>Total Deposits</i></div><div class="stat"><b class="${b.pl>=0?'g':'r'}">${fm(b.pl)}</b><i>Trade P&amp;L</i></div>
-   <div class="stat"><b class="y">${fm(b.cm)}</b><i>Total Commission</i></div><div class="stat"><b>${fm(b.wd)}</b><i>Total Withdrawn</i></div>`;
-  const N={dep:'Deposit',wd:'Withdraw',com:'Commission'};
-  $('accList').innerHTML=A.length?A.map(x=>`<div class="tr ${x.type==='dep'?'good':'bad'}"><b>${N[x.type]}</b> • <span class="${x.type==='dep'?'g':'r'}">${x.type==='dep'?'+':'−'}$${x.amt.toFixed(2)}</span> <span class="sm2">• ${x.date}</span>${x.note?`<div class="sm2">${esc(x.note)}</div>`:''}<button class="sm s" style="margin-top:6px" onclick="delTx(${x.id})">Delete</button></div>`).join(''):'<p class="sm2">No transactions yet. Deposit your starting balance first.</p>';}
+  $('accStats').innerHTML=`<div class="stat" style="flex-basis:100%"><b class="acc ${c}">${fm(b.b)}</b><i>বর্তমান ব্যালেন্স</i></div>
+   <div class="stat"><b>${fm(b.dep)}</b><i>মোট জমা</i></div><div class="stat"><b class="${b.pl>=0?'g':'r'}">${fm(b.pl)}</b><i>ট্রেড লাভ/লস</i></div>
+   <div class="stat"><b class="y">${fm(b.cm)}</b><i>মোট কমিশন</i></div><div class="stat"><b>${fm(b.wd)}</b><i>মোট উত্তোলন</i></div>`;
+  const N={dep:'জমা',wd:'উত্তোলন',com:'কমিশন'};
+  $('accList').innerHTML=A.length?A.map(x=>`<div class="tr ${x.type==='dep'?'good':'bad'}"><b>${N[x.type]}</b> • <span class="${x.type==='dep'?'g':'r'}">${x.type==='dep'?'+':'−'}$${x.amt.toFixed(2)}</span> <span class="sm2">• ${x.date}</span>${x.note?`<div class="sm2">${esc(x.note)}</div>`:''}<button class="sm s" style="margin-top:6px" onclick="delTx(${x.id})">মুছুন</button></div>`).join(''):'<p class="sm2">এখনো কোনো লেনদেন নেই। আগে শুরুর ব্যালেন্স জমা দিন।</p>';}
 const PK='tc_v3_pred';let PD=[];
 try{PD=JSON.parse(localStorage.getItem(PK))||[]}catch(e){}
-const savePD=()=>{try{localStorage.setItem(PK,JSON.stringify(PD))}catch(e){alert('Could not save')}};
-$('pbias').innerHTML=mkBias('pb');wireBias('pb');$('pdate').value=ds();
-$('pSave').onclick=()=>{const b=getBias('pb'),pl=$('pplan').value.trim();if(!b&&!pl)return alert('Enter at least one bias or a plan');
-  PD.unshift({id:Date.now(),date:$('pdate').value||ds(),pair:$('ppair').value.trim(),bias:b,plan:pl,out:'pending'});savePD();clearBias('pb');$('pplan').value='';$('ppair').value='';render();};
+const savePD=()=>{try{localStorage.setItem(PK,JSON.stringify(PD))}catch(e){alert('সেভ করা যায়নি')}};
+$('pbias').innerHTML=mkBias('pb');wireBias('pb');$('pdate').value=ds();$('ptime').value=nowT();$('ptc').innerHTML=tchips('ptime');
+$('pSave').onclick=()=>{const b=getBias('pb'),pl=$('pplan').value.trim();if(!b&&!pl)return alert('অন্তত একটি বায়াস বা প্ল্যান লিখুন');
+  PD.unshift({id:Date.now(),date:$('pdate').value||ds(),time:$('ptime').value||nowT(),pair:$('ppair').value.trim(),bias:b,plan:pl,out:'pending'});savePD();clearBias('pb');$('pplan').value='';$('ppair').value='';render();};
+function setPT(id,k,v){const x=PD.find(p=>p.id===id);if(!x)return;if(k==='d'){if(v)x.date=v}else if(k==='t')x.time=v;else x.at=v;savePD();render()}
+window.setPT=setPT;
 function setOut(id,o){const x=PD.find(p=>p.id===id);if(x){x.out=o;savePD();render();}}
-function delP(id){if(confirm('Delete this prediction?')){PD=PD.filter(x=>x.id!==id);savePD();render();}}
+function delP(id){if(confirm('এই প্রেডিকশন মুছবেন?')){PD=PD.filter(x=>x.id!==id);savePD();render();}}
 window.setOut=setOut;window.delP=delP;
-function renderPred(){const d=PD.filter(x=>x.out!=='pending'),r=d.filter(x=>x.out==='right').length;
-  $('pStats').innerHTML=`<div class="stat"><b>${PD.length}</b><i>Total Predictions</i></div><div class="stat"><b class="g">${r}</b><i>Correct</i></div><div class="stat"><b class="r">${d.length-r}</b><i>Wrong</i></div><div class="stat"><b class="y">${d.length?Math.round(r/d.length*100)+'%':'—'}</b><i>Accuracy</i></div>`;
-  const L={pending:'⏳ Pending',right:'✓ Correct',wrong:'✗ Wrong'};
-  $('pList').innerHTML=PD.length?PD.map(x=>`<div class="tr ${x.out==='right'?'good':x.out==='wrong'?'bad':''}"><b>${esc(x.pair||'—')}</b> <span class="sm2">• ${x.date} • ${L[x.out]}</span>${biasHtml(x)}${x.plan?`<div style="margin-top:4px">${esc(x.plan)}</div>`:''}<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><button class="sm gr" onclick="setOut(${x.id},'right')">Correct</button><button class="sm rd" onclick="setOut(${x.id},'wrong')">Wrong</button><button class="sm s" onclick="setOut(${x.id},'pending')">Pending</button><button class="sm s" onclick="delP(${x.id})">Delete</button></div></div>`).join(''):'<p class="sm2">No predictions yet.</p>';}
+const AR={up:'↑ উপরে',down:'↓ নিচে',range:'↔ রেঞ্জ'},OUTL={pending:'⏳ চলমান',right:'✓ সঠিক',part:'◐ আংশিক',wrong:'✗ ভুল'};
+function resHtml(L,groups){
+ const d=L.filter(x=>x.out&&x.out!=='pending'),c=o=>d.filter(x=>x.out===o).length,r=c('right'),p=c('part'),w=c('wrong'),days={};
+ d.forEach(x=>(days[x.date]=days[x.date]||[]).push(x));
+ const st=Object.keys(days).sort().map(k=>{const a=days[k],g=a.filter(x=>x.out==='right').length,b=a.filter(x=>x.out==='wrong').length;return[k,g>b?'g':b>g?'r':'y']});
+ const gd=st.filter(x=>x[1]==='g').length,bd=st.filter(x=>x[1]==='r').length;let cw=0;for(let i=st.length-1;i>=0&&st[i][1]==='g';i--)cw++;
+ const acc=d.length?Math.round((r+p/2)/d.length*100):null,pend=L.length-d.length;
+ const gr=(key,title)=>{const m={};d.forEach(x=>{const k=x[key];if(k)(m[k]=m[k]||[]).push(x)});const rows=Object.entries(m).sort((a,b)=>b[1].length-a[1].length).slice(0,6);
+  return rows.length?`<div class="card"><h2>${title}</h2>`+rows.map(([k,u])=>{const q=Math.round((u.filter(x=>x.out==='right').length+u.filter(x=>x.out==='part').length/2)/u.length*100),col=q>=60?'#22c55e':q>=40?'#eab308':'#ef4444';return `<div class="ins" style="border-left-color:${col}"><div style="display:flex;justify-content:space-between"><b>${esc(k)}</b><b style="color:${col}">${q}%</b></div><div class="wb"><div style="width:${q}%;background:${col}"></div></div><div class="sm2">${u.length}টি • সঠিক ${u.filter(x=>x.out==='right').length} • ভুল ${u.filter(x=>x.out==='wrong').length}</div></div>`}).join('')+'</div>':''};
+ return `<div class="hero"><h3>📊 ফলাফল বিশ্লেষণ</h3><div class="stats"><div class="stat"><b class="${acc==null?'':acc>=60?'g':acc>=40?'y':'r'}">${acc==null?'—':acc+'%'}</b><i>নির্ভুলতা</i></div><div class="stat"><b class="g">${gd}</b><i>ভালো দিন</i></div><div class="stat"><b class="r">${bd}</b><i>খারাপ দিন</i></div><div class="stat"><b>${cw}</b><i>টানা ভালো দিন</i></div></div>
+ <div class="sm2" style="margin-top:8px">সঠিক ${r} • আংশিক ${p} • ভুল ${w}${pend?` • ফলাফল বাকি ${pend}টি`:''}${st.length?` • মিশ্র দিন ${st.length-gd-bd}`:''}</div>
+ ${st.length?`<div style="margin-top:8px">`+st.slice(-21).map(x=>`<span class="dd ${x[1]}" title="${x[0]}">${+x[0].slice(8)}</span>`).join('')+`</div><div class="sm2">🟩 ভালো দিন • 🟥 খারাপ দিন • 🟨 মিশ্র (তারিখ দেখানো হয়েছে)</div>`:'<div class="sm2" style="margin-top:8px">ফলাফল যোগ করলে এখানে ভালো/খারাপ দিনের হিসাব আসবে।</div>'}</div>`+groups.map(g=>gr(g[0],g[1])).join('');}
+const expDir=x=>{const b=x.bias||{};for(const k of ['D','W','M'])if(b[k]){const v=b[k].s||b[k].o;if(v)return v}return ''};
+const btnR=(fn,id,cur)=>[['right','সঠিক','gr'],['part','আংশিক',''],['wrong','ভুল','rd'],['pending','চলমান','s']].map(o=>`<button class="sm ${o[2]} ${cur===o[0]?'sel':''}" onclick="${fn}(${id},'${o[0]}')">${o[1]}</button>`).join(' ');
+const btnA=(fn,id,cur)=>['up','down','range'].map(a=>`<button class="sm s ${cur===a?'sel':''}" onclick="${fn}(${id},'${a}')">${AR[a]}</button>`).join(' ');
+function setAct(id,v){const x=PD.find(p=>p.id===id);if(!x)return;x.act=x.act===v?'':v;const e=expDir(x);if(x.act&&e)x.out=x.act===e?'right':'wrong';else if(!x.act&&e)x.out='pending';savePD();render()}
+function setRn(id){const x=PD.find(p=>p.id===id);const v=prompt('ফলাফলের নোট (কী হলো / কেন ঠিক-ভুল)',x.rn||'');if(v!==null){x.rn=v.trim();savePD();render()}}
+window.setAct=setAct;window.setRn=setRn;
+function renderPred(){const L=PD.filter(x=>inP(x.date,P)).sort((a,b)=>(b.date+(b.time||'')).localeCompare(a.date+(a.time||'')));
+  $('pStats').innerHTML=resHtml(L,[['pair','পেয়ার অনুযায়ী নির্ভুলতা']]);
+  $('pList').innerHTML=L.length?L.map(x=>`<div class="tr ${x.out==='right'?'good':x.out==='wrong'?'bad':''}"><b>${esc(x.pair||'—')}</b> <span class="sm2">• ${x.date}${x.time?' '+x.time:''} • ${OUTL[x.out||'pending']}${expDir(x)?' • আমার প্রেডিকশন '+AR[expDir(x)]:''}${x.act?' • আসলে '+AR[x.act]:''}</span>${biasHtml(x)}${x.plan?`<div style="margin-top:4px">${esc(x.plan)}</div>`:''}${x.rn?`<div class="sm2" style="margin-top:4px">📝 ${esc(x.rn)}</div>`:''}
+  ${tmHtml('setPT',x.id,[['তারিখ','d','date',x.date],['প্রেডিকশনের সময়','t','time',x.time],['মার্কেট কখন চলল','a','time',x.at]],gapM(x.time,x.at))}<div class="sm2" style="margin-top:8px">আসলে মার্কেট কী করল? (বাছলে অটো ফলাফল বসবে)</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${btnA('setAct',x.id,x.act)}</div>
+  <div class="sm2" style="margin-top:8px">ফলাফল</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${btnR('setOut',x.id,x.out||'pending')} <button class="sm s" onclick="setRn(${x.id})">📝 নোট</button> <button class="sm s" onclick="delP(${x.id})">মুছুন</button></div></div>`).join(''):'<p class="sm2">এই সময়ে কোনো প্রেডিকশন নেই।</p>';}
 const NK='tc_v3_news';let NWS=[],nf='ALL';
 try{NWS=JSON.parse(localStorage.getItem(NK))||[]}catch(e){}
-const saveN=()=>{try{localStorage.setItem(NK,JSON.stringify(NWS))}catch(e){alert('Could not save')}};
+const saveN=()=>{try{localStorage.setItem(NK,JSON.stringify(NWS))}catch(e){alert('সেভ করা যায়নি')}};
 const EVT={USD:['Non-Farm Payrolls (NFP)','CPI','Core CPI','FOMC Rate Decision','FOMC Minutes','Fed Chair Speech','Core PCE','PPI','GDP','Retail Sales','ISM PMI','Unemployment Claims','ADP Employment'],EUR:['ECB Rate Decision','ECB Press Conference','CPI Flash Estimate','GDP','PMI','ZEW Economic Sentiment','German Ifo'],GBP:['BoE Rate Decision','CPI','GDP','Employment / Claimant Count','Retail Sales','PMI','BoE Governor Speech']};
-function fillEv(){$('nEv').innerHTML=EVT[$('nCur').value].map(e=>`<option>${e}</option>`).join('')+'<option value="__c">Other (custom)…</option>';$('nCustW').style.display='none'}
+function fillEv(){$('nEv').innerHTML=EVT[$('nCur').value].map(e=>`<option>${e}</option>`).join('')+'<option value="__c">অন্য (নিজে লিখুন)…</option>';$('nCustW').style.display='none'}
 $('nCur').onchange=fillEv;$('nEv').onchange=()=>{$('nCustW').style.display=$('nEv').value==='__c'?'block':'none'};
-fillEv();$('nDate').value=ds();
-$('nSave').onclick=()=>{const ev=$('nEv').value==='__c'?$('nCust').value.trim():$('nEv').value;if(!ev||!$('nDate').value)return alert('Enter a date and an event');
-  NWS.push({id:Date.now(),date:$('nDate').value,time:$('nTime').value,cur:$('nCur').value,ev,fc:$('nFc').value.trim(),pv:$('nPv').value.trim(),ac:$('nAc').value.trim(),note:$('nNote').value.trim()});
-  saveN();['nFc','nPv','nAc','nNote','nCust','nTime'].forEach(i=>$(i).value='');render();};
-function delN(id){if(confirm('Delete this news item?')){NWS=NWS.filter(x=>x.id!==id);saveN();render();}}
-function actN(id){const x=NWS.find(n=>n.id===id);if(!x)return;const v=prompt('Actual result',x.ac||'');if(v!==null){x.ac=v.trim();saveN();render();}}
+fillEv();$('nDate').value=ds();$('nPT').value=nowT();$('nptc').innerHTML=tchips('nPT');
+$('nSave').onclick=()=>{const ev=$('nEv').value==='__c'?$('nCust').value.trim():$('nEv').value;if(!ev||!$('nDate').value)return alert('তারিখ ও ইভেন্ট দিন');
+  NWS.push({id:Date.now(),date:$('nDate').value,time:$('nTime').value,pt:$('nPT').value||nowT(),cur:$('nCur').value,ev,fc:$('nFc').value.trim(),pv:$('nPv').value.trim(),ac:$('nAc').value.trim(),note:$('nNote').value.trim(),my:$('nMy').value,out:'pending',rx:''});
+  saveN();$('nMy').value='';['nFc','nPv','nAc','nNote','nCust','nTime'].forEach(i=>$(i).value='');render();};
+function delN(id){if(confirm('এই নিউজ মুছবেন?')){NWS=NWS.filter(x=>x.id!==id);saveN();render();}}
+function actN(id){const x=NWS.find(n=>n.id===id);if(!x)return;const v=prompt('আসল রেজাল্ট',x.ac||'');if(v!==null){x.ac=v.trim();saveN();render();}}
 window.delN=delN;window.actN=actN;
+function setNo(id,o){const x=NWS.find(n=>n.id===id);if(x){x.out=o;saveN();render()}}
+function setRx(id,v){const x=NWS.find(n=>n.id===id);if(!x)return;x.rx=x.rx===v?'':v;if(x.rx&&x.my)x.out=x.rx===x.my?'right':'wrong';else if(!x.rx&&x.my)x.out='pending';saveN();render()}
+function setNT(id,k,v){const x=NWS.find(n=>n.id===id);if(!x)return;if(k==='e')x.time=v;else if(k==='t')x.pt=v;else x.rxt=v;saveN();render()}
+function setMy(id,v){const x=NWS.find(n=>n.id===id);if(!x)return;x.my=x.my===v?'':v;if(x.rx&&x.my)x.out=x.rx===x.my?'right':'wrong';saveN();render()}
+window.setNT=setNT;window.setMy=setMy;
+function rnN(id){const x=NWS.find(n=>n.id===id);const v=prompt('ফলাফলের নোট (নিউজে মার্কেট কী করল)',x.rn||'');if(v!==null){x.rn=v.trim();saveN();render()}}
+window.setNo=setNo;window.setRx=setRx;window.rnN=rnN;
 function renderNews(){const td=ds();
-  $('nPills').innerHTML=['ALL','USD','EUR','GBP'].map(c=>`<div class="pill ${nf===c?'on':''}" data-c="${c}">${c==='ALL'?'All':c}</div>`).join('');
+  $('nPills').innerHTML=['ALL','USD','EUR','GBP'].map(c=>`<div class="pill ${nf===c?'on':''}" data-c="${c}">${c==='ALL'?'সব':c}</div>`).join('');
   $('nPills').querySelectorAll('.pill').forEach(e=>e.onclick=()=>{nf=e.dataset.c;renderNews()});
-  const L=NWS.filter(x=>nf==='ALL'||x.cur===nf).sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));
-  const up=L.filter(x=>x.date>=td),pa=L.filter(x=>x.date<td).reverse();
-  const row=x=>`<div class="tr" style="border-left:4px solid ${x.date===td?'#f59e0b':'#ef4444'}">🔴 <b>${x.cur}</b> — ${esc(x.ev)} <span class="sm2">• ${x.date}${x.time?' '+x.time:''}${x.date===td?' • TODAY':''}</span><div class="sm2">Forecast: ${esc(x.fc||'—')} • Previous: ${esc(x.pv||'—')} • Actual: <b>${esc(x.ac||'—')}</b></div>${x.note?`<div style="margin-top:4px">${esc(x.note)}</div>`:''}<div style="margin-top:8px;display:flex;gap:6px"><button class="sm s" onclick="actN(${x.id})">Set Actual</button><button class="sm s" onclick="delN(${x.id})">Delete</button></div></div>`;
-  $('nList').innerHTML=(up.length?'<div class="card"><h2>Upcoming</h2>'+up.map(row).join('')+'</div>':'<div class="card"><p class="sm2">No upcoming red-folder news added.</p></div>')+(pa.length?'<div class="card"><h2>Past</h2>'+pa.map(row).join('')+'</div>':'');
+  const all=NWS.filter(x=>nf==='ALL'||x.cur===nf).sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));
+  $('nStats').innerHTML=resHtml(all.filter(x=>inP(x.date,P)),[['cur','কারেন্সি অনুযায়ী নির্ভুলতা'],['ev','ইভেন্ট অনুযায়ী নির্ভুলতা']]);
+  const L=all.filter(x=>inP(x.date,P)||x.date>=td),up=L.filter(x=>x.date>=td),pa=L.filter(x=>x.date<td).reverse();
+  const row=x=>`<div class="tr ${x.out==='right'?'good':x.out==='wrong'?'bad':''}" style="border-left:4px solid ${x.date===td?'#f59e0b':'#ef4444'}">🔴 <b>${x.cur}</b> — ${esc(x.ev)} <span class="sm2">• ${x.date}${x.time?' '+x.time:''}${x.date===td?' • আজ':''} • ${OUTL[x.out||'pending']}</span><div class="sm2">ফোরকাস্ট: ${esc(x.fc||'—')} • আগের: ${esc(x.pv||'—')} • আসল: <b>${esc(x.ac||'—')}</b></div><div class="sm2">আমার প্রেডিকশন: <b>${x.my?AR[x.my]:'—'}</b>${x.pt?` (${x.pt} এ করা)`:''} • মার্কেট আসলে: <b>${x.rx?AR[x.rx]:'—'}</b></div>${x.note?`<div style="margin-top:4px">${esc(x.note)}</div>`:''}${x.rn?`<div class="sm2" style="margin-top:4px">📝 ${esc(x.rn)}</div>`:''}
+   ${tmHtml('setNT',x.id,[['নিউজের সময়','e','time',x.time],['প্রেডিকশনের সময়','t','time',x.pt],['মার্কেট কখন চলল','a','time',x.rxt]],gapM(x.pt,x.rxt))}<div class="sm2" style="margin-top:8px">আমার প্রেডিকশন (পরে বদলানো যাবে)</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${btnA('setMy',x.id,x.my)}</div><div class="sm2" style="margin-top:8px">মার্কেট আসলে কী করল?</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${btnA('setRx',x.id,x.rx)}</div>
+   <div class="sm2" style="margin-top:8px">ফলাফল</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${btnR('setNo',x.id,x.out||'pending')} <button class="sm s" onclick="actN(${x.id})">আসল দিন</button> <button class="sm s" onclick="rnN(${x.id})">📝 নোট</button> <button class="sm s" onclick="delN(${x.id})">মুছুন</button></div></div>`;
+  $('nList').innerHTML=(up.length?'<div class="card"><h2>আসন্ন ও আজকের</h2>'+up.map(row).join('')+'</div>':'<div class="card"><p class="sm2">কোনো আসন্ন রেড-ফোল্ডার নিউজ নেই।</p></div>')+(pa.length?'<div class="card"><h2>পুরনো — ফলাফল যোগ করুন</h2>'+pa.map(row).join('')+'</div>':'');
   const t=NWS.filter(x=>x.date===td).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
   $('newsBar').style.display=t.length?'block':'none';
-  $('newsBar').innerHTML=t.length?'🔴 <b>Red news today:</b> '+t.map(x=>`${x.cur} ${esc(x.ev)}${x.time?' @ '+x.time:''}`).join(' • '):'';}
+  $('newsBar').innerHTML=t.length?'🔴 <b>আজকের রেড নিউজ:</b> '+t.map(x=>`${x.cur} ${esc(x.ev)}${x.time?' @ '+x.time:''}`).join(' • '):'';}
 function render(){pills();renderAlert();renderList();renderAna();renderAcc();renderPred();renderNews();}
-$('exp').onclick=async()=>{const data=JSON.stringify({t:T,a:A,p:PD,n:NWS}),fn='confluence-desk-backup-'+ds()+'.json';
-try{const d=window.claude&&await claude.use('downloads');if(d){await d.save({filename:fn,data});return}}catch(e){if(e&&e.code==='declined')return}
-const u=URL.createObjectURL(new Blob([data],{type:'application/json'})),k=document.createElement('a');k.href=u;k.download=fn;document.body.appendChild(k);k.click();k.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)};
+$('exp').onclick=async()=>{try{const data=JSON.stringify({t:T,a:A,p:PD,n:NWS}),fn='trading-backup-'+ds()+'.json',d=window.claude?await claude.use('downloads'):null;if(d)await d.save({filename:fn,data});else{const u=URL.createObjectURL(new Blob([data],{type:'application/json'})),l=document.createElement('a');l.href=u;l.download=fn;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}}catch(e){if(!e||e.code!=='declined')alert('ব্যাকআপ সেভ হয়নি')}};
 $('impB').onclick=()=>$('imp').click();
-$('imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);const nt=Array.isArray(d)?d:d.t,na=Array.isArray(d)?A:(d.a||[]);if(!Array.isArray(nt))throw 0;if(confirm('Current data will be replaced by this backup. Continue?')){T=nt;A=na;PD=(!Array.isArray(d)&&Array.isArray(d.p))?d.p:PD;NWS=(!Array.isArray(d)&&Array.isArray(d.n))?d.n:NWS;save();saveA();savePD();saveN();render();showAuto();}}catch(x){alert('Invalid file')}};r.readAsText(f);};
+$('imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);const nt=Array.isArray(d)?d:d.t,na=Array.isArray(d)?A:(d.a||[]);if(!Array.isArray(nt))throw 0;if(confirm('বর্তমান ডেটা এই ব্যাকআপ দিয়ে বদলে যাবে। চালিয়ে যাবেন?')){T=nt;A=na;PD=(!Array.isArray(d)&&Array.isArray(d.p))?d.p:PD;NWS=(!Array.isArray(d)&&Array.isArray(d.n))?d.n:NWS;save();saveA();savePD();saveN();render();showAuto();}}catch(x){alert('ফাইলটি সঠিক নয়')}};r.readAsText(f);};
 showAuto();render();
 </script>
-<script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))</script>
 </body>
 </html>
