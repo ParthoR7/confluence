@@ -1,31 +1,32 @@
 {
- "name": "Confluence Desk",
- "short_name": "Confluence",
- "description": "ICT Journal & Market Planner",
- "start_url": "./index.html",
- "scope": "./",
- "display": "standalone",
- "orientation": "portrait",
- "background_color": "#070b14",
- "theme_color": "#4f46e5",
- "icons": [
-  {
-   "src": "icon-192.png",
-   "sizes": "192x192",
-   "type": "image/png",
-   "purpose": "any"
-  },
-  {
-   "src": "icon-512.png",
-   "sizes": "512x512",
-   "type": "image/png",
-   "purpose": "any"
-  },
-  {
-   "src": "icon-512.png",
-   "sizes": "512x512",
-   "type": "image/png",
-   "purpose": "maskable"
-  }
- ]
+  "name": "Confluence Desk — ট্রেডিং জার্নাল",
+  "short_name": "Confluence",
+  "description": "ICT ট্রেডিং জার্নাল ও মার্কেট প্ল্যানার (অফলাইনে চলে)",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#070b14",
+  "theme_color": "#4f46e5",
+  "lang": "bn",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
 }

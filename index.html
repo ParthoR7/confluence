@@ -2,7 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4f46e5">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Confluence">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Confluence Desk — ICT Journal &amp; Market Planner</title>
 <style>
 :root{--bg:#0f1419;--card:#1a2332;--bd:#2d3a4f;--tx:#e2e8f0;--mut:#94a3b8;--ac:#3b82f6;--g:#10b981;--r:#ef4444;--y:#f59e0b;--in:#0f172a}
@@ -570,6 +578,7 @@ $('exp').onclick=async()=>{try{const data=JSON.stringify({t:T,a:A,p:PD,n:NWS}),f
 $('impB').onclick=()=>$('imp').click();
 $('imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);const nt=Array.isArray(d)?d:d.t,na=Array.isArray(d)?A:(d.a||[]);if(!Array.isArray(nt))throw 0;if(confirm('বর্তমান ডেটা এই ব্যাকআপ দিয়ে বদলে যাবে। চালিয়ে যাবেন?')){T=nt;A=na;PD=(!Array.isArray(d)&&Array.isArray(d.p))?d.p:PD;NWS=(!Array.isArray(d)&&Array.isArray(d.n))?d.n:NWS;save();saveA();savePD();saveN();render();showAuto();}}catch(x){alert('ফাইলটি সঠিক নয়')}};r.readAsText(f);};
 showAuto();render();
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script>
 </body>
 </html>
