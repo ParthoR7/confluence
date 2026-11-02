@@ -93,7 +93,7 @@ details.more>summary{cursor:pointer;padding:12px;border-radius:14px;background:#
   <div class="card"><h2>ট্রেডের তথ্য</h2>
     <div class="row">
       <div class="f"><span>তারিখ</span><input type="date" id="date"></div>
-      <div class="f"><span>পেয়ার</span><select id="pair"><option>EURUSD</option><option>GBPUSD</option><option>XAUUSD</option></select></div>
+      <div class="f"><span>পেয়ার</span><select id="pair"></select><div id="pairAdd" style="display:none;margin-top:6px"><div style="display:flex;gap:6px"><input type="text" id="pairNew" placeholder="যেমন USDJPY" autocapitalize="characters"><button type="button" class="sm" id="pairOk">যোগ</button></div></div><button type="button" class="sm s" id="pairDel" style="display:none;margin-top:6px">এই পেয়ার তালিকা থেকে সরান</button></div>
       <div class="f"><span>দিক</span><select id="dir"><option value="Buy">Buy (কিনেছি)</option><option value="Sell">Sell (বেচেছি)</option></select></div>
     </div>
     <div class="row">
@@ -137,7 +137,7 @@ details.more>summary{cursor:pointer;padding:12px;border-radius:14px;background:#
 <div id="t-pred" style="display:none">
   <div class="pills" data-p></div><div id="pStats"></div>
   <div class="card"><h2>মার্কেট প্রেডিকশন (ট্রেড ছাড়া)</h2>
-    <div class="row"><div class="f"><span>তারিখ</span><input type="date" id="pdate"></div><div class="f"><span>পেয়ার / মার্কেট</span><input type="text" id="ppair" placeholder="e.g. XAUUSD"></div><div class="f"><span>প্রেডিকশনের সময় (কখন করেছি)</span><input type="time" id="ptime"></div></div><div id="ptc"></div>
+    <div class="row"><div class="f"><span>তারিখ</span><input type="date" id="pdate"></div><div class="f"><span>পেয়ার / মার্কেট</span><input type="text" id="ppair" list="plist" placeholder="e.g. XAUUSD"><datalist id="plist"></datalist></div><div class="f"><span>প্রেডিকশনের সময় (কখন করেছি)</span><input type="time" id="ptime"></div></div><div id="ptc"></div>
     <div id="pbias"></div>
     <div class="bx"><b>প্ল্যান</b><textarea id="pplan" rows="3" placeholder="মার্কেট কোথা থেকে কোথায় যেতে পারে, কোন লিকুইডিটি/POI থেকে এন্ট্রি, টার্গেট কী"></textarea></div>
     <button style="width:100%;margin-top:10px" id="pSave">প্রেডিকশন সেভ করুন</button></div>
@@ -146,7 +146,7 @@ details.more>summary{cursor:pointer;padding:12px;border-radius:14px;background:#
 <div id="t-news" style="display:none">
   <div class="pills" data-p></div><div id="nStats"></div>
   <div class="card"><h2>🔴 রেড-ফোল্ডার নিউজ (হাই ইমপ্যাক্ট)</h2>
-    <div class="row"><div class="f"><span>তারিখ</span><input type="date" id="nDate"></div><div class="f"><span>নিউজের সময় (আপনার লোকাল)</span><input type="time" id="nTime"></div><div class="f"><span>কারেন্সি</span><select id="nCur"><option>USD</option><option>EUR</option><option>GBP</option></select></div></div>
+    <div class="row"><div class="f"><span>তারিখ</span><input type="date" id="nDate"></div><div class="f"><span>নিউজের সময় (আপনার লোকাল)</span><input type="time" id="nTime"></div><div class="f"><span>কারেন্সি</span><select id="nCur"></select><div id="curAdd" style="display:none;margin-top:6px"><div style="display:flex;gap:6px"><input type="text" id="curNew" placeholder="যেমন CNY" autocapitalize="characters"><button type="button" class="sm" id="curOk">যোগ</button></div></div><button type="button" class="sm s" id="curDel" style="display:none;margin-top:6px">এই কারেন্সি তালিকা থেকে সরান</button></div></div>
     <div class="row"><div class="f"><span>ইভেন্ট</span><select id="nEv"></select></div><div class="f" id="nCustW" style="display:none"><span>নিজের ইভেন্ট</span><input type="text" id="nCust"></div></div>
     <div class="row"><div class="f"><span>ফোরকাস্ট</span><input type="text" id="nFc"></div><div class="f"><span>আগের</span><input type="text" id="nPv"></div><div class="f"><span>আসল</span><input type="text" id="nAc"></div></div>
     <div class="row"><div class="f"><span>আমার প্রেডিকশন (নিউজে মার্কেট কোন দিকে যাবে)</span><select id="nMy"><option value="">—</option><option value="up">↑ উপরে</option><option value="down">↓ নিচে</option><option value="range">↔ রেঞ্জ / অনিশ্চিত</option></select></div><div class="f"><span>প্রেডিকশনের সময় (কখন করেছি)</span><input type="time" id="nPT"></div></div><div id="nptc"></div><textarea id="nNote" rows="2" placeholder="সম্ভাব্য রিঅ্যাকশন, দেখার লেভেল, নিউজ ঘিরে প্ল্যান"></textarea>
@@ -291,6 +291,7 @@ $('form').addEventListener('change',chain);$('lqm').addEventListener('change',ch
 const EN=['en_disp','en_retest','en_exp','en_sweep'];
 EN.forEach(id=>{$(id).addEventListener('change',()=>{if($(id).checked)EN.forEach(o=>{if(o!==id)$(o).checked=false})})});
 $('saveBtn').onclick=()=>{
+  if($('pair').value==='__add')return alert('নতুন পেয়ারের নাম লিখে আগে "যোগ" চাপুন');
   const a=auto(),c={a1:a.a1,a2:a.a2,a3:a.a3};
   document.querySelectorAll('#form input').forEach(i=>c[i.id]=i.checked);
   const pn=$('pnl').value;
@@ -544,10 +545,32 @@ const NK='tc_v3_news';let NWS=[],nf='ALL';
 try{NWS=JSON.parse(localStorage.getItem(NK))||[]}catch(e){}
 const saveN=()=>{try{localStorage.setItem(NK,JSON.stringify(NWS))}catch(e){alert('সেভ করা যায়নি')}};
 const EVT={USD:['Non-Farm Payrolls (NFP)','CPI','Core CPI','FOMC Rate Decision','FOMC Minutes','Fed Chair Speech','Core PCE','PPI','GDP','Retail Sales','ISM PMI','Unemployment Claims','ADP Employment'],EUR:['ECB Rate Decision','ECB Press Conference','CPI Flash Estimate','GDP','PMI','ZEW Economic Sentiment','German Ifo'],GBP:['BoE Rate Decision','CPI','GDP','Employment / Claimant Count','Retail Sales','PMI','BoE Governor Speech']};
-function fillEv(){$('nEv').innerHTML=EVT[$('nCur').value].map(e=>`<option>${e}</option>`).join('')+'<option value="__c">অন্য (নিজে লিখুন)…</option>';$('nCustW').style.display='none'}
+function fillEv(){$('nEv').innerHTML=(EVT[$('nCur').value]||[]).map(e=>`<option>${e}</option>`).join('')+'<option value="__c">অন্য (নিজে লিখুন)…</option>';$('nCustW').style.display=(EVT[$('nCur').value]||[]).length?'none':'block'}
 $('nCur').onchange=fillEv;$('nEv').onchange=()=>{$('nCustW').style.display=$('nEv').value==='__c'?'block':'none'};
 fillEv();$('nDate').value=ds();$('nPT').value=nowT();$('nptc').innerHTML=tchips('nPT');
-$('nSave').onclick=()=>{const ev=$('nEv').value==='__c'?$('nCust').value.trim():$('nEv').value;if(!ev||!$('nDate').value)return alert('তারিখ ও ইভেন্ট দিন');
+
+const LK='tc_lists';let LS={pairs:[],curs:[]};
+try{const x=JSON.parse(localStorage.getItem(LK));if(x&&Array.isArray(x.pairs)&&Array.isArray(x.curs))LS=x}catch(e){}
+const saveL=()=>{try{localStorage.setItem(LK,JSON.stringify(LS))}catch(e){}};
+const DP=['EURUSD','GBPUSD','XAUUSD','USDJPY','AUDUSD','NZDUSD','USDCAD','USDCHF','EURJPY','GBPJPY','EURGBP','EURAUD','EURCAD','EURCHF','EURNZD','GBPAUD','GBPCAD','GBPCHF','GBPNZD','AUDJPY','AUDCAD','AUDCHF','AUDNZD','NZDJPY','CADJPY','CHFJPY','XAGUSD','NAS100','USTEC','US100','US30','US500','SPX500','GER40','UK100','JP225','USOIL','UKOIL','BTCUSD','ETHUSD'];
+const DC=['USD','EUR','GBP','JPY','AUD','NZD','CAD','CHF'];
+Object.assign(EVT,{JPY:['BoJ Rate Decision','BoJ Press Conference','National CPI','Tokyo CPI','Tankan Survey','GDP','Trade Balance','Unemployment Rate'],AUD:['RBA Rate Decision','RBA Press Conference','Employment Change','CPI','GDP','Retail Sales','Trade Balance','PMI'],NZD:['RBNZ Rate Decision','RBNZ Press Conference','CPI','GDP','Employment Change','Trade Balance','GDT Price Index'],CAD:['BoC Rate Decision','BoC Press Conference','Employment Change','CPI','GDP','Retail Sales','Ivey PMI'],CHF:['SNB Rate Decision','CPI','GDP','Retail Sales','KOF Economic Barometer','Trade Balance']});
+const allPairs=()=>[...DP,...LS.pairs.filter(p=>!DP.includes(p))];
+const allCurs=()=>{const u=[...DC,...LS.curs];NWS.forEach(n=>{if(n.cur&&!u.includes(n.cur))u.push(n.cur)});return [...new Set(u)]};
+function mkList(o){
+  const sel=$(o.sel);
+  const chk=()=>{$(o.box).style.display=sel.value==='__add'?'block':'none';$(o.del).style.display=LS[o.extra].includes(sel.value)?'inline-block':'none';if(o.after)o.after()};
+  const paint=keep=>{const v=keep||sel.value,l=o.list();sel.innerHTML=l.map(x=>`<option>${x}</option>`).join('')+`<option value="__add">${o.lbl}</option>`;sel.value=l.includes(v)?v:l[0];chk()};
+  sel.addEventListener('change',()=>{chk();if(sel.value==='__add')$(o.inp).focus()});
+  $(o.ok).onclick=()=>{const v=$(o.inp).value.trim().toUpperCase().replace(/[^A-Z0-9._-]/g,'');if(!v)return;if(!o.list().includes(v)){LS[o.extra].push(v);saveL()}$(o.inp).value='';paint(v);if(o.changed)o.changed()};
+  $(o.del).onclick=()=>{const v=sel.value;LS[o.extra]=LS[o.extra].filter(x=>x!==v);saveL();paint();if(o.changed)o.changed()};
+  paint();return paint;
+}
+const plistFill=()=>{$('plist').innerHTML=allPairs().map(p=>`<option value="${p}">`).join('')};
+const pairPaint=mkList({sel:'pair',box:'pairAdd',inp:'pairNew',ok:'pairOk',del:'pairDel',list:allPairs,extra:'pairs',lbl:'➕ নতুন পেয়ার যোগ করুন…',changed:plistFill});
+const curPaint=mkList({sel:'nCur',box:'curAdd',inp:'curNew',ok:'curOk',del:'curDel',list:allCurs,extra:'curs',lbl:'➕ নতুন কারেন্সি যোগ করুন…',after:()=>fillEv(),changed:()=>renderNews()});
+plistFill();
+$('nSave').onclick=()=>{const ev=$('nEv').value==='__c'?$('nCust').value.trim():$('nEv').value;if($('nCur').value==='__add')return alert('নতুন কারেন্সির নাম লিখে আগে "যোগ" চাপুন');if(!ev||!$('nDate').value)return alert('তারিখ ও ইভেন্ট দিন');
   NWS.push({id:Date.now(),date:$('nDate').value,time:$('nTime').value,pt:$('nPT').value||nowT(),cur:$('nCur').value,ev,fc:$('nFc').value.trim(),pv:$('nPv').value.trim(),ac:$('nAc').value.trim(),note:$('nNote').value.trim(),my:$('nMy').value,out:'pending',rx:''});
   saveN();$('nMy').value='';['nFc','nPv','nAc','nNote','nCust','nTime'].forEach(i=>$(i).value='');render();};
 function delN(id){if(confirm('এই নিউজ মুছবেন?')){NWS=NWS.filter(x=>x.id!==id);saveN();render();}}
@@ -561,7 +584,7 @@ window.setNT=setNT;window.setMy=setMy;
 function rnN(id){const x=NWS.find(n=>n.id===id);const v=prompt('ফলাফলের নোট (নিউজে মার্কেট কী করল)',x.rn||'');if(v!==null){x.rn=v.trim();saveN();render()}}
 window.setNo=setNo;window.setRx=setRx;window.rnN=rnN;
 function renderNews(){const td=ds();
-  $('nPills').innerHTML=['ALL','USD','EUR','GBP'].map(c=>`<div class="pill ${nf===c?'on':''}" data-c="${c}">${c==='ALL'?'সব':c}</div>`).join('');
+  $('nPills').innerHTML=['ALL',...allCurs()].map(c=>`<div class="pill ${nf===c?'on':''}" data-c="${c}">${c==='ALL'?'সব':c}</div>`).join('');
   $('nPills').querySelectorAll('.pill').forEach(e=>e.onclick=()=>{nf=e.dataset.c;renderNews()});
   const all=NWS.filter(x=>nf==='ALL'||x.cur===nf).sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));
   $('nStats').innerHTML=resHtml(all.filter(x=>inP(x.date,P)),[['cur','কারেন্সি অনুযায়ী নির্ভুলতা'],['ev','ইভেন্ট অনুযায়ী নির্ভুলতা']]);
@@ -574,9 +597,9 @@ function renderNews(){const td=ds();
   $('newsBar').style.display=t.length?'block':'none';
   $('newsBar').innerHTML=t.length?'🔴 <b>আজকের রেড নিউজ:</b> '+t.map(x=>`${x.cur} ${esc(x.ev)}${x.time?' @ '+x.time:''}`).join(' • '):'';}
 function render(){pills();renderAlert();renderList();renderAna();renderAcc();renderPred();renderNews();}
-$('exp').onclick=async()=>{try{const data=JSON.stringify({t:T,a:A,p:PD,n:NWS}),fn='trading-backup-'+ds()+'.json',d=window.claude?await claude.use('downloads'):null;if(d)await d.save({filename:fn,data});else{const u=URL.createObjectURL(new Blob([data],{type:'application/json'})),l=document.createElement('a');l.href=u;l.download=fn;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}}catch(e){if(!e||e.code!=='declined')alert('ব্যাকআপ সেভ হয়নি')}};
+$('exp').onclick=async()=>{try{const data=JSON.stringify({t:T,a:A,p:PD,n:NWS,l:LS}),fn='trading-backup-'+ds()+'.json',d=window.claude?await claude.use('downloads'):null;if(d)await d.save({filename:fn,data});else{const u=URL.createObjectURL(new Blob([data],{type:'application/json'})),l=document.createElement('a');l.href=u;l.download=fn;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}}catch(e){if(!e||e.code!=='declined')alert('ব্যাকআপ সেভ হয়নি')}};
 $('impB').onclick=()=>$('imp').click();
-$('imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);const nt=Array.isArray(d)?d:d.t,na=Array.isArray(d)?A:(d.a||[]);if(!Array.isArray(nt))throw 0;if(confirm('বর্তমান ডেটা এই ব্যাকআপ দিয়ে বদলে যাবে। চালিয়ে যাবেন?')){T=nt;A=na;PD=(!Array.isArray(d)&&Array.isArray(d.p))?d.p:PD;NWS=(!Array.isArray(d)&&Array.isArray(d.n))?d.n:NWS;save();saveA();savePD();saveN();render();showAuto();}}catch(x){alert('ফাইলটি সঠিক নয়')}};r.readAsText(f);};
+$('imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);const nt=Array.isArray(d)?d:d.t,na=Array.isArray(d)?A:(d.a||[]);if(!Array.isArray(nt))throw 0;if(confirm('বর্তমান ডেটা এই ব্যাকআপ দিয়ে বদলে যাবে। চালিয়ে যাবেন?')){T=nt;A=na;PD=(!Array.isArray(d)&&Array.isArray(d.p))?d.p:PD;NWS=(!Array.isArray(d)&&Array.isArray(d.n))?d.n:NWS;if(!Array.isArray(d)&&d.l&&Array.isArray(d.l.pairs)&&Array.isArray(d.l.curs)){LS=d.l;saveL();pairPaint();curPaint();plistFill()}save();saveA();savePD();saveN();render();showAuto();}}catch(x){alert('ফাইলটি সঠিক নয়')}};r.readAsText(f);};
 showAuto();render();
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script>
