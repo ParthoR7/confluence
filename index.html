@@ -1,17 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#4f46e5">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Confluence">
-<link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>Confluence Desk — ICT Journal &amp; Market Planner</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trading Checklist v3</title>
 <style>
 :root{--bg:#0f1419;--card:#1a2332;--bd:#2d3a4f;--tx:#e2e8f0;--mut:#94a3b8;--ac:#3b82f6;--g:#10b981;--r:#ef4444;--y:#f59e0b;--in:#0f172a}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -38,219 +30,207 @@ button.s{background:#475569}button.sm{padding:5px 10px;font-size:.8rem}button.gr
 .stat b{font-size:1.3rem;display:block}.stat i{font-size:.72rem;color:var(--mut);font-style:normal}
 .tr{background:var(--in);border:1px solid var(--bd);border-radius:8px;padding:11px;margin-bottom:8px;font-size:.88rem}
 .tr.good{border-left:4px solid var(--g)}.tr.bad{border-left:4px solid var(--r)}
-.bx{border-top:1px solid var(--bd);padding-top:8px;margin-top:10px}.bx>b{color:#93c5fd}.bt{min-height:1.1em;margin:2px 0 6px;color:var(--y)}
 .sm2{font-size:.78rem;color:var(--mut)}.g{color:var(--g)}.r{color:var(--r)}.y{color:var(--y)}
 .bar{height:7px;background:#334155;border-radius:4px;overflow:hidden;margin:4px 0}.bar div{height:100%}
 .ins{padding:9px 11px;margin-bottom:6px;border-radius:8px;background:var(--in);border-left:4px solid var(--ac);font-size:.9rem}
 .ins.r{border-color:var(--r)}.ins.g{border-color:var(--g)}.ins.y{border-color:var(--y)}
 .ins.r,.ins.g,.ins.y{color:var(--tx)}
-.gt{width:100%;border-collapse:collapse;font-size:.8rem}.gt th{color:var(--mut);font-weight:500;padding:4px}.gt td{text-align:center;padding:3px}.gt td:first-child{text-align:left;font-size:.82rem}
-.cb input{display:none}.cb span{display:block;min-width:36px;padding:7px 0;border:1px solid var(--bd);border-radius:7px;background:var(--in);cursor:pointer;color:var(--mut);font-size:.78rem}.cb input:checked+span{background:var(--ac);color:#fff;border-color:var(--ac)}
-.acc{font-size:1.5rem}
-
-:root{--bg:#070b14;--bd:#22304a;--ac:#6366f1;--in:#0b1220}
-body{background:radial-gradient(900px 420px at 90% -10%,#1e1b4b88,transparent),radial-gradient(700px 400px at -10% 0,#06402f66,transparent),var(--bg);background-attachment:fixed;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;padding:16px 14px 40px}
-.brand{display:flex;align-items:center;gap:10px}.logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#6366f1,#10b981);display:grid;place-items:center;font-weight:800;font-size:.9rem;color:#fff;box-shadow:0 6px 18px #6366f155}
-.brand h1{font-size:1.25rem}.brand small{display:block;color:var(--mut);font-size:.72rem}.bal{text-align:right}.bal small{display:block;color:var(--mut);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em}
-.tabs{position:sticky;top:0;z-index:5;background:#0b1220cc;backdrop-filter:blur(10px);padding:6px;border:1px solid var(--bd);border-radius:14px;flex-wrap:nowrap;overflow-x:auto;gap:4px}
-.tab{background:transparent;white-space:nowrap;color:var(--mut);border-radius:10px;flex:1;text-align:center;font-weight:600}.tab.on{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;box-shadow:0 4px 14px #4f46e566}
-.card{background:linear-gradient(180deg,#131d31,#0f1829);box-shadow:0 8px 24px #00000040;border-radius:16px}
-.card h2{color:#c7d2fe;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}
-button{background:linear-gradient(135deg,#6366f1,#4f46e5);font-weight:600;transition:.15s}button:active{transform:scale(.98)}
-button.s{background:#334155}button.gr{background:linear-gradient(135deg,#059669,#047857)}button.rd{background:linear-gradient(135deg,#dc2626,#b91c1c)}
-select:focus,input:focus,textarea:focus{outline:0;border-color:#818cf8;box-shadow:0 0 0 3px #6366f133}
-.stat{background:#0b1220;border:1px solid var(--bd);border-radius:12px}.tr{border-radius:12px}.bx>b{color:#a5b4fc}
-.tl{border-left:2px solid #334155;margin:10px 0 4px 8px;padding-left:14px}.ts{position:relative;margin-bottom:11px}.ts:before{content:"";position:absolute;left:-21px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px #0f1829}
-.ts i{display:block;font-style:normal;font-size:.64rem;letter-spacing:.08em;color:var(--c);font-weight:700}.ts b{font-size:.88rem}.ts span{display:block;font-size:.76rem;color:var(--mut);margin-top:1px}
-.bdg{display:inline-block;padding:2px 8px;border-radius:99px;font-size:.68rem;font-weight:700;background:#1e293b;margin-left:4px}
-.wb{height:6px;border-radius:9px;background:#1e293b;margin-top:5px;overflow:hidden}.wb div{height:100%}
-.rbs{display:flex;gap:5px;flex-wrap:wrap}.rb{padding:5px 8px;border-radius:8px;font-size:.74rem;font-weight:700;background:#0b1220;border:1px solid var(--bd)}
-.hero{background:linear-gradient(135deg,#1e1b4b,#064e3b);border:1px solid #334155;border-radius:16px;padding:14px;margin-bottom:12px}.hero h3{margin:0 0 8px;font-size:.95rem;color:#e0e7ff}
-.card.col>*:not(h2){display:none}.card h2{user-select:none}
-details.td{background:#0b1220;border:1px solid var(--bd);border-left:4px solid #475569;border-radius:12px;padding:9px 11px;margin-bottom:7px}details.td.good{border-left-color:#22c55e}details.td.bad{border-left-color:#ef4444}details.td summary{cursor:pointer;font-size:.88rem}
-details.more>summary{cursor:pointer;padding:12px;border-radius:14px;background:#1e293b;text-align:center;font-weight:700;margin:6px 0 10px;color:#c7d2fe}
-.wc{display:inline-block;margin:3px 4px 3px 0;padding:9px 13px;border:1px solid var(--bd);border-radius:11px;background:var(--in);color:#94a3b8;font-size:.84rem;cursor:pointer;user-select:none}.wc.on{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;border-color:#818cf8}.wc.dis{opacity:.28;pointer-events:none}
-.wc.cell{flex:1;margin:0;text-align:center;padding:8px 2px;line-height:1.35}.wc.cell b{font-size:.9rem}.wc.cell.on{background:#8b5cf633;border-color:#a78bfa;color:#e9d5ff}
-.sn{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#6366f1;color:#fff;font-size:.72rem;margin-right:8px}.hn{margin-top:8px;padding:8px 10px;border-radius:10px;background:#1e1b4b66;color:#c7d2fe}
-.dd{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:8px;margin:2px;font-size:.68rem;font-weight:700;color:#fff}.dd.g{background:#166534}.dd.r{background:#991b1b}.dd.y{background:#854d0e}.sel{box-shadow:0 0 0 2px #a5b4fc}
+.moti{background:linear-gradient(135deg,#1e3a5f,#1a2332);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:14px;line-height:1.7}
+.moti b{display:block;font-size:.75rem;color:#93c5fd;margin-bottom:4px;font-weight:600}
+.tcards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.tcard{background:var(--card);border:2px solid var(--bd);border-radius:12px;padding:10px 6px;cursor:pointer;text-align:center}
+.tcard .ti{font-size:1.4rem}.tcard b{display:block;font-size:.9rem;margin:2px 0}.tcard span{display:block;font-size:.68rem;color:var(--mut);line-height:1.3}
+.tcard.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 18%,var(--card))}
+.tcard.on b{color:var(--c)}
+summary{cursor:pointer;color:#93c5fd;font-weight:600}
 </style>
 </head>
 <body>
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="brand"><div class="logo">CD</div><div><h1>Confluence Desk</h1><small>ICT Journal &amp; Market Planner</small></div></div><div class="bal"><small>ব্যালেন্স</small><b id="balTop" style="font-size:1.2rem"></b></div></div>
-<p class="sub">অফলাইন • ডেটা এই ব্রাউজারে সেভ থাকে • প্রতি ট্রেডে চেকলিস্ট ও অটো বিশ্লেষণ</p>
-<div id="newsBar" class="alert w" style="display:none"></div>
+<div id="moti" class="moti"></div>
 <div id="alert" class="alert"></div>
+<div id="newsBar"></div>
 <div class="tabs">
   <div class="tab on" data-t="new">নতুন ট্রেড</div>
+  <div class="tab" data-t="plan">ডেইলি প্ল্যান</div>
   <div class="tab" data-t="list">ট্রেড লিস্ট</div>
-  <div class="tab" data-t="ana">বিশ্লেষণ</div>
+  <div class="tab" data-t="ana">অ্যানালাইসিস</div>
   <div class="tab" data-t="acc">অ্যাকাউন্ট</div>
-  <div class="tab" data-t="pred">প্রেডিকশন</div>
-  <div class="tab" data-t="news">নিউজ</div>
 </div>
 
 <div id="t-new">
-  <div class="card"><h2>ট্রেডের তথ্য</h2>
+  <div class="tcards" id="tcards"></div>
+  <div class="card"><details><summary>তিন ধরনের ট্রেড — কোনটা কখন (গাইড)</summary>
+  <div class="sm2" style="line-height:1.75;margin-top:8px">
+  <b>মার্কেটের চলার ধারা:</b> বড় TF POI ট্যাপ → ডিসপ্লেসমেন্ট → পুলব্যাক (লাস্ট POI পর্যন্ত) → এক্সপেনশন → পুলব্যাক → এক্সপেনশন → টার্গেট। মাঝে মাঝে অনেক সাইডওয়েজও থাকতে পারে।<br>
+  <b>🎯 Displacement:</b> Daily/Weekly POI ট্যাপের পর প্রথম মুভ। POI Refine করতে হয়: ওই POI-র ভেতরে 4H, না থাকলে 1H।<br>
+  <b>🚀 Expansion:</b> মার্কেট লাস্ট POI-কে পাত্তা না দিয়ে প্রথম পাওয়া POI থেকে সোজা ছুটছে। এখানে Refine করা হয় না।<br>
+  <b>↩ Pullback:</b> দুই রকম: ডিসপ্লেসমেন্টের পর (লাস্ট POI পর্যন্ত) আর এক্সপেনশনের পর। কোথা থেকে আসছে ও কোথা পর্যন্ত যাবে, আগে ঠিক করো।<br>
+  <b>শেখার ক্রম:</b> আগে Expansion মাস্টার করো, তারপর Displacement, তারপর Pullback।</div></details></div>
+  <div class="card"><h2>ট্রেড ডিটেইলস</h2>
     <div class="row">
       <div class="f"><span>তারিখ</span><input type="date" id="date"></div>
-      <div class="f"><span>পেয়ার</span><select id="pair"></select><div id="pairAdd" style="display:none;margin-top:6px"><div style="display:flex;gap:6px"><input type="text" id="pairNew" placeholder="যেমন USDJPY" autocapitalize="characters"><button type="button" class="sm" id="pairOk">যোগ</button></div></div><button type="button" class="sm s" id="pairDel" style="display:none;margin-top:6px">এই পেয়ার তালিকা থেকে সরান</button></div>
-      <div class="f"><span>দিক</span><select id="dir"><option value="Buy">Buy (কিনেছি)</option><option value="Sell">Sell (বেচেছি)</option></select></div>
+      <div class="f"><span>পেয়ার</span><select id="pair"><option>EURUSD</option><option>GBPUSD</option><option>XAUUSD</option></select></div>
+      <div class="f"><span>ডিরেকশন</span><select id="dir"><option>Buy</option><option>Sell</option></select></div>
     </div>
     <div class="row">
-      <div class="f"><span>ঝুঁকি ($১–$২৭)</span><input type="number" id="risk" min="1" max="27" step="0.1" value="25"></div>
-      <div class="f"><span>ফলাফল</span><select id="res"><option value="pending">চলমান</option><option value="win">জয়</option><option value="loss">লস</option><option value="be">ব্রেক ইভেন</option></select></div>
-      <div class="f"><span>লাভ/লোকসান $ (ঐচ্ছিক)</span><input type="number" id="pnl" step="0.1" placeholder="যেমন 75 বা -25"></div>
-      <div class="f"><span>কমিশন ($)</span><input type="number" id="comm" min="0" step="0.01" placeholder="0"></div>
+      <div class="f" style="display:none"><span>ট্রেড টাইপ</span><select id="type"><option value="displacement">Displacement</option><option value="expansion">Expansion</option><option value="pullback">Pullback</option></select></div>
+      <div class="f" id="subW" style="display:none"><span>পুলব্যাক টাইপ</span><select id="sub"><option>আফটার ডিসপ্লেসমেন্ট</option><option>আফটার এক্সপেনশন</option></select></div>
+      <div class="f"><span>লোয়ার TF কনফার্মেশন</span><select id="conf"><option value="none">নেই / নিইনি</option><option>CISD</option><option>Displacement</option><option>MSS</option></select></div>
+    </div>
+    <div class="sm2" id="tdesc" style="margin-bottom:10px"></div>
+    <div class="row">
+      <div class="f"><span>এন্ট্রি সময়</span><input type="time" id="etime"></div>
+      <div class="f"><span>এন্ট্রি TF (কত মিনিটে নিলে)</span><select id="etf"><option>1m</option><option>5m</option><option selected>15m</option><option>30m</option><option>1H</option></select></div>
+      <div class="f"><span>POI কোন TF-এর</span><select id="ptf"><option>Weekly</option><option selected>Daily</option><option>4H</option><option>1H</option></select></div>
+    </div>
+    <div class="sm2" id="ptfHint" style="margin-bottom:10px"></div>
+    <div class="row">
+      <div class="f"><span>টার্গেট কোথায়</span><select id="ttype"><option>Liquidity</option><option>POI</option><option>Liquidity + POI</option></select></div>
+      <div class="f" style="flex:2"><span>টার্গেট জায়গা / প্রাইস</span><input type="text" id="tnote" placeholder="যেমন Daily high liquidity, 1.0850"></div>
+    </div>
+    <div class="row">
+      <div class="f"><span>রিস্ক ($)</span><input type="number" id="risk" min="1" max="27" step="0.1" value="25"></div>
+      <div class="f"><span>রেজাল্ট</span><select id="res"><option value="pending">Pending</option><option value="win">Win</option><option value="loss">Loss</option></select></div>
+      <div class="f"><span>প্রফিট/লস পরিমাণ $ (Win/Loss হলে; চিহ্ন অটো)</span><input type="number" id="pnl" step="0.01" min="0" placeholder="যেমন 75"></div>
+      <div class="f"><span>কমিশন কাটা $ (ঐচ্ছিক)</span><input type="number" id="comm" step="0.01" min="0" placeholder="যেমন 3.5"></div>
     </div>
     <div class="sm2" id="autoInfo"></div><div class="chips" id="autoChips"></div>
   </div>
+  <div class="card" id="live"></div>
   <div id="form"></div>
-  <div class="card"><h2>নোট (ঐচ্ছিক)</h2><textarea id="note" rows="2" placeholder="কীভাবে ট্রেড নিলাম / কী শিখলাম"></textarea></div>
-  <button style="width:100%" id="saveBtn">সেভ করুন</button>
+  <div class="card"><h2>নোট (ঐচ্ছিক)</h2><textarea id="note" rows="2" placeholder="কী ভাবে ট্রেড নিলে / কী শিখলে"></textarea></div>
+  <button style="width:100%" id="saveBtn">সেভ করো</button>
   <div id="saved" class="card" style="display:none;margin-top:12px"></div>
 </div>
 
-<div id="t-acc" style="display:none">
-  <div class="stats" id="accStats"></div>
-  <div class="card"><h2>জমা / উত্তোলন</h2>
-    <div class="row"><div class="f"><span>পরিমাণ ($)</span><input type="number" id="amt" min="0" step="0.01"></div><div class="f"><span>নোট (ঐচ্ছিক)</span><input type="text" id="amtN"></div></div>
-    <button class="gr" id="depB">+ জমা</button> <button class="rd" id="wdB">− উত্তোলন</button>
-    <div class="sm2" style="margin-top:6px">উত্তোলন ব্যালেন্স থেকে কাটা হবে।</div></div>
-  <div class="card"><h2>কমিশন (আলাদা খরচ)</h2>
-    <div class="row"><div class="f"><span>কমিশন ($)</span><input type="number" id="cm" min="0" step="0.01"></div><div class="f"><span>নোট (ঐচ্ছিক)</span><input type="text" id="cmN"></div></div>
-    <button class="s" id="cmB">কমিশন যোগ করুন</button>
-    <div class="sm2" style="margin-top:6px">ট্রেডে দেওয়া কমিশনও এই মোটে যোগ হয়।</div></div>
-  <div class="card"><h2>লেনদেন</h2><div id="accList"></div></div>
+<div id="t-plan" style="display:none">
+  <div class="card"><details><summary style="cursor:pointer;color:#93c5fd;font-weight:600">ডেইলি প্রেডিকশন কীভাবে করবে (ধাপে ধাপে)</summary>
+  <ol style="padding-left:20px;margin-top:8px;line-height:1.6;font-size:.88rem">
+  <li><b>ট্রেন্ড:</b> Weekly ও Daily-তে ট্রেন্ড ঠিক করো। লোয়ার TF-এ কখনো ট্রেন্ড খুঁজবে না।</li>
+  <li><b>মার্ক করো:</b> Monthly → Weekly → Daily চার্টে আশেপাশের লিকুইডিটি ও POI মার্ক করো।</li>
+  <li><b>সাইকেল দেখো:</b> মার্কেট লিকুইডিটি→POI, POI→লিকুইডিটি, POI→POI বা লিকুইডিটি→লিকুইডিটি চলে। এখন কোথা থেকে এসেছে, পরের টার্গেট কোনটা?</li>
+  <li><b>গতকালের ক্যান্ডেল:</b> আগের ক্যান্ডেলের হাই/লো-র লিকুইডিটি নেওয়া হয়েছে কিনা দেখো।</li>
+  <li><b>বায়াস লেখো:</b> Up / Down / Sideways। পরিষ্কার না হলে Unclear লিখে ওই দিন ট্রেড নিও না, অপেক্ষা করো।</li>
+  <li><b>নিজে ঠিক করো:</b> Telegram পোল বা অন্যের বায়াস দেখে নয়। আগে চার্ট দেখে বায়াস ঠিক করো। দিনের মাঝে চার্ট উল্টো দেখালে বায়াস বদলাও (একই দিন ও পেয়ারে আবার সেভ করলে আপডেট হয়)।</li>
+  <li><b>নিউজ:</b> আজকের নিউজ ও তোমার প্রেডিকশন নিচে লিখে রাখো।</li>
+  <li><b>দিন শেষে মেলাও:</b> ✓ সঠিক / ✗ ভুল চাপো, ভুল হলে কারণ লেখো। শনি-রবিবার ১০টা পেয়ারে বায়াস প্র্যাক্টিস করতে পারো।</li>
+  </ol></details></div>
+  <div class="card"><h2>ডেইলি বায়াস (ট্রেডের আগে)</h2>
+    <div class="row"><div class="f"><span>তারিখ</span><input type="date" id="pdate"></div>
+      <div class="f"><span>পেয়ার</span><select id="ppair"><option>EURUSD</option><option>GBPUSD</option><option>XAUUSD</option></select></div></div>
+    <div class="row"><div class="f"><span>ট্রেন্ড (Weekly/Daily)</span><select id="ptrend"><option>Up</option><option>Down</option><option>Range</option></select></div>
+      <div class="f"><span>আজকের বায়াস</span><select id="pbias"><option>Up</option><option>Down</option><option>Sideways</option><option>Unclear</option></select></div>
+      <div class="f"><span>বায়াস কীসের ভিত্তিতে</span><select id="pbasis"><option>Liquidity</option><option>POI</option><option>Liquidity + POI</option></select></div></div>
+    <textarea id="pnote" rows="2" placeholder="কোথা থেকে এসেছে, কোথায় যেতে পারে (লিকুইডিটি/POI লেখো)" style="margin-bottom:10px"></textarea>
+    <button onclick="savePlan()">বায়াস সেভ করো</button></div>
+  <div class="card"><h2>নিউজ প্রেডিকশন</h2>
+    <div class="row"><div class="f"><span>তারিখ</span><input type="date" id="ndate"></div><div class="f"><span>সময়</span><input type="time" id="ntime"></div></div>
+    <div class="row"><div class="f" style="flex:2"><span>নিউজের নাম</span><input type="text" id="nname" placeholder="যেমন US NFP"></div>
+      <div class="f"><span>ইমপ্যাক্ট</span><select id="nimp"><option>High</option><option>Medium</option><option>Low</option></select></div></div>
+    <div class="row"><div class="f"><span>পেয়ার</span><select id="npair"><option>সব</option><option>EURUSD</option><option>GBPUSD</option><option>XAUUSD</option></select></div>
+      <div class="f"><span>আমার প্রেডিকশন</span><select id="npred"><option value="Up">Up</option><option value="Down">Down</option><option value="Flat">কোনো দিক নয়</option></select></div></div>
+    <button onclick="saveNews()">নিউজ সেভ করো</button></div>
+  <div class="pills" data-p></div><div id="planList"></div>
 </div>
 
 <div id="t-list" style="display:none"><div class="pills" data-p></div><div id="list"></div></div>
 
+<div id="t-acc" style="display:none"><div class="card" id="bal"></div></div>
+
 <div id="t-ana" style="display:none">
   <div class="pills" data-p></div><div id="ana"></div>
   <div class="card"><h2>ব্যাকআপ</h2>
-    <div class="sm2" style="margin-bottom:8px">ব্রাউজারের ডেটা মুছলে সব হারিয়ে যাবে, তাই নিয়মিত ব্যাকআপ নিন।</div>
+    <div class="sm2" style="margin-bottom:8px">ব্রাউজার ডাটা মুছলে হারিয়ে যায়, তাই মাঝেমধ্যে ব্যাকআপ নাও।</div>
     <button class="sm gr" id="exp">ব্যাকআপ ডাউনলোড</button>
     <button class="sm s" id="impB">ব্যাকআপ লোড</button><input type="file" id="imp" accept=".json" style="display:none">
+    <div id="impMsg" class="sm2" style="margin-top:8px"></div>
   </div>
 </div>
 
-<div id="t-pred" style="display:none">
-  <div class="pills" data-p></div><div id="pStats"></div>
-  <div class="card"><h2>মার্কেট প্রেডিকশন (ট্রেড ছাড়া)</h2>
-    <div class="row"><div class="f"><span>তারিখ</span><input type="date" id="pdate"></div><div class="f"><span>পেয়ার / মার্কেট</span><input type="text" id="ppair" list="plist" placeholder="e.g. XAUUSD"><datalist id="plist"></datalist></div><div class="f"><span>প্রেডিকশনের সময় (কখন করেছি)</span><input type="time" id="ptime"></div></div><div id="ptc"></div>
-    <div id="pbias"></div>
-    <div class="bx"><b>প্ল্যান</b><textarea id="pplan" rows="3" placeholder="মার্কেট কোথা থেকে কোথায় যেতে পারে, কোন লিকুইডিটি/POI থেকে এন্ট্রি, টার্গেট কী"></textarea></div>
-    <button style="width:100%;margin-top:10px" id="pSave">প্রেডিকশন সেভ করুন</button></div>
-  <div class="card"><h2>প্রেডিকশন লিস্ট</h2><div id="pList"></div></div>
-</div>
-<div id="t-news" style="display:none">
-  <div class="pills" data-p></div><div id="nStats"></div>
-  <div class="card"><h2>🔴 রেড-ফোল্ডার নিউজ (হাই ইমপ্যাক্ট)</h2>
-    <div class="row"><div class="f"><span>তারিখ</span><input type="date" id="nDate"></div><div class="f"><span>নিউজের সময় (আপনার লোকাল)</span><input type="time" id="nTime"></div><div class="f"><span>কারেন্সি</span><select id="nCur"></select><div id="curAdd" style="display:none;margin-top:6px"><div style="display:flex;gap:6px"><input type="text" id="curNew" placeholder="যেমন CNY" autocapitalize="characters"><button type="button" class="sm" id="curOk">যোগ</button></div></div><button type="button" class="sm s" id="curDel" style="display:none;margin-top:6px">এই কারেন্সি তালিকা থেকে সরান</button></div></div>
-    <div class="row"><div class="f"><span>ইভেন্ট</span><select id="nEv"></select></div><div class="f" id="nCustW" style="display:none"><span>নিজের ইভেন্ট</span><input type="text" id="nCust"></div></div>
-    <div class="row"><div class="f"><span>ফোরকাস্ট</span><input type="text" id="nFc"></div><div class="f"><span>আগের</span><input type="text" id="nPv"></div><div class="f"><span>আসল</span><input type="text" id="nAc"></div></div>
-    <div class="row"><div class="f"><span>আমার প্রেডিকশন (নিউজে মার্কেট কোন দিকে যাবে)</span><select id="nMy"><option value="">—</option><option value="up">↑ উপরে</option><option value="down">↓ নিচে</option><option value="range">↔ রেঞ্জ / অনিশ্চিত</option></select></div><div class="f"><span>প্রেডিকশনের সময় (কখন করেছি)</span><input type="time" id="nPT"></div></div><div id="nptc"></div><textarea id="nNote" rows="2" placeholder="সম্ভাব্য রিঅ্যাকশন, দেখার লেভেল, নিউজ ঘিরে প্ল্যান"></textarea>
-    <button style="width:100%;margin-top:10px" id="nSave">নিউজ যোগ করুন</button></div>
-  <div class="pills" id="nPills"></div>
-  <div id="nList"></div>
-</div>
 <script>
-const GROUPS=[
- ['হায়ার টাইমফ্রেম বায়াস',[['b1','মান্থলি POI / লিকুইডিটি দেখেছি'],['b2','উইকলি রিফাইনমেন্ট আছে'],['b3','ডেইলি ডিসপ্লেসমেন্ট (OB + FVG) দেখেছি'],['b4','৪ঘ বা ১ঘ নেস্টেড POI আছে']]],
- ['এন্ট্রি কন্ডিশন (একটি বাছুন)',[['en_disp','ডিসপ্লেসমেন্ট'],['en_retest','রিটেস্ট'],['en_exp','এক্সপ্যানশন'],['en_sweep','লিকুইডিটি সুইপ']]],
- ['কনফার্মেশন ও ম্যানেজমেন্ট',[['e3','১৫মি / ৫মি ডিসপ্লেসমেন্ট কনফার্মেশন পেয়েছি'],['m1','স্টপ লস POI এর বাইরে'],['m2','লট সাইজ হিসাব করেছি'],['m3','টার্গেট ১:৩ R:R এ সেট'],['m4','এন্ট্রির পর হস্তক্ষেপ করিনি']]]
-];
-const RULES=[['a1','ঝুঁকি $১–$২৭ এর মধ্যে (অটো)'],['a2','দিনে মোট ঝুঁকি $৫০ এর মধ্যে (অটো)'],['a3','দিনে সর্বোচ্চ ২ ট্রেড (অটো)'],['h','HTF এরিয়া বেছেছি (POI / লিকুইডিটি)'],['rf','রিফাইনমেন্ট: ডেইলি/৪ঘ/১ঘ POI'],['tr','এন্ট্রি ১৫মি/৫মি স্ট্রাকচারে'],['e','এন্ট্রি কন্ডিশন (ডিসপ্লেসমেন্ট/রিটেস্ট/এক্সপ্যানশন/সুইপ)'],['tg','টার্গেট বিপরীত ৪ঘ+ POI/লিকুইডিটিতে'],['m1','স্টপ লস POI এর বাইরে'],['m2','লট সাইজ হিসাব করেছি'],['m4','এন্ট্রির পর হস্তক্ষেপ করিনি']];
-const TFN={M:'মান্থলি',W:'উইকলি',D:'ডেইলি','4H':'৪ঘণ্টার','1H':'১ঘণ্টার','15m':'১৫মিনিটের','5m':'৫মিনিটের','1m':'১মিনিটের'};
+const TYPES={displacement:'Displacement',expansion:'Expansion',pullback:'Pullback'};
+const TDESC={displacement:'বড় TF POI ট্যাপের পর প্রথম ডিসপ্লেসমেন্ট মুভ ধরা — এখানে POI Refine করতে হয়।',expansion:'মার্কেট লাস্ট POI রেসপেক্ট না করে সরাসরি ভাগছে — এখানে POI Refine করা যাবে না।',pullback:'ডিসপ্লেসমেন্ট বা এক্সপেনশনের পরের পুলব্যাক — কোথা থেকে আসছে, কোথা পর্যন্ত যাবে।'};
+const AUTO=[['a1','রিস্ক $1–$27 এর মধ্যে (অটো)'],['a2','ডেইলি মোট রিস্ক $50 এর মধ্যে (অটো)'],['a3','দিনে সর্বোচ্চ ২টি ট্রেড (অটো)']];
+const COMMON=[['c1','ট্রেন্ড Weekly/Daily TF-এ ফাইন্ড করেছি (লোয়ার TF-এ নয়)'],['c2','বায়াস ক্লিয়ার — লিকুইডিটি বা POI থেকে পরিষ্কার দিক পেয়েছি'],['c3','বায়াসের দিকে 4H বা 1H POI তৈরি আছে'],['c4','POI-তে রিটেস্টের জন্য অপেক্ষা করেছি'],['c6','আগে SL হলে অপেক্ষা করেছি, সাথে সাথে রিভেঞ্জ এন্ট্রি নয়'],['c7','তাড়াহুড়ো/ফ্রাস্ট্রেশনে নয়, সারা দিন চার্টে বসে ট্রেড খুঁজিনি']];
+const A4=['a4','ডেইলি বায়াস আগে লেখা ছিল ও ট্রেড তার দিকে (অটো)'];
+const HINT={pd1:'এই লাস্ট POI থেকেই এক্সপেনশন আসে।',pe1:'প্রতিটা এক্সপেনশনের পর BOS দেখে তারপর লাস্ট POI-তে পুলব্যাকের অপেক্ষা।',pe2:'POI 4H বা 1H-এর হতে পারে।',pe3:'একটা ট্রেড অনেক দিন হোল্ড করা যায় না; স্বিংয়ে মাল্টিপল ট্রেড নিতে পারো।',d4:'দুইটা এন্ট্রি নিতে চাইলে Displacement ও MSS থেকে।',c1:'ট্রেন্ড শুধু Weekly/Daily-তে; 15m-এ গেলে উল্টো ট্রেন্ডও দেখা যায়।',c2:'লিকুইডিটি→POI বা POI→লিকুইডিটি। বায়াস ক্লিয়ার না হলে সেদিন ট্রেড নয়, অপেক্ষা করো।',c3:'বায়াসের দিকে POI না থাকলে POI তৈরির অপেক্ষা করো।',c4:'মার্কেট POI-তে আসার পর রিটেস্টের অপেক্ষা; ৫ মিনিটের স্ট্রাকচার দেখে ঢুকো না।',c6:'একটা SL-এর পর অপেক্ষা করো, হাতে হাতে বারবার এন্ট্রি নয়।',c7:'এই ট্রেড ধীরে তৈরি হয়; সারা দিন চার্টে বসলে তাড়াহুড়োর ভুল ট্রেড হয়।',d1:'Weekly POI হলে 4H-তে, Daily POI হলে 1H-তে প্রসেস দেখো।',d2:'রিফাইন শুধু বড় POI-র ভেতরে; বাইরের POI ধরবে না। ডিসপ্লেসমেন্ট ধরতেই রিফাইন করা হয়।',d3:'ক্যান্ডেল সংখ্যা নয়, প্রসেস কমপ্লিট হয়েছে কিনা দেখো। এরপরের ক্যান্ডেলই এক্সপেনশন।',x2:'এক্সপেনশন ধরতে POI Refine করা হয় না।',p1:'দুই ধরনের পুলব্যাক: ডিসপ্লেসমেন্টের পর (লাস্ট POI পর্যন্ত) ও এক্সপেনশনের পর।',g3:'লো রেজিস্ট্যান্স লিকুইডিটি থাকলে একদিনেই টার্গেট আসতে পারে; হার্ডল বেশি হলে মার্কেট সুইং বানিয়ে যায়, বেশি দিন হোল্ড করা যায় না।'};
+const C5=['c5','লোয়ার TF কনফার্মেশন (CISD / Displacement / MSS)'];
+const TYPE_RULES={
+ displacement:[['d1','বড় TF (Daily/Weekly) POI মার্কেট ট্যাপ করেছে'],['d2','POI Refine করেছি — শুধু ওই POI-র ভেতরের 4H (না থাকলে 1H) POI'],['d3','ট্যাপ → ডিসপ্লেসমেন্ট → রিটেস্ট প্রসেস কমপ্লিট (Weekly POI→4H, Daily POI→1H)'],['d4','এন্ট্রি রিফাইন করা POI থেকে, রিটেস্টের পর কনফার্মেশনে (দরকারে রিটেস্টে দ্বিতীয় এন্ট্রি)']],
+ expansion:[['x1','মার্কেট এক্সপেনশন মোডে — লাস্ট POI রেসপেক্ট না করে প্রথম পাওয়া POI থেকে ছুটছে (BOS)'],['x2','POI Refine করিনি (এক্সপেনশনে রিফাইন নয়)'],['x3','টার্গেট লিকুইডিটি/POI আগে থেকে ক্লিয়ার']],
+ pullback:[['p1','পুলব্যাক কোথা থেকে আসছে তা মার্ক করেছি'],['p2','পুলব্যাক কোথা পর্যন্ত যাবে তা মার্ক করেছি (লাস্ট POI)'],['p3','বড় বায়াসের দিকেই এন্ট্রি — কাউন্টার ট্রেন্ড নয়']]};
+const PB={d:[['pd1','ডিসপ্লেসমেন্টের লাস্ট POI পর্যন্ত পুলব্যাকের অপেক্ষা করেছি']],e:[['pe1','এক্সপেনশনে ব্রেক অফ স্ট্রাকচার (BOS) হয়েছে'],['pe2','এক্সপেনশনের লাস্ট POI (4H/1H) থেকে এন্ট্রি'],['pe3','ট্রেড ওই দিনের মধ্যে বা টার্গেটে ক্লোজ করব, বেশি দিন হোল্ড নয়']]};
+const typeRules=(ty,sub)=>ty==='pullback'?[...TYPE_RULES.pullback,...(sub==='আফটার এক্সপেনশন'?PB.e:PB.d)]:TYPE_RULES[ty];
+const TCOL={displacement:'#3b82f6',expansion:'#10b981',pullback:'#f59e0b'},TICON={displacement:'🎯',expansion:'🚀',pullback:'↩'},TSHORT={displacement:'বড় POI ট্যাপের পর প্রথম মুভ',expansion:'লাস্ট POI না মেনে সোজা ছুটছে',pullback:'ডিসপ্লেসমেন্ট/এক্সপেনশনের পর'};
+const MGMT=[['g1','SL বসিয়েছি (SL ছাড়া ট্রেড নয়)'],['g2','লট সাইজ ক্যালকুলেট করেছি'],['g3','টার্গেট 1:3 R:R সেট করেছি'],['g4','এন্ট্রির পর SL/টার্গেট নাড়াইনি, আগে বের হইনি']];
+// পুরনো ফরম্যাটের ট্রেডের জন্য
+const LEG=[...AUTO,['b1','Monthly POI / Liquidity'],['b2','Weekly refinement'],['b3','Daily displacement (OB+FVG)'],['b4','4H/1H nested POI'],['e','এন্ট্রি কন্ডিশন (POI বা Sweep)'],['m1','স্টপ লস POI-এর বাইরে'],['m2','লট সাইজ ক্যালকুলেট'],['m3','1:3 R:R টার্গেট'],['m4','এন্ট্রির পর চার্ট নাড়াইনি']];
+function rulesFor(t){if(!t.type)return LEG;return [...AUTO,A4,...COMMON.slice(0,4),C5,...COMMON.slice(4),...typeRules(t.type,t.sub),...MGMT].filter(r=>t.c[r[0]]!==undefined);}
+const TN=t=>t.type?TYPES[t.type]+(t.sub?' ('+t.sub+')':''):'পুরনো ফরম্যাট';
 const K='tc_v3', $=id=>document.getElementById(id);
 let T=[],P='week';
+let ACC={start:0,adj:[]};
 try{T=JSON.parse(localStorage.getItem(K))||[]}catch(e){}
-const save=()=>{try{localStorage.setItem(K,JSON.stringify(T))}catch(e){alert('সেভ করা যায়নি')}};
+try{ACC=JSON.parse(localStorage.getItem(K+'_acc'))||ACC}catch(e){}
+T.forEach(t=>{if(t.c&&t.c.a1!==undefined)t.c.a1=t.risk>=1&&t.risk<=27;});
+const saveAcc=()=>{try{localStorage.setItem(K+'_acc',JSON.stringify(ACC))}catch(e){}};
+let D={plans:[],news:[]};
+try{D=Object.assign(D,JSON.parse(localStorage.getItem(K+'_plan'))||{})}catch(e){}
+const saveD=()=>{try{localStorage.setItem(K+'_plan',JSON.stringify(D))}catch(e){}};
+const net1=t=>(t.result==='pending'?0:(t.pnl||0))-(t.comm||0);
+const f$=n=>(n>=0?'':'-')+'$'+Math.abs(n).toFixed(2);
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(T))}catch(e){msg('সেভ করা যায়নি — ব্রাউজারে স্টোরেজ বন্ধ আছে')}};
+let EDIT=null,DELC=null,PEND=null;
+function msg(t){const e=$('alert');e.className='alert show';e.textContent=t;}
 const ds=d=>{d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const ANY=(t,re)=>Object.keys(t.c).some(k=>re.test(k)&&t.c[k]);
-const ok=(t,id)=>{const c=t.c;switch(id){case 'h':return ANY(t,/^(Lq|Po)_/);case 'rf':return ANY(t,/^RPo_[a-z]+_(D|4H|1H)$/);case 'tr':return t.etf==='15m'||t.etf==='5m';case 'e':return !!(c.en_disp||c.en_retest||c.en_exp||c.en_sweep||c.e1||c.e2);case 'tg':return ANY(t,/^T(Po|Lq)_[a-z]+_(4H|D|W|M)$/);default:return !!c[id]}};
-const broken=t=>RULES.filter(r=>!ok(t,r[0]));
-const score=t=>Math.round((RULES.length-broken(t).length)/RULES.length*100);
+const ok=(t,id)=>id==='e'?!!(t.c.e1||t.c.e2):!!t.c[id];
+const broken=t=>rulesFor(t).filter(r=>!ok(t,r[0]));
+const score=t=>{const n=rulesFor(t).length;return Math.round((n-broken(t).length)/n*100)};
 const pct=(a,b)=>b?Math.round(a/b*100):0;
-const rname=id=>RULES.find(r=>r[0]===id)[1];
+
+const MOTI=['ট্রেডিংয়ে প্রফিট আসে প্রসেস ফলো করার ফল হিসেবে। প্রতিটা ট্রেডে শুধু নিয়ম মানো, ফলাফল নিয়ে তাড়াহুড়ো করো না।','একটা SL এই খেলারই অংশ। রিস্ক ছোট রাখলে এক-দুটো লসে সবকিছু শেষ হয়ে যায় না। নিজের বিশ্লেষণে ভরসা রাখো।','বায়াস ক্লিয়ার না হলে অপেক্ষা করাও একটা সিদ্ধান্ত। ট্রেড না নেওয়া মানে হেরে যাওয়া নয়।','ট্রেডিং প্রবাবিলিটির খেলা। আজকের একটা লস তোমার পুরো পথের গল্প নয়। চেকলিস্ট ধরে এগিয়ে চলো।','লসের পর রিভেঞ্জ ট্রেড নয়। একটু থামো, শ্বাস নাও, তারপর চেকলিস্টে ফিরে এসো।','দ্রুত টাকা বানানোর চিন্তা ছেড়ে শেখা আর প্র্যাকটিসে মন দাও। প্রফিটেবল হওয়া তার ফল হয়ে আসবে।','নিজের ট্রেড লেখো, সপ্তাহে একবার বিশ্লেষণ করো। ভুল ধরতে পারাই উন্নতির আসল রাস্তা।'];
+$('moti').innerHTML='<b>আজকের কথা</b>'+MOTI[Math.floor(Date.now()/864e5)%MOTI.length];
+const PAIRS=[['কারেন্সি',['EURUSD','GBPUSD','USDJPY','AUDUSD','NZDUSD','USDCAD','USDCHF','EURJPY','GBPJPY']],['মেটাল',['XAUUSD']],['ইনডিসেস',['GER40','JP225','US30','NAS100']]];
+const pairOpts=extra=>(extra?`<option>${extra}</option>`:'')+PAIRS.map(g=>`<optgroup label="${g[0]}">`+g[1].map(x=>`<option>${x}</option>`).join('')+'</optgroup>').join('');
+$('pair').innerHTML=pairOpts();$('ppair').innerHTML=pairOpts();$('npair').innerHTML=pairOpts('সব');
 
 // build form
-const LQ=[['h','হাই',['D','W','M']],['l','লো',['D','W','M']],['sh','সুইং হাই',['4H','D','W','M']],['sl','সুইং লো',['4H','D','W','M']]],
- LC=['4H','D','W','M'],PO=[['ob','অর্ডার ব্লক'],['fvg','FVG'],['gap','গ্যাপ/ইমব্যালান্স'],['mb','মিটিগেশন ব্লক']],TF=['M','W','D','4H','1H'],TAGS=[],TT=[],TR=[];
-const cell=(id,t)=>`<label class="cb"><input type="checkbox" id="${id}"><span>${t}</span></label>`;
-const mkL=(pre,tg)=>'<table class="gt"><tr><th></th>'+LC.map(c=>`<th>${c}</th>`).join('')+'</tr>'+LQ.map(r=>`<tr><td>${r[1]}</td>`+LC.map(c=>{if(!r[2].includes(c))return '<td></td>';const id=`${pre}Lq_${r[0]}_${c}`;tg.push([id,(TFN[c]||c)+' '+r[1]]);return `<td>${cell(id,c)}</td>`}).join('')+'</tr>').join('')+'</table>';
-const mkP=(pre,tg,cols=TF)=>'<table class="gt"><tr><th></th>'+cols.map(c=>`<th>${c}</th>`).join('')+'</tr>'+PO.map(r=>`<tr><td>${r[1]}</td>`+cols.map(c=>{const id=`${pre}Po_${r[0]}_${c}`;tg.push([id,(TFN[c]||c)+' '+r[1]]);return `<td>${cell(id,c)}</td>`}).join('')+'</tr>').join('')+'</table>';
-const grp=(i,n)=>{const g=GROUPS[i];return `<div class="card"><h2>${n}. ${g[0]}</h2>`+g[1].map(x=>`<label class="ck"><input type="checkbox" id="${x[0]}"> ${x[1]}</label>`).join('')+'</div>'};
-const sub=t=>`<div class="sm2" style="margin:8px 0 4px;color:#93c5fd">${t}</div>`;
-$('form').innerHTML='<div id="hid" style="display:none">'+mkL('',TAGS)+mkP('',TAGS)+mkP('R',TR,['D','4H','1H','15m','5m'])+mkL('T',TT)+mkP('T',TT)+['en_disp','en_retest','en_exp','en_sweep'].map(i=>`<input type="checkbox" id="${i}">`).join('')+'<input id="plan"><select id="etf"><option value=""></option><option>1H</option><option>15m</option><option>5m</option><option>1m</option></select><select id="lqm"><option value=""></option><option value="sweep"></option><option value="target"></option><option value="poi"></option></select><div id="chain"></div></div><div id="wiz"></div>'
- +'<div class="card"><h2><span class="sn">৬</span>কারণ ও ম্যানেজমেন্ট</h2><input type="text" id="why" placeholder="এন্ট্রির কারণ এক লাইনে (যেমন: ডেইলি হাই সুইপ, ১ঘ OB তে ১৫মি ডিসপ্লেসমেন্ট)"><input type="text" id="tgt" placeholder="টার্গেট কতদূর (যেমন: ডেইলি লো ১.০৮৫০)" style="margin-top:6px"><div class="sm2" style="margin:12px 0 4px">💰 টেক প্রফিট — R:R বাছুন, অথবা নিজের মতো $ লিখুন (৭৫ এর বেশি/কম যা খুশি)</div><div id="rrc" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px"></div><div class="row"><div class="f"><span>টার্গেট লাভ ($)</span><input type="number" id="tpa" min="0" step="0.1" placeholder="যেমন 75, 90, 60"></div><div class="f"><span>R:R (অটো হিসাব)</span><input type="text" id="rrt" readonly></div></div><label class="ck"><input type="checkbox" id="m1"> স্টপ লস POI এর বাইরে</label><label class="ck"><input type="checkbox" id="m2"> লট সাইজ হিসাব করেছি</label><label class="ck"><input type="checkbox" id="m4"> এন্ট্রির পর হস্তক্ষেপ করিনি</label></div>';
-$('date').value=ds();
-
-const RRS=[1,1.5,2,2.5,3,4,5],fmtN=n=>String(+(+n).toFixed(2));let RRV=3;
-function rrPaint(){const r=+$('risk').value||0,tp=+$('tpa').value||0;
-  $('rrc').innerHTML=RRS.map(v=>`<button type="button" class="sm s ${RRV===v?'sel':''}" data-rr="${v}">১:${v}</button>`).join(' ');
-  $('rrt').value=r&&tp?'১:'+fmtN(tp/r):'—';}
-function rrSet(v){RRV=v;const r=+$('risk').value||0;$('tpa').value=r?fmtN(r*v):'';rrPaint();}
-document.addEventListener('click',e=>{const b=e.target.closest('[data-rr]');if(b)rrSet(+b.dataset.rr)});
-$('tpa').addEventListener('input',()=>{const r=+$('risk').value||0,t=+$('tpa').value||0;RRV=RRS.find(v=>Math.abs(t-r*v)<0.005)||null;rrPaint()});
-$('risk').addEventListener('input',()=>{if(RRV)rrSet(RRV);else rrPaint()});
-rrSet(3);
-function setTp(id){const t=T.find(x=>x.id===id);const v=prompt('টার্গেট লাভ ($) লিখুন, যেমন 75 বা 120 (ফাঁকা = মুছে ফেলুন)',t.tp??'');if(v===null)return;if(v.trim()===''){t.tp=null;t.rr=null}else if(!isNaN(+v)&&+v>0){t.tp=+v;t.rr=t.risk?+(+v/t.risk).toFixed(2):null}else return;save();render();}
-window.setTp=setTp;
-function setTpV(id,v){const t=T.find(x=>x.id===id);if(!t)return;v=(''+v).trim();if(v===''){t.tp=null;t.rr=null}else if(+v>0){t.tp=+v;t.rr=t.risk?+(+v/t.risk).toFixed(2):null}else return;save();render();}
-function setTpR(id,r){const t=T.find(x=>x.id===id);if(!t||!t.risk)return;t.rr=r;t.tp=+(t.risk*r).toFixed(2);save();render();}
-window.setTpV=setTpV;window.setTpR=setTpR;
-
-let S={};const TN={ob:'OB',fvg:'FVG',gap:'গ্যাপ',mb:'MB'};
-const clrp=re=>document.querySelectorAll('#hid input[type=checkbox]').forEach(i=>{if(re.test(i.id))i.checked=false});
-function cm(pre,ty,tf){clrp(new RegExp('^'+pre));if(ty&&tf){const e=$(pre+ty+'_'+tf);if(e)e.checked=true}}
-const tgl=(k,v)=>{S[k]=S[k]===v?'':v};
-const ACT={plan:v=>{if(v==='chain')v=['poi','liq'].includes($('plan').value)?$('plan').value:'poi';$('plan').value=($('plan').value===v&&v==='ref')?'':v;const p=$('plan').value;$('lqm').value=p==='liq'?'sweep':p?'poi':'';if(p==='ref'){if(!$('etf').value)$('etf').value='15m';if(!S.ttf)S.ttf='4H'}},
- ptf:v=>{tgl('ptf',v);cm('Po_',S.pty,S.ptf)},pty:v=>{tgl('pty',v);cm('Po_',S.pty,S.ptf)},
- ltf:v=>{tgl('ltf',v);cm('Lq_',S.lty,S.ltf)},lty:v=>{tgl('lty',v);cm('Lq_',S.lty,S.ltf)},
- role:v=>{$('lqm').value=v},
- ch:v=>{const O=['','ob','fvg','gap','mb'],e=[...document.querySelectorAll('#hid input')].find(i=>i.checked&&i.id.startsWith('RPo_')&&i.id.endsWith('_'+v)),cur=e?e.id.split('_')[1]:'';clrp(new RegExp('^RPo_[a-z]+_'+v+'$'));const n=O[(O.indexOf(cur)+1)%O.length];if(n)$('RPo_'+n+'_'+v).checked=true},
- trg:v=>{$('etf').value=$('etf').value===v?'':v},
- en:v=>{const was=$(v).checked;EN.forEach(o=>$(o).checked=false);$(v).checked=!was},
- tty:v=>{tgl('tty',v);ctg()},ttf:v=>{tgl('ttf',v);ctg()}};
-function ctg(){clrp(/^T(Po|Lq)_/);if(S.tty&&S.ttf){const[k,ty]=S.tty.split(':'),e=$('T'+k+'_'+ty+'_'+S.ttf);if(e)e.checked=true}}
-document.addEventListener('click',e=>{const c=e.target.closest('.wc');if(!c)return;ACT[c.dataset.a](c.dataset.v);paintW()});
-const upd=()=>{S={};$('plan').value='';paintW()};
-function paintW(){
- const plan=$('plan').value,ch=(a,v,t,on,x)=>`<span class="wc ${on?'on':''} ${x||''}" data-a="${a}" data-v="${v}">${t}</span>`,ex=(p,ty,tf)=>!!$(p+ty+'_'+tf);
- const REC={M:['D','1H','15m'],W:['4H','15m'],D:['1H','15m','5m'],'4H':['1H','15m']},base=plan==='liq'?S.ltf:S.ptf,rec=plan==='ref'?['4H']:(REC[base]||[]);
- const HP={M:'মান্থলি POI → ডেইলি OB/FVG (ডিসপ্লেসমেন্ট) → ১ঘ OB/FVG → ১৫মি/৫মি POI তে এন্ট্রি',W:'উইকলি POI → ৪ঘ OB/FVG → ১৫মি ডিসপ্লেসমেন্টে এন্ট্রি',D:'ডেইলি POI → ১ঘ OB/FVG → ১৫মি/৫মি ডিসপ্লেসমেন্টে এন্ট্রি'},
-  HL={M:'মান্থলি সুইপ → ডেইলি OB/FVG → এন্ট্রি',W:'উইকলি সুইপ → ৪ঘ POI → ১৫মি ডিসপ্লেসমেন্টে এন্ট্রি',D:'ডেইলি সুইপ → ১ঘ POI → ১৫মি/৫মি ডিসপ্লেসমেন্টে এন্ট্রি','4H':'৪ঘ সুইপ → ১ঘ POI → ১৫মি এন্ট্রি'};
- const sn=(n,t)=>`<h2><span class="sn">${n}</span>${t}</h2>`,hint=t=>t?`<div class="sm2 hn">💡 ${t}</div>`:'';
- const HT=[['M','মান্থলি'],['W','উইকলি'],['D','ডেইলি']],PT=['ob','fvg','gap','mb'],LT=[['h','হাই'],['l','লো'],['sh','সুইং হাই'],['sl','সুইং লো']];
- let h=`<div class="card">${sn('১','আজকের এন্ট্রি প্ল্যান কোনটা?')}${ch('plan','ref','⚡ রিফাইন প্ল্যান',plan==='ref')}${ch('plan','chain','⛓ ডিসপ্লেসমেন্ট চেইন প্ল্যান',plan==='poi'||plan==='liq')}${plan==='poi'||plan==='liq'?`<div class="sm2" style="margin-top:6px">শুরু কোথা থেকে?</div>`+ch('plan','poi','HTF POI থেকে',plan==='poi')+ch('plan','liq','লিকুইডিটি সুইপ থেকে',plan==='liq'):''}${hint(plan==='ref'?'HTF POI তে মার্কেট এলে → ৪ঘ POI (না পেলে ১ঘ) রিফাইন → ১৫মি OB/FVG তৈরি হলে এন্ট্রি → টার্গেট বিপরীত ৪ঘ POI':plan?'HTF POI বা লিকুইডিটি সুইপের পর নিচের টাইমফ্রেমে ডিসপ্লেসমেন্টে OB/FVG তৈরি → ধাপে ধাপে নেমে ১৫মি/৫মি এন্ট্রি':'')}</div>`;
- h+=`<div class="card">${sn('২','HTF এরিয়া — মার্কেট কোথায়?')}`;
- if(plan==='liq'){h+=`<div class="sm2">কোন লিকুইডিটি?</div>`+LT.map(x=>ch('lty',x[0],x[1],S.lty===x[0])).join('')+`<div class="sm2" style="margin-top:6px">কোন টাইমফ্রেমের?</div>`+['4H','D','W','M'].map(t=>ch('ltf',t,TFN[t].replace('র',''),S.ltf===t,S.lty&&!ex('Lq_',S.lty,t)?'dis':'')).join('')+`<div class="sm2" style="margin-top:6px">সুইপের অবস্থা</div>`+[['sweep','সুইপ হয়ে গেছে'],['target','এখনো হয়নি (টার্গেট)']].map(x=>ch('role',x[0],x[1],$('lqm').value===x[0])).join('')+hint(HL[S.ltf]);}
- else if(plan==='poi'||plan==='ref'){h+=`<div class="sm2">কোন টাইমফ্রেমের POI?</div>`+HT.map(x=>ch('ptf',x[0],x[1],S.ptf===x[0])).join('')+`<div class="sm2" style="margin-top:6px">ধরন</div>`+PT.map(t=>ch('pty',t,TN[t],S.pty===t)).join('')+hint(plan==='ref'?'মার্কেট যে HTF POI তে গেছে সেটা বাছুন':HP[S.ptf]);}
- else h+='<div class="sm2">আগে ১ নম্বরে প্ল্যান বাছুন ☝</div>';
- h+='</div>';
- const cell=t=>{const e=[...document.querySelectorAll('#hid input')].find(i=>i.checked&&i.id.startsWith('RPo_')&&i.id.endsWith('_'+t)),ty=e?TN[e.id.split('_')[1]]:'—';return ch('ch',t,`<small>${rec.includes(t)?'⭐':''}${t==='D'?'ডেইলি':t}</small><br><b>${ty}</b>`,!!e,'cell')};
- h+=`<div class="card">${sn('৩',plan==='ref'?'রিফাইনমেন্ট — আগে ৪ঘ, না পেলে ১ঘ':'রিফাইনমেন্ট — ডিসপ্লেসমেন্টে কী তৈরি হলো?')}<div class="sm2">ট্যাপ করলে ঘুরবে: — → OB → FVG → গ্যাপ → MB ${rec.length?'• ⭐ = প্রস্তাবিত':''}</div><div style="display:flex;gap:5px;margin-top:6px">`+(plan==='ref'?['4H','1H']:['D','4H','1H','15m','5m']).map(t=>cell(t)).join('')+'</div></div>';
- h+=`<div class="card">${sn('৪','এন্ট্রি — কোথায় কনফার্মেশন?')}${plan==='ref'?'<div class="sm2">১৫মি এ স্ট্রাকচার (OB/FVG) তৈরি হয়েছে?</div><div style="display:flex;margin-bottom:6px">'+cell('15m')+'</div>':''}<div class="sm2">ট্রিগার টাইমফ্রেম</div>`+['15m','5m','1m','1H'].map(t=>ch('trg',t,TFN[t].replace('র',''),$('etf').value===t)).join('')+`<div class="sm2" style="margin-top:6px">কী দেখে নিলাম</div>`+[['en_disp','ডিসপ্লেসমেন্ট'],['en_retest','রিটেস্ট'],['en_exp','এক্সপ্যানশন'],['en_sweep','লিকুইডিটি সুইপ']].map(x=>ch('en',x[0],x[1],$(x[0]).checked)).join('')+'</div>';
- h+=`<div class="card">${sn('৫','টার্গেট — কোথায় পর্যন্ত?')}<div class="sm2">${plan==='ref'?'মূল টার্গেট: এন্ট্রির উল্টো দিকের ৪ঘ POI':'এন্ট্রির উল্টো দিকের ৪ঘ বা বড় POI / লিকুইডিটি'}</div>`+[['Po:ob','OB'],['Po:fvg','FVG'],['Po:gap','গ্যাপ'],['Po:mb','MB'],['Lq:h','হাই'],['Lq:l','লো'],['Lq:sh','সুইং হাই'],['Lq:sl','সুইং লো']].map(x=>ch('tty',x[0],x[1],S.tty===x[0])).join('')+`<div class="sm2" style="margin-top:6px">টাইমফ্রেম</div>`+['1H','4H','D','W','M'].map(t=>{const[k,ty]=(S.tty||':').split(':');return ch('ttf',t,TFN[t].replace('র',''),S.ttf===t,S.tty&&!ex('T'+k+'_',ty,t)?'dis':'')}).join('')+'</div>';
- chain();const tl=TT.filter(x=>$(x[0])&&$(x[0]).checked).map(x=>x[1]).join(', '),pv=[$('chain').textContent,tl&&'টার্গেট: '+tl].filter(Boolean).join('  →  ');
- const c={};document.querySelectorAll('#form input').forEach(i=>c[i.id]=i.checked);const a=auto();Object.assign(c,{a1:a.a1,a2:a.a2,a3:a.a3});const tt={c,etf:$('etf').value},bk=broken(tt),sc=score(tt);
- h=`<div class="hero" style="margin-top:10px"><h3>🧭 লাইভ চেইন</h3><div class="sm2" style="color:#e2e8f0">${pv||'এখনো কিছু বাছা হয়নি'}</div><div class="wb"><div style="width:${sc}%;background:${sc>=90?'#22c55e':sc>=60?'#eab308':'#ef4444'}"></div></div><div class="sm2" style="margin-top:4px">নিয়ম স্কোর ${sc}%${bk.length?' • বাকি: '+bk.slice(0,4).map(r=>r[1]).join(' | ')+(bk.length>4?' …':''):' ✓ সব ঠিক'}</div></div>`+h;
- $('wiz').innerHTML=h;}
-$('risk').addEventListener('input',paintW);$('form').addEventListener('change',paintW);
-upd();
+function renderForm(){
+  const keep=new Set([...document.querySelectorAll('#form input:checked')].map(i=>i.id)),ty=$('type').value,sub=$('sub').value;
+  const ck=x=>`<label class="ck"><input type="checkbox" id="${x[0]}" ${keep.has(x[0])?'checked':''}><span>${x[1]}${HINT[x[0]]?`<div class="sm2">${HINT[x[0]]}</div>`:''}</span></label>`;
+  const G=[['১. সাধারণ নিয়ম (সব ট্রেডে)',COMMON],['২. '+TYPES[ty]+(ty==='pullback'?' — '+sub:'')+' ট্রেডের নিয়ম',typeRules(ty,sub)],['৩. ট্রেড ম্যানেজমেন্ট',MGMT]];
+  $('form').innerHTML=G.map(g=>`<div class="card"><h2>${g[0]}</h2>`+g[1].map(ck).join('')+'</div>').join('');
+  $('subW').style.display=ty==='pullback'?'block':'none';
+  $('tdesc').textContent=TDESC[ty];
+  $('tcards').innerHTML=Object.keys(TYPES).map(k=>`<div class="tcard ${ty===k?'on':''}" data-k="${k}" style="--c:${TCOL[k]}"><div class="ti">${TICON[k]}</div><b>${TYPES[k]}</b><span>${TSHORT[k]}</span></div>`).join('');
+  updateLive();
+}
+function updateLive(){
+  const a=auto(),au=['a1','a2','a3','a4'].filter(k=>a[k]).length,cb=[...document.querySelectorAll('#form input[type=checkbox]')];
+  const got=au+cb.filter(i=>i.checked).length+($('conf').value!=='none'?1:0),tot=4+cb.length+1,pc=pct(got,tot),col=pc>=100?'var(--g)':pc>=70?'var(--y)':'var(--r)';
+  $('live').innerHTML=`<div style="display:flex;justify-content:space-between"><b>লাইভ স্কোর</b><b style="color:${col}">${pc}%</b></div><div class="bar"><div style="width:${pc}%;background:${col}"></div></div><div class="sm2">${tot-got}টি রুল বাকি/ভাঙা। ১০০% হলে তবেই "সব রুল ফলো" ধরা হবে।</div>`;
+}
+$('sub').addEventListener('change',renderForm);
+$('form').addEventListener('change',updateLive);
+$('type').addEventListener('change',renderForm);
+renderForm();
+$('date').value=ds();$('pdate').value=ds();$('ndate').value=ds();
+const nowT=()=>new Date().toTimeString().slice(0,5);$('etime').value=nowT();
+const PH={Weekly:'Weekly POI: ট্যাপ → ডিসপ্লেসমেন্ট → রিটেস্ট প্রসেস 4H-তে দেখো।',Daily:'Daily POI: প্রসেস 1H-তে দেখো।','4H':'4H POI: এর ভেতরে লোয়ার TF কনফার্মেশন (CISD/Displacement/MSS) দেখো।','1H':'1H POI: এর ভেতরে লোয়ার TF কনফার্মেশন (CISD/Displacement/MSS) দেখো।'};
+$('ptf').addEventListener('change',()=>$('ptfHint').textContent=PH[$('ptf').value]);$('ptfHint').textContent=PH[$('ptf').value];
 
 function auto(){
-  const d=$('date').value,r=+$('risk').value||0,day=T.filter(t=>t.date===d),used=day.reduce((s,t)=>s+t.risk,0);
-  return {a1:r>=1&&r<=27,a2:used+r<=50,a3:day.length<2,used,n:day.length};
+  const d=$('date').value,r=+$('risk').value||0,day=T.filter(t=>t.date===d),used=day.reduce((x,t)=>x+t.risk,0),dr=$('dir').value;
+  const pl=D.plans.find(p=>p.date===d&&p.pair===$('pair').value);
+  return {a1:r>=1&&r<=27,a2:used+r<=50,a3:day.length<2,a4:!!pl&&((pl.bias==='Up'&&dr==='Buy')||(pl.bias==='Down'&&dr==='Sell')),pl,used,n:day.length};
 }
 function showAuto(){
   const a=auto();
-  $('autoInfo').textContent=`আজ ইতিমধ্যে: ${a.n}টি ট্রেড, মোট ঝুঁকি $${a.used.toFixed(1)}`;
-  $('autoChips').innerHTML=[['a1','ঝুঁকি $১–২৭'],['a2','দৈনিক $৫০'],['a3','২ ট্রেডের নিচে']].map(x=>`<span class="chip ${a[x[0]]?'ok':'no'}">${a[x[0]]?'✓':'✗'} ${x[1]}</span>`).join('');
+  $('autoInfo').textContent=`এই দিনে আগে ${a.n}টি ট্রেড, মোট রিস্ক $${a.used.toFixed(1)} • ডেইলি বায়াস: ${a.pl?a.pl.bias:'লেখা নেই'}`;
+  $('autoChips').innerHTML=[['a1','রিস্ক $1–27'],['a2','ডেইলি $50'],['a3','২টির কম ট্রেড'],['a4','ডেইলি বায়াসের দিকে']].map(x=>`<span class="chip ${a[x[0]]?'ok':'no'}">${a[x[0]]?'✓':'✗'} ${x[1]}</span>`).join('');
 }
-['date','risk'].forEach(i=>$(i).addEventListener('input',showAuto));
+['date','risk','pair','dir','conf'].forEach(i=>{$(i).addEventListener('input',showAuto);$(i).addEventListener('change',showAuto)});
 
 function inP(d,p){
   const n=new Date(),today=ds(n);
@@ -265,343 +245,154 @@ function pills(){document.querySelectorAll('[data-p]').forEach(e=>{e.innerHTML=P
 // tabs & pills
 document.addEventListener('click',e=>{
   const t=e.target.closest('.tab'),p=e.target.closest('.pill');
-  if(t){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));['new','list','ana','acc','pred','news'].forEach(k=>$('t-'+k).style.display=k===t.dataset.t?'block':'none');render();}
-  if(p&&p.dataset.pp){P=p.dataset.pp;render();}
+  if(t){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));['new','plan','list','ana','acc'].forEach(k=>$('t-'+k).style.display=k===t.dataset.t?'block':'none');render();}
+  const tc=e.target.closest('.tcard');if(tc){$('type').value=tc.dataset.k;renderForm();}
+  if(p){P=p.dataset.pp;render();}
 });
 
-
-const nowT=()=>{const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};
-const TCH=[['এখন',''],['সকাল','09:00'],['দুপুর','13:00'],['বিকেল','16:00'],['সন্ধ্যা','19:00'],['রাত','22:00']];
-const tchips=id=>'<div style="display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 8px">'+TCH.map(c=>`<button type="button" class="sm s" data-tc="${id}" data-v="${c[1]}">${c[0]}${c[1]?' '+c[1]:''}</button>`).join('')+'</div>';
-document.addEventListener('click',e=>{const b=e.target.closest('[data-tc]');if(b)$(b.dataset.tc).value=b.dataset.v||nowT()});
-const gapM=(a,b)=>{if(!a||!b)return '';const f=q=>+q.slice(0,2)*60+ +q.slice(3,5),m=f(b)-f(a);if(m<0)return '';return m>=60?Math.floor(m/60)+' ঘণ্টা'+(m%60?' '+(m%60)+' মিনিট':''):m+' মিনিট'};
-const tmHtml=(fn,id,fields,gp)=>`<div class="row" style="margin-top:8px">${fields.map(f=>`<div class="f"><span>${f[0]}</span><input type="${f[2]}" value="${f[3]||''}" onchange="${fn}(${id},'${f[1]}',this.value)"></div>`).join('')}</div>${gp?`<div class="sm2">⏱ প্রেডিকশনের ${gp} পর মার্কেট চলেছে</div>`:''}`;
-const BTF=[['M','মান্থলি'],['W','উইকলি'],['D','ডেইলি']],arr={up:'↑',down:'↓',range:'↔'};
-const bo='<option value="">—</option><option value="up">ঊর্ধ্বমুখী ↑</option><option value="down">নিম্নমুখী ↓</option><option value="range">রেঞ্জ ↔</option>';
-const mkBias=pre=>BTF.map(x=>`<div class="bx"><b>${x[1]}</b><div class="row"><div class="f"><span>ওভারঅল বায়াস</span><select id="${pre}_${x[0]}_o">${bo}</select></div><div class="f"><span>শর্ট-টার্ম বায়াস</span><select id="${pre}_${x[0]}_s">${bo}</select></div></div><div class="sm2 bt" id="${pre}_${x[0]}_t"></div><textarea id="${pre}_${x[0]}_n" rows="2" placeholder="কোথা থেকে কোথায় যেতে পারে? কোথা থেকে এন্ট্রি নিতে পারি?"></textarea></div>`).join('');
-function biasTag(o,s){if(!o||!s)return '';if(o===s)return o==='range'?'রেঞ্জ':'একই দিকে '+arr[o];if(o==='range'||s==='range')return 'ওভারঅল '+arr[o]+' / শর্ট-টার্ম '+arr[s];return 'পুলব্যাক: ওভারঅল '+arr[o]+', শর্ট-টার্ম '+arr[s];}
-function wireBias(pre){BTF.forEach(x=>['o','s'].forEach(k=>$(`${pre}_${x[0]}_${k}`).onchange=()=>{$(`${pre}_${x[0]}_t`).textContent=biasTag($(`${pre}_${x[0]}_o`).value,$(`${pre}_${x[0]}_s`).value)}))}
-function getBias(pre){const b={};BTF.forEach(x=>{const o=$(`${pre}_${x[0]}_o`).value,s=$(`${pre}_${x[0]}_s`).value,n=$(`${pre}_${x[0]}_n`).value.trim();if(o||s||n)b[x[0]]={o,s,n}});return Object.keys(b).length?b:null}
-function clearBias(pre){BTF.forEach(x=>{['o','s'].forEach(k=>$(`${pre}_${x[0]}_${k}`).value='');$(`${pre}_${x[0]}_n`).value='';$(`${pre}_${x[0]}_t`).textContent=''})}
-const biasHtml=t=>t.bias?BTF.filter(x=>t.bias[x[0]]).map(x=>{const b=t.bias[x[0]],g=biasTag(b.o,b.s);return `<div class="sm2">${x[1]}: ${arr[b.o]||'—'} / short ${arr[b.s]||'—'}${g?' ('+g+')':''}${b.n?' — '+esc(b.n):''}</div>`}).join(''):'';
-function chain(){const g=L=>L.filter(x=>$(x[0])&&$(x[0]).checked).map(x=>x[1]).join(', '),
- ps=[['লিকুইডিটি',g(TAGS.filter(x=>x[0][0]==='L'))],['মেইন POI',g(TAGS.filter(x=>x[0][0]==='P'))],['রিফাইন্ড',g(TR)],['ট্রিগার',TFN[$('etf').value]||$('etf').value]].filter(x=>x[1]);
- $('chain').textContent=ps.map(x=>x[0]+': '+x[1]).join('  →  ');}
-$('form').addEventListener('change',chain);$('lqm').addEventListener('change',chain);$('etf').addEventListener('change',chain);
-const EN=['en_disp','en_retest','en_exp','en_sweep'];
-EN.forEach(id=>{$(id).addEventListener('change',()=>{if($(id).checked)EN.forEach(o=>{if(o!==id)$(o).checked=false})})});
 $('saveBtn').onclick=()=>{
-  if($('pair').value==='__add')return alert('নতুন পেয়ারের নাম লিখে আগে "যোগ" চাপুন');
-  const a=auto(),c={a1:a.a1,a2:a.a2,a3:a.a3};
-  document.querySelectorAll('#form input').forEach(i=>c[i.id]=i.checked);
-  const pn=$('pnl').value;
+  const a=auto(),c={a1:a.a1,a2:a.a2,a3:a.a3,a4:a.a4};
+  document.querySelectorAll('#form input[type=checkbox]').forEach(i=>c[i.id]=i.checked);c.c5=$('conf').value!=='none';
+  const rs=$('res').value,am=Math.abs(+$('pnl').value),pn=($('pnl').value===''||rs==='pending')?null:(rs==='loss'?-am:am),cm=$('comm').value;
   const t={id:Date.now(),date:$('date').value||ds(),pair:$('pair').value,dir:$('dir').value,risk:+$('risk').value||0,
-    result:$('res').value,pnl:pn===''?($('res').value==='be'?0:null):+pn,comm:+$('comm').value||0,v:5,etf:$('etf').value,plan:$('plan').value,lqm:$('lqm').value,why:$('why').value.trim(),tgt:$('tgt').value.trim(),tp:(+$('tpa').value>0?+$('tpa').value:null),rr:(+$('tpa').value>0&&(+$('risk').value)>0?+(+$('tpa').value/+$('risk').value).toFixed(2):null),c,note:$('note').value.trim()};delete t.c.tpa;delete t.c.rrt;
+    result:$('res').value,type:$('type').value,sub:$('type').value==='pullback'?$('sub').value:'',conf:$('conf').value,etime:$('etime').value,etf:$('etf').value,ptf:$('ptf').value,ttype:$('ttype').value,tnote:$('tnote').value.trim(),pnl:pn,comm:cm===''?0:+cm,c,note:$('note').value.trim()};
   T.unshift(t);save();
   const b=broken(t),s=score(t);
   $('saved').style.display='block';
-  $('saved').innerHTML=`<h2 class="${b.length?'r':'g'}">${b.length?'✗ নিয়ম ভাঙা হয়েছে':'✓ সব নিয়ম মানা হয়েছে'} — স্কোর ${s}%</h2>`+
-   (b.length?'<div class="sm2" style="margin-bottom:4px">যেগুলো মানা হয়নি:</div>'+b.map(r=>`<div class="r">• ${r[1]}</div>`).join(''):'<div class="g">চমৎকার, চেকলিস্টের সবকিছু ঠিক ছিল।</div>');
-  document.querySelectorAll('#form input').forEach(i=>i.checked=false);$('etf').value='';$('lqm').value='';$('why').value='';$('tgt').value='';rrSet(3);chain();upd();
-  $('note').value='';$('pnl').value='';$('comm').value='';$('res').value='pending';
+  $('saved').innerHTML=`<h2 class="${b.length?'r':'g'}">${b.length?'✗ রুল ভাঙা হয়েছে':'✓ সব রুল ফলো করা হয়েছে'} — স্কোর ${s}%</h2>`+
+   (b.length?'<div class="sm2" style="margin-bottom:4px">যেগুলো মানা হয়নি:</div>'+b.map(r=>`<div class="r">• ${r[1]}</div>`).join(''):'<div class="g">দারুণ, চেকলিস্টের সবকিছু ঠিক ছিল।</div>');
+  document.querySelectorAll('#form input').forEach(i=>i.checked=false);
+  $('note').value='';$('tnote').value='';$('etime').value=nowT();$('conf').value='none';$('pnl').value='';$('comm').value='';$('res').value='pending';
   showAuto();render();
 };
 
-function setRes(id,r){const t=T.find(x=>x.id===id);if(t){t.result=r;if(r==='pending')t.pnl=null;if(r==='be')t.pnl=0;save();render();}}
-function setPnl(id){const t=T.find(x=>x.id===id);const v=prompt('আসল লাভ/লোকসান ($) লিখুন, যেমন 75 বা -25',t.pnl??(t.result==='loss'?-t.risk:(t.result==='win'&&t.tp?t.tp:'')));if(v!==null&&v!==''&&!isNaN(+v)){t.pnl=+v;save();render();}}
-function del(id){if(confirm('এই ট্রেড মুছবেন?')){T=T.filter(x=>x.id!==id);save();render();}}
-window.setRes=setRes;window.setPnl=setPnl;window.del=del;
+function setRes(id,r){const t=T.find(x=>x.id===id);if(!t)return;t.result=r;if(t.pnl!=null)t.pnl=r==='loss'?-Math.abs(t.pnl):Math.abs(t.pnl);save();render();}
+function setAmt(id,v){const t=T.find(x=>x.id===id);if(!t)return;if(v==='')t.pnl=null;else{const m=Math.abs(+v);t.pnl=t.result==='loss'?-m:m;}save();upd(t);}
+function setCm(id,v){const t=T.find(x=>x.id===id);if(!t)return;t.comm=v===''?0:Math.abs(+v);save();upd(t);}
+function upd(t){const e=$('net'+t.id);if(e){e.className=net1(t)>=0?'g':'r';e.textContent=(t.result==='pending'&&!t.comm)?'—':f$(net1(t));}renderBal();renderAna();renderAlert();}
+function savePlan(){const d=$('pdate').value||ds(),pr=$('ppair').value;D.plans=D.plans.filter(p=>!(p.date===d&&p.pair===pr));D.plans.unshift({id:Date.now(),date:d,pair:pr,trend:$('ptrend').value,bias:$('pbias').value,basis:$('pbasis').value,note:$('pnote').value.trim(),res:'pending',learn:''});$('pnote').value='';saveD();render();}
+function saveNews(){const n=$('nname').value.trim();if(!n)return;D.news.unshift({id:Date.now(),date:$('ndate').value||ds(),time:$('ntime').value,name:n,imp:$('nimp').value,pair:$('npair').value,pred:$('npred').value,act:'pending'});$('nname').value='';saveD();render();}
+function setP(k,id,f,v){const x=D[k].find(y=>y.id===id);if(x){x[f]=v;saveD();render();}}
+function delD(k,id){const key=k+id;if(DELC===key){D[k]=D[k].filter(y=>y.id!==id);DELC=null;saveD();render();}else{DELC=key;renderPlan();setTimeout(()=>{if(DELC===key){DELC=null;renderPlan();}},4000);}}
+function del(id){if(DELC===id){T=T.filter(x=>x.id!==id);DELC=null;save();render();}else{DELC=id;renderList();setTimeout(()=>{if(DELC===id){DELC=null;renderList();}},4000);}}
+Object.assign(window,{setRes,setAmt,setCm,del,savePlan,saveNews,setP,delD});
 
 function renderAlert(){
   const td=ds(),l=T.filter(t=>t.date===td&&t.result==='loss').reduce((s,t)=>s+t.risk,0),el=$('alert');
-  if(l>=50){el.className='alert show';el.innerHTML=`<b>⚠ দৈনিক লস লিমিট শেষ!</b> আজ $${l.toFixed(1)} লস। আর ট্রেড নেবেন না।`;}
+  if(l>=50){el.className='alert show';el.innerHTML=`<b>⚠ ডেইলি লস লিমিট হিট!</b> আজ $${l.toFixed(1)} লস। আর ট্রেড নিও না।`;}
   else if(l>=35){el.className='alert w show';el.innerHTML=`<b>সতর্কতা:</b> আজ $${l.toFixed(1)} লস, লিমিটের কাছাকাছি।`;}
   else el.className='alert';
+  const nw=D.news.filter(n=>n.date===td).sort((x,y)=>(x.time||'').localeCompare(y.time||''));
+  $('newsBar').innerHTML=nw.length?'<div class="alert w show"><b>আজকের নিউজ:</b> '+nw.map(n=>`${n.time||''} ${esc(n.name)} (${n.imp})`).join(' • ')+'</div>':'';
 }
 
 function renderList(){
   const a=T.filter(t=>inP(t.date,P));
   $('list').innerHTML=a.length?a.map(t=>{
     const b=broken(t),s=score(t);
-    const st=t.result==='win'?'<b class="g">জয়</b>':t.result==='loss'?'<b class="r">লস</b>':t.result==='be'?'<b class="y">ব্রেক ইভেন</b>':'<span class="y">চলমান</span>';
-    const btn=t.result==='pending'?`<button class="sm gr" onclick="setRes(${t.id},'win')">জয়</button> <button class="sm rd" onclick="setRes(${t.id},'loss')">লস</button> <button class="sm s" onclick="setRes(${t.id},'be')">ব্রেক ইভেন</button>`:`<button class="sm s" onclick="setRes(${t.id},'pending')">ফলাফল বদলান</button>`;
-    return `<div class="tr ${b.length?'bad':'good'}"><b>${t.pair}</b> ${t.dir} • $${t.risk} • ${st}${t.pnl!=null?` • <span class="${t.pnl>=0?'g':'r'}">${t.pnl>=0?'+':''}${t.pnl}$</span>`:''}${t.tp?` • 🎯 TP $${t.tp} (১:${t.rr})`:''}${t.comm?` • কমিশন $${t.comm}`:''} • স্কোর <b>${s}%</b>
-    <div class="sm2">${t.date}</div>${biasHtml(t)}${storyHtml(t)}
-    ${b.length?'<div class="r" style="margin-top:5px">ভাঙা নিয়ম: '+b.map(r=>r[1]).join(' | ')+'</div>':'<div class="g" style="margin-top:5px">সব নিয়ম মানা হয়েছে ✓</div>'}
+    const rb=[['win','Win','gr'],['loss','Loss','rd'],['pending','Pending','s']].map(x=>`<button class="sm ${x[2]}" style="${t.result===x[0]?'outline:2px solid #fff7':'opacity:.45'}" onclick="setRes(${t.id},'${x[0]}')">${x[1]}</button>`).join(' ');
+    const nv=net1(t);
+    return `<div class="tr ${b.length?'bad':'good'}"><b>${t.pair}</b> ${t.dir} • <span style="color:#93c5fd">${TN(t)}</span>${t.conf&&t.conf!=='none'?' ('+t.conf+')':''} • রিস্ক $${t.risk} • স্কোর <b>${s}%</b>
+    <div class="sm2">${t.date}${t.etime?' '+t.etime:''}${t.etf?' • এন্ট্রি '+t.etf:''}${t.ptf?' • POI '+t.ptf:''}</div>
+    ${t.tnote||t.ttype?`<div class="sm2">🎯 টার্গেট: ${t.ttype||''} ${esc(t.tnote||'')}</div>`:''}
+    ${b.length?'<div class="r" style="margin-top:5px">ভুল: '+b.map(r=>r[1]).join(' | ')+'</div>':'<div class="g" style="margin-top:5px">সব রুল ঠিক ছিল ✓</div>'}
     ${t.note?`<div class="sm2" style="margin-top:4px">📝 ${esc(t.note)}</div>`:''}
-    <div class="sm2" style="margin-top:8px">🎯 টেক প্রফিট বদলান</div><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px">${RRS.map(v=>`<button class="sm s ${t.rr===v?'sel':''}" onclick="setTpR(${t.id},${v})">১:${v}</button>`).join(' ')} <input type="number" step="0.1" min="0" value="${t.tp??''}" placeholder="$ লিখুন" style="width:96px" onchange="setTpV(${t.id},this.value)"></div>
-    <div style="margin-top:7px;display:flex;gap:6px;flex-wrap:wrap">${btn} <button class="sm s" onclick="setPnl(${t.id})">লাভ/লস</button>  <button class="sm s" onclick="del(${t.id})">মুছুন</button></div></div>`}).join(''):'<p class="sm2">এই সময়ে কোনো ট্রেড নেই।</p>';
+    <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${rb}</div>
+    <div class="row" style="margin:8px 0 0;align-items:flex-end"><div class="f"><span>${t.result==='loss'?'লস':'প্রফিট'} পরিমাণ ($)</span><input type="number" step="0.01" min="0" value="${t.pnl==null?'':Math.abs(t.pnl)}" onchange="setAmt(${t.id},this.value)"></div><div class="f"><span>কমিশন ($)</span><input type="number" step="0.01" min="0" value="${t.comm||''}" onchange="setCm(${t.id},this.value)"></div><div class="f"><span>নেট</span><b id="net${t.id}" class="${nv>=0?'g':'r'}" style="display:block;padding:9px 0">${t.result==='pending'&&!t.comm?'—':f$(nv)}</b></div></div>
+    <div style="margin-top:7px"><button class="sm ${DELC===t.id?'rd':'s'}" onclick="del(${t.id})">${DELC===t.id?'নিশ্চিত? আবার চাপো':'মুছো'}</button></div></div>`}).join(''):'<p class="sm2">এই সময়ে কোনো ট্রেড নেই।</p>';
 }
 
-
-function steps(t){
- const f=L=>L.filter(x=>t.c[x[0]]).map(x=>x[1]),
- lq=f(TAGS.filter(x=>x[0][0]==='L')),po=f(TAGS.filter(x=>x[0][0]==='P')),rp=f(TR),tg=f(TT),
- sell=t.dir==='Sell',EN={en_disp:'ডিসপ্লেসমেন্ট',en_retest:'রিটেস্ট',en_exp:'এক্সপ্যানশন',en_sweep:'লিকুইডিটি সুইপ'},
- ent=Object.keys(EN).filter(k=>t.c[k]).map(k=>EN[k]),S=[];
- const L=lq.join(', ');
- if(L){
-  if(t.lqm==='sweep')S.push(`<b>${L}</b> সুইপ হয়ে লিকুইডিটি নেওয়া হয়েছে — এরপর দাম ${sell?'নিচের':'ওপরের'} দিকে ফিরে আসার সম্ভাবনা তৈরি হয়েছে।`);
-  else if(t.lqm==='target')S.push(`<b>${L}</b> এখনো সুইপ হয়নি — ওটাই দামের টার্গেট/টানার জায়গা।`);
-  else if(t.lqm==='poi')S.push(`লিকুইডিটি (${L}) ছিল, কিন্তু আমি সুইপের ওপর নয়, POI এর রিঅ্যাকশনের ওপর নির্ভর করেছি।`);
-  else S.push(`লিকুইডিটি: <b>${L}</b> (সুইপ হয়েছে নাকি টার্গেট — নির্বাচন করা হয়নি)।`);
- }
- if(po.length)S.push(`দাম এসে <b>${po.join(', ')}</b> (মেইন POI) এ পৌঁছেছে।`);
- if(rp.length)S.push(`মেইন POI এর ভেতরে রিফাইন্ড POI: <b>${rp.join(', ')}</b>।`);
- if(ent.length||t.etf)S.push(`${t.etf?`<b>${TFN[t.etf]||t.etf}</b> টাইমফ্রেমে `:''}${ent.length?`<b>${ent.join(' / ')}</b> দেখে `:''}<b>${sell?'সেল (Sell)':'বাই (Buy)'}</b> এন্ট্রি নিয়েছি, ঝুঁকি $${t.risk}।`);
- else S.push(`<b>${sell?'সেল (Sell)':'বাই (Buy)'}</b> এন্ট্রি নিয়েছি, ঝুঁকি $${t.risk}।`);
- if(tg.length)S.push(`টার্গেট ছিল <b>${tg.join(', ')}</b>।`);
- S.push(t.result==='win'?`ফলাফল: <b class="g">জয়</b> — দাম ${tg.length?tg[0]+' এর দিকে ':'টার্গেটের দিকে '}গেছে${t.pnl!=null?` (${t.pnl>=0?'+':''}${t.pnl}$)`:''}।`:t.result==='loss'?`ফলাফল: <b class="r">লস</b> — স্টপ লস হিট করেছে${t.pnl!=null?` (${t.pnl}$)`:''}।`:t.result==='be'?'ফলাফল: <b class="y">ব্রেক ইভেন</b> — এন্ট্রির দামে বেরিয়ে এসেছি, লাভও নেই লসও নেই।':'ফলাফল: এখনো চলমান।');
- return S;
+function renderPlan(){
+  const pl=D.plans.filter(p=>inP(p.date,P)),nw=D.news.filter(n=>inP(n.date,P));
+  const pd=pl.filter(p=>p.res!=='pending'),nd=nw.filter(n=>n.act!=='pending');
+  const pk=pd.filter(p=>p.res==='ok').length,nk=nd.filter(n=>n.act===n.pred).length;
+  const B=(k,id,f,cur,o)=>o.map(x=>`<button class="sm ${x[2]}" style="${cur===x[0]?'outline:2px solid #fff7':'opacity:.45'}" onclick="setP('${k}',${id},'${f}','${x[0]}')">${x[1]}</button>`).join(' ');
+  const dl=(k,id)=>`<button class="sm ${DELC===k+id?'rd':'s'}" onclick="delD('${k}',${id})">${DELC===k+id?'নিশ্চিত? আবার চাপো':'মুছো'}</button>`;
+  const bc={Up:'g',Down:'r',Sideways:'y',Unclear:'y'},NL={Up:'Up',Down:'Down',Flat:'কোনো দিক নয়'};
+  $('planList').innerHTML=`<div class="stats"><div class="stat"><b>${pd.length?pct(pk,pd.length)+'%':'—'}</b><i>বায়াস সঠিক (${pd.length}টি মেলানো)</i></div><div class="stat"><b>${nd.length?pct(nk,nd.length)+'%':'—'}</b><i>নিউজ প্রেডিকশন সঠিক (${nd.length}টি)</i></div></div>`+
+  '<div class="card"><h2>ডেইলি বায়াস তালিকা</h2>'+(pl.length?pl.map(p=>`<div class="tr"><b>${p.date} ${p.pair}</b> • ট্রেন্ড ${p.trend} • বায়াস <b class="${bc[p.bias]}">${p.bias}</b> (${p.basis})${p.note?`<div class="sm2">📝 ${esc(p.note)}</div>`:''}<div style="margin-top:7px;display:flex;gap:6px;flex-wrap:wrap">${B('plans',p.id,'res',p.res,[['ok','✓ সঠিক','gr'],['bad','✗ ভুল','rd'],['pending','Pending','s']])} ${dl('plans',p.id)}</div><input type="text" placeholder="দিন শেষে: কেন ঠিক/ভুল হলো?" value="${esc(p.learn||'')}" onchange="setP('plans',${p.id},'learn',this.value)" style="margin-top:6px"></div>`).join(''):'<p class="sm2">কোনো বায়াস লেখা নেই।</p>')+'</div>'+
+  '<div class="card"><h2>নিউজ তালিকা</h2>'+(nw.length?nw.map(n=>`<div class="tr"><b>${n.date} ${n.time||''}</b> • ${esc(n.name)} • ${n.imp} • ${n.pair}<div class="sm2">আমার প্রেডিকশন: <b>${NL[n.pred]}</b>${n.act!=='pending'?` • আসল: <b class="${n.act===n.pred?'g':'r'}">${NL[n.act]}</b>`:''}</div><div style="margin-top:7px;display:flex;gap:6px;flex-wrap:wrap">${B('news',n.id,'act',n.act,[['Up','আসল: Up','gr'],['Down','আসল: Down','rd'],['Flat','কোনো দিক নয়','s'],['pending','Pending','s']])} ${dl('news',n.id)}</div></div>`).join(''):'<p class="sm2">কোনো নিউজ নেই।</p>')+'</div>';
 }
-const PN={ref:'⚡ রিফাইন প্ল্যান',poi:'⛓ চেইন প্ল্যান (HTF POI থেকে)',liq:'⛓ চেইন প্ল্যান (লিকুইডিটি সুইপ থেকে)'};
-const storyHtml=t=>{
- const f=L=>L.filter(x=>t.c[x[0]]).map(x=>x[1]).join(', '),sell=t.dir==='Sell',
- lq=f(TAGS.filter(x=>x[0][0]==='L')),po=f(TAGS.filter(x=>x[0][0]==='P')),rp=f(TR),tg=f(TT),
- EN={en_disp:'ডিসপ্লেসমেন্ট',en_retest:'রিটেস্ট',en_exp:'এক্সপ্যানশন',en_sweep:'লিকুইডিটি সুইপ'},ent=Object.keys(EN).filter(k=>t.c[k]).map(k=>EN[k]).join('/'),
- role={sweep:`সুইপ হয়ে গেছে → দাম ${sell?'নিচে':'ওপরে'} ফিরেছে`,target:'এখনো সুইপ হয়নি (টান/টার্গেট)',poi:'সুইপ নয়, POI রিঅ্যাকশনই মূল'}[t.lqm]||'',
- R=t.pnl!=null&&t.risk?(t.pnl/t.risk):null,
- st=(c,ic,ti,v,sub)=>v||sub?`<div class="ts" style="--c:${c}"><i>${ic} ${ti}</i><b>${v||'—'}</b>${sub?`<span>${sub}</span>`:''}</div>`:'';
- return '<div class="tl">'+st('#64748b','📋','প্ল্যান',PN[t.plan]||'')+st('#f59e0b','🧲','লিকুইডিটি',lq,role)+st('#6366f1','📦','মেইন POI',po,'হায়ার টাইমফ্রেম এরিয়া যেখানে দাম এসেছে')+st('#a78bfa','🔍','রিফাইন্ড POI',rp,'মেইন POI এর ভেতরে সূক্ষ্ম এন্ট্রি জোন')
- +st('#06b6d4','⚡','এন্ট্রি ট্রিগার',`${sell?'সেল':'বাই'}${t.etf?' • '+(TFN[t.etf]||t.etf):''}${ent?' • '+ent:''}`,t.why?esc(t.why):'')
- +st('#ef4444','🛑','স্টপ ও ঝুঁকি',`$${t.risk}`,t.c.m1?'স্টপ লস POI এর বাইরে ✓':'স্টপ লস POI এর বাইরে ছিল না ✗')
- +st('#10b981','🎯','টার্গেট (কোথায় পর্যন্ত)',tg,(t.tgt?esc(t.tgt):'')+(t.c.m3?' • ১:৩ R:R সেট ✓':'')+(t.tp?' • টেক প্রফিট $'+t.tp+' (১:'+t.rr+')':''))
- +st(t.result==='win'?'#22c55e':t.result==='loss'?'#ef4444':'#eab308','🏁','ফলাফল',t.result==='win'?'জয়':t.result==='loss'?'লস':t.result==='be'?'ব্রেক ইভেন':'চলমান',R!=null?`${R>=0?'+':''}${R.toFixed(1)}R • ${t.pnl>=0?'+':''}${t.pnl}$${t.rr?' • প্ল্যান ছিল ১:'+t.rr:''}`:'')+'</div>';};
-const grpBy=(a,fn)=>{const m={};a.forEach(t=>{const k=fn(t);if(k)(m[k]=m[k]||[]).push(t)});return Object.entries(m).sort((p,q)=>q[1].length-p[1].length)};
 
-let AIS='',AIB=false,AIE='';
-const mdh=x=>esc(x).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/^#+ ?(.+)$/gm,'<b style="color:#c7d2fe;display:block;margin-top:12px;font-size:.92rem">$1</b>').replace(/\n/g,'<br>');
-function aiCard(){return `<div class="hero" id="aiCard"><h3>🤖 AI সামারি — আমার নিয়মে কোথায় ঠিক, কোথায় ভুল</h3>${AIS?`<div style="font-size:.86rem;line-height:1.65">${mdh(AIS)}</div>`:'<div class="sm2">বাটন চাপলে AI আপনার চেকলিস্ট-নিয়ম ও ট্রেডগুলো মিলিয়ে দেখবে — কোথায় নিয়ম মানা হয়েছে, কোথায় ভাঙা হয়েছে, আর ICT লজিক ঠিক ছিল কিনা।</div>'}${AIE?`<div class="r sm2" style="margin-top:6px">${AIE}</div>`:''}<button style="width:100%;margin-top:10px" onclick="runAI()" ${AIB?'disabled':''}>${AIB?'⏳ বিশ্লেষণ চলছে…':AIS?'🔄 আবার বিশ্লেষণ করুন':'✨ AI বিশ্লেষণ করুন'}</button><div class="sm2" style="margin-top:6px">নির্বাচিত সময়ের (${PL.find(p=>p[0]===P)[1]}) সর্বোচ্চ ২৫টি ট্রেড দেখা হবে।</div></div>`}
-const paintAI=()=>{const e=$('aiCard');if(e)e.outerHTML=aiCard()};
-function tradeData(t,i){const f=L=>L.filter(x=>t.c[x[0]]).map(x=>x[1]).join(', '),EN={en_disp:'ডিসপ্লেসমেন্ট',en_retest:'রিটেস্ট',en_exp:'এক্সপ্যানশন',en_sweep:'লিকুইডিটি সুইপ'};
- return {নং:i+1,তারিখ:t.date,প্ল্যান:t.plan||'',পেয়ার:t.pair,দিক:t.dir,ঝুঁকি$:t.risk,ফলাফল:t.result,pnl:t.pnl,
-  লিকুইডিটি:f(TAGS.filter(x=>x[0][0]==='L')),লিকুইডিটির_ভূমিকা:{sweep:'সুইপ হয়ে রিভার্সাল',target:'শুধু টার্গেট, সুইপ হয়নি',poi:'শুধু POI রিঅ্যাকশন'}[t.lqm]||'নির্বাচন করা হয়নি',
-  মেইন_POI:f(TAGS.filter(x=>x[0][0]==='P')),রিফাইন্ড_POI:f(TR),ট্রিগার_TF:t.etf,এন্ট্রি_কন্ডিশন:Object.keys(EN).filter(k=>t.c[k]).map(k=>EN[k]).join('/'),
-  টার্গেট:f(TT),এন্ট্রির_কারণ:t.why||'',টার্গেট_কোথায়:t.tgt||'',টেক_প্রফিট_RR:t.rr?'১:'+t.rr:'',টার্গেট_লাভ_ডলার:t.tp??'',ভাঙা_নিয়ম:broken(t).map(r=>r[1]),নোট:t.note||''};}
-async function runAI(){
-  if(AIB)return;const a=T.filter(t=>inP(t.date,P)).slice(0,25);
-  if(!a.length){AIE='এই সময়ে কোনো ট্রেড নেই।';paintAI();return}
-  AIB=true;AIE='';paintAI();
-  try{
-    const sample=window.claude?await claude.use('sample'):null;
-    if(!sample){AIE='AI বিশ্লেষণ শুধু Claude অ্যাপের ভেতরে খোলা পেজে চলে।';return}
-    const prompt=`তুমি একজন অভিজ্ঞ ICT (Inner Circle Trader) মেন্টর। নিচে একজন ট্রেডারের নিজের বানানো নিয়মের তালিকা এবং তার ট্রেডগুলোর ডেটা দেওয়া হলো। শুধু ডেটার ভিত্তিতে বিশ্লেষণ করো, ডেটায় নেই এমন কিছু বানিয়ে বলবে না। পুরো উত্তর সহজ বাংলায় লিখবে (ICT টার্ম যেমন Liquidity, POI, FVG, Order Block ইংরেজিতে থাকতে পারে)।
-
-ট্রেডারের নিয়ম: ${JSON.stringify(RULES.map(r=>r[1]))}
-ট্রেডারের দুই ধরনের এন্ট্রি প্ল্যান: (১) রিফাইন প্ল্যান (প্ল্যান='ref') — মার্কেট HTF (যেমন ডেইলি) OB/FVG তে গেলে সেটাকে রিফাইন করা: আগে ৪ঘ POI দেখা, না পেলে ১ঘ; মার্কেট ওখানে এসে ট্যাপ করার পর ১৫মি এ OB/FVG স্ট্রাকচার তৈরি হলে এন্ট্রি; টার্গেট প্রধানত এন্ট্রির উল্টো দিকের ৪ঘ POI। (২) ডিসপ্লেসমেন্ট চেইন প্ল্যান (প্ল্যান='poi' বা 'liq') — HTF POI তে এলে বা লিকুইডিটি সুইপ হলে অপেক্ষা করা, নিচের টাইমফ্রেমে ডিসপ্লেসমেন্টে OB/FVG তৈরি (মান্থলি→ডেইলি→১ঘ→১৫/৫মি; উইকলি→৪ঘ→১৫মি; উইকলি লো সুইপ→৪ঘ POI→১৫মি ডিসপ্লেসমেন্ট; ডেইলি লো সুইপ→১ঘ POI→১৫/৫মি) তারপর এন্ট্রি। দুই প্ল্যানই আলাদা করে মূল্যায়ন করবে, মিশিয়ে ফেলবে না। ঝুঁকি $১–$২৭, দিনে মোট $৫০, দিনে সর্বোচ্চ ২ ট্রেড। "ভাঙা_নিয়ম" ফিল্ডে প্রতিটি ট্রেডে কোন নিয়ম মানা হয়নি তা আছে।
-
-ট্রেডের ডেটা (নং অনুযায়ী): ${JSON.stringify(a.map(tradeData))}
-
-নিচের ফরম্যাটে লেখো, প্রতিটি পয়েন্টে ট্রেড নং উল্লেখ করো:
-## ✅ কোথায় সঠিক ছিল
-(যে নিয়ম ও ধাপগুলো ঠিকমতো মানা হয়েছে, কোন সেটআপে ভালো ফল এসেছে)
-## ❌ কোথায় ভুল হয়েছে
-(কোন নিয়ম ভাঙা হয়েছে, কতবার, কোন ট্রেডে, আর লসের সাথে এর সম্পর্ক আছে কিনা)
-## 🧠 ICT লজিক চেক
-(লিকুইডিটি → মেইন POI → রিফাইন্ড POI → ট্রিগার → টার্গেট ধারাটা যুক্তিসঙ্গত ছিল কিনা। যেমন: সেলে উপরের লিকুইডিটি সুইপ, বাইয়ে নিচের লিকুইডিটি সুইপ মিলেছে কিনা; টার্গেট বিপরীত দিকের লিকুইডিটি/POI তে ছিল কিনা; সুইপ নাকি শুধু POI রিঅ্যাকশন — কোনটা বেশি কাজ করছে। তথ্য না থাকলে পরিষ্কার বলো "তথ্য নেই")
-## 🔁 বারবার হওয়া প্যাটার্ন
-## 🎯 পরের ট্রেডগুলোর জন্য ৩টি কাজ
-সংক্ষেপে, সরাসরি ও বন্ধুত্বপূর্ণ ভাষায় লেখো। নিজেকে দোষারোপ করতে বোলো না, নিয়ম-ভিত্তিক থাকো।`;
-    AIS='';await sample(prompt,{modelTier:'default',cache:false,onText:({text})=>{AIS=text;paintAI()}});
-  }catch(e){AIE=e&&e.code==='not_granted'?'AI ব্যবহারের অনুমতি দেওয়া হয়নি।':e&&e.code==='rate_limited'?'অনেকবার চেষ্টা হয়েছে, একটু পরে আবার চাপুন।':'বিশ্লেষণ করা যায়নি, আবার চেষ্টা করুন।'}
-  finally{AIB=false;paintAI()}
-}
-window.runAI=runAI;
 function renderAna(){
   const a=T.filter(t=>inP(t.date,P));
   if(!a.length){$('ana').innerHTML='<div class="card sm2">এই সময়ে কোনো ট্রেড নেই।</div>';return;}
-  const cl=a.filter(t=>(t.result==='win'||t.result==='loss')),w=cl.filter(t=>t.result==='win'),l=cl.filter(t=>t.result==='loss');
+  const cl=a.filter(t=>t.result!=='pending'),w=cl.filter(t=>t.result==='win'),l=cl.filter(t=>t.result==='loss');
   const F=a.filter(t=>!broken(t).length),B=a.filter(t=>broken(t).length);
   const cF=cl.filter(t=>!broken(t).length),cB=cl.filter(t=>broken(t).length);
   const wr=x=>x.length?pct(x.filter(t=>t.result==='win').length,x.length):null;
   const avg=Math.round(a.reduce((s,t)=>s+score(t),0)/a.length);
-  const net=x=>x.filter(t=>t.pnl!=null).reduce((s,t)=>s+t.pnl-(t.comm||0),0);
-  const hasPnl=a.some(t=>t.pnl!=null);
+  const net=x=>x.reduce((s,t)=>s+net1(t),0);
+  const hasPnl=a.some(t=>t.pnl!=null||t.comm);
+  const comm=a.reduce((s,t)=>s+(t.comm||0),0),gross=a.reduce((s,t)=>s+(t.result==='pending'?0:(t.pnl||0)),0);
   let h=`<div class="stats">
    <div class="stat"><b>${a.length}</b><i>ট্রেড</i></div>
-   <div class="stat"><b class="${pct(F.length,a.length)>=80?'g':'r'}">${pct(F.length,a.length)}%</b><i>নিয়ম মানা ট্রেড</i></div>
+   <div class="stat"><b class="${pct(F.length,a.length)>=80?'g':'r'}">${pct(F.length,a.length)}%</b><i>রুল ফলো করা ট্রেড</i></div>
    <div class="stat"><b>${avg}%</b><i>গড় স্কোর</i></div>
-   <div class="stat"><b>${cl.length?pct(w.length,cl.length)+'%':'—'}</b><i>জয়ের হার</i></div>
-   ${hasPnl?`<div class="stat"><b class="${net(a)>=0?'g':'r'}">${net(a)>=0?'+':''}${net(a).toFixed(1)}$</b><i>নিট লাভ/লস (কমিশন বাদে)</i></div>`:''}</div>`;
+   <div class="stat"><b>${cl.length?pct(w.length,cl.length)+'%':'—'}</b><i>Win rate</i></div>
+   ${hasPnl?`<div class="stat"><b class="${gross>=0?'g':'r'}">${f$(gross)}</b><i>গ্রস P&amp;L</i></div>
+   <div class="stat"><b class="y">-$${comm.toFixed(2)}</b><i>মোট কমিশন</i></div>
+   <div class="stat"><b class="${net(a)>=0?'g':'r'}">${f$(net(a))}</b><i>নেট (কমিশনের পর)</i></div>`:''}</div>`;
 
-  const H0=h;h='';
   // insights
   const ins=[];
-  const cnt=RULES.map(r=>[r[0],r[1],a.filter(t=>!ok(t,r[0])).length,l.filter(t=>!ok(t,r[0])).length]).sort((x,y)=>y[2]-x[2]);
-  if(cnt[0][2]>0)ins.push(['r',`সবচেয়ে বেশি ভাঙা নিয়ম: <b>${cnt[0][1]}</b> — ${a.length}টি ট্রেডের মধ্যে ${cnt[0][2]} বার ভাঙা হয়েছে।`]);
-  else ins.push(['g','এই সময়ে একটি নিয়মও ভাঙেননি। চালিয়ে যান!']);
+  const M={};a.forEach(t=>rulesFor(t).forEach(r=>{const m=M[r[0]]=M[r[0]]||[r[0],r[1],0,0,0];m[4]++;if(!ok(t,r[0])){m[2]++;if(t.result==='loss')m[3]++;}}));const cnt=Object.values(M).sort((x,y)=>y[2]-x[2]||y[4]-x[4]);
+  if(cnt[0][2]>0)ins.push(['r',`সবচেয়ে বেশি ভাঙা রুল: <b>${cnt[0][1]}</b> — ${cnt[0][4]}টির মধ্যে ${cnt[0][2]} বার।`]);
+  else ins.push(['g','এই সময়ে একটি রুলও ভাঙোনি। চালিয়ে যাও!']);
   if(l.length){
     const lb=l.filter(t=>broken(t).length).length;
-    ins.push([lb?'r':'y',`${l.length}টি লসের মধ্যে <b>${lb}টিতে নিয়ম ভাঙা ছিল</b>।`+(l.length-lb?` বাকি ${l.length-lb}টি লস নিয়ম মেনেও হয়েছে — এগুলো স্বাভাবিক লস, নিজেকে দোষ দেবেন না।`:'')]);
+    ins.push([lb?'r':'y',`${l.length}টি লসের মধ্যে <b>${lb}টিতে রুল ভাঙা</b> ছিল।`+(l.length-lb?` বাকি ${l.length-lb}টি রুল ঠিক রেখেও লস — এগুলো স্বাভাবিক লস, নিজেকে দোষ দিও না।`:'')]);
   }
-  if(cF.length&&cB.length)ins.push([wr(cF)>=wr(cB)?'g':'y',`নিয়ম মানা ট্রেডে জয়ের হার <b>${wr(cF)}%</b> (${cF.length}টি), নিয়ম ভাঙা ট্রেডে <b>${wr(cB)}%</b> (${cB.length}টি)।`]);
+  if(cF.length&&cB.length)ins.push([wr(cF)>=wr(cB)?'g':'y',`রুল ফলো করা ট্রেডে Win rate <b>${wr(cF)}%</b> (${cF.length}টি), রুল ভাঙা ট্রেডে <b>${wr(cB)}%</b> (${cB.length}টি)।`]);
   const days={};a.forEach(t=>{(days[t.date]=days[t.date]||[]).push(t)});
   const bd=Object.keys(days).filter(d=>days[d].length>2||days[d].reduce((s,t)=>s+t.risk,0)>50);
-  if(bd.length)ins.push(['r',`দৈনিক লিমিট (২ ট্রেড / $৫০) ভাঙা হয়েছে: ${bd.join(', ')}`]);
+  if(bd.length)ins.push(['r',`ডেইলি লিমিট (২ ট্রেড / $50) ভেঙেছ: ${bd.join(', ')}`]);
+  if(gross>0&&comm>0)ins.push([comm/gross>0.2?'y':'',`কমিশন গ্রস প্রফিটের <b>${pct(comm,gross)}%</b> খেয়ে নিয়েছে।`]);
+  const na=a.filter(t=>t.c&&t.c.a4===false).length;if(na)ins.push(['r',`${na}টি ট্রেডে ডেইলি বায়াস লেখা ছিল না, অথবা বায়াসের উল্টো দিকে ট্রেড নিয়েছ।`]);
+  const bias=a.filter(t=>['b1','b2','b3','b4','c1','c2','c3'].some(id=>t.c[id]===false)).length;
+  if(bias)ins.push(['y',`${bias}টি ট্রেডে Higher Timeframe বায়াস পুরো চেক করোনি।`]);
   h+='<div class="card"><h2>অটো ইনসাইট</h2>'+ins.map(i=>`<div class="ins ${i[0]}">${i[1]}</div>`).join('')+'</div>';
 
   // compare
-  h+=`<div class="card"><h2>নিয়ম মানা বনাম ভাঙা</h2><div class="stats">
-   <div class="stat"><b class="g">${F.length}</b><i>নিয়ম মানা</i><div class="sm2">জয় ${wr(cF)==null?'—':wr(cF)+'%'}${hasPnl?` • ${net(F)>=0?'+':''}${net(F).toFixed(1)}$`:''}</div></div>
-   <div class="stat"><b class="r">${B.length}</b><i>নিয়ম ভাঙা</i><div class="sm2">জয় ${wr(cB)==null?'—':wr(cB)+'%'}${hasPnl?` • ${net(B)>=0?'+':''}${net(B).toFixed(1)}$`:''}</div></div></div></div>`;
+  h+=`<div class="card"><h2>রুল ফলো vs রুল ভাঙা</h2><div class="stats">
+   <div class="stat"><b class="g">${F.length}</b><i>রুল ফলো</i><div class="sm2">Win ${wr(cF)==null?'—':wr(cF)+'%'}${hasPnl?` • ${f$(net(F))}`:''}</div></div>
+   <div class="stat"><b class="r">${B.length}</b><i>রুল ভাঙা</i><div class="sm2">Win ${wr(cB)==null?'—':wr(cB)+'%'}${hasPnl?` • ${f$(net(B))}`:''}</div></div></div></div>`;
 
+  const byT=['displacement','expansion','pullback'].map(k=>[k,a.filter(t=>t.type===k)]).filter(x=>x[1].length);
+  if(byT.length)h+='<div class="card"><h2>ট্রেড টাইপ অনুযায়ী</h2>'+byT.map(([k,x])=>{const c=x.filter(t=>t.result!=='pending'),wn=c.filter(t=>t.result==='win').length;return `<div class="tr"><b>${TYPES[k]}</b> — ${x.length}টি ট্রেড<div class="sm2">রুল ফলো ${pct(x.filter(t=>!broken(t).length).length,x.length)}% • গড় স্কোর ${Math.round(x.reduce((s,t)=>s+score(t),0)/x.length)}% • Win rate ${c.length?pct(wn,c.length)+'%':'—'}${x.some(t=>t.pnl!=null||t.comm)?' • নেট '+f$(net(x)):''}</div></div>`}).join('')+'</div>';
   // rule table
-  h+='<div class="card"><h2>নিয়ম ধরে ধরে বিশ্লেষণ (খারাপ থেকে ভালো)</h2>';
-  cnt.forEach(c=>{const p=pct(a.length-c[2],a.length),col=p>=90?'var(--g)':p>=60?'var(--y)':'var(--r)';
+  h+='<div class="card"><h2>রুল ধরে বিশ্লেষণ (খারাপ থেকে ভালো)</h2>';
+  cnt.forEach(c=>{const p=pct(c[4]-c[2],c[4]),col=p>=90?'var(--g)':p>=60?'var(--y)':'var(--r)';
     h+=`<div style="margin-bottom:9px"><div style="display:flex;justify-content:space-between;gap:8px;font-size:.88rem"><span>${c[1]}</span><b style="color:${col}">${p}%</b></div>
     <div class="bar"><div style="width:${p}%;background:${col}"></div></div>
-    <div class="sm2">${c[2]?`${c[2]} বার ভাঙা${c[3]?` • এর মধ্যে ${c[3]}টি লস`:''}`:'কখনো ভাঙেনি ✓'}</div></div>`});
+    <div class="sm2">${c[2]?`${c[2]} বার ভাঙা${c[3]?` • এর মধ্যে ${c[3]}টি লস`:''}`:'একবারও ভাঙোনি ✓'}</div></div>`});
   h+='</div>';
-  const tg=TAGS.map(x=>{const u=a.filter(t=>t.c[x[0]]),k=u.filter(t=>(t.result==='win'||t.result==='loss')),wn=k.filter(t=>t.result==='win').length;return[x[1],u.length,k.length?pct(wn,k.length):null]}).filter(x=>x[1]).sort((p,q)=>q[1]-p[1]).slice(0,10);
-  if(tg.length)h+='<div class="card"><h2>বেশি ব্যবহৃত সেটআপ (লিকুইডিটি + POI)</h2>'+tg.map(x=>`<div class="ins">${x[0]} — ${x[1]} ট্রেড • জয় ${x[2]==null?'—':x[2]+'%'}</div>`).join('')+'</div>';
-  const tt=TT.map(x=>{const u=a.filter(t=>t.c[x[0]]),k=u.filter(t=>(t.result==='win'||t.result==='loss')),wn=k.filter(t=>t.result==='win').length;return[x[1],u.length,k.length?pct(wn,k.length):null]}).filter(x=>x[1]).sort((p,q)=>q[1]-p[1]).slice(0,10);
-  if(tt.length)h+='<div class="card"><h2>বেশি ব্যবহৃত টার্গেট</h2>'+tt.map(x=>`<div class="ins">${x[0]} — ${x[1]} ট্রেড • জয় ${x[2]==null?'—':x[2]+'%'}</div>`).join('')+'</div>';
-  const rf=a.filter(t=>Object.keys(t.c).some(k=>/^RPo_/.test(k)&&t.c[k])),rk=x=>{const k=x.filter(t=>(t.result==='win'||t.result==='loss'));return k.length?pct(k.filter(t=>t.result==='win').length,k.length)+'%':'—'};
-  if(rf.length)h+='<div class="card"><h2>রিফাইনমেন্টের প্রভাব</h2><div class="ins">রিফাইন্ড POI সহ: '+rf.length+' ট্রেড • জয় '+rk(rf)+'</div><div class="ins">রিফাইন্ড POI ছাড়া: '+(a.length-rf.length)+' ট্রেড • জয় '+rk(a.filter(t=>!rf.includes(t)))+'</div></div>';
-  const rr=TR.map(x=>{const u=a.filter(t=>t.c[x[0]]),k=u.filter(t=>(t.result==='win'||t.result==='loss')),wn=k.filter(t=>t.result==='win').length;return[x[1],u.length,k.length?pct(wn,k.length):null]}).filter(x=>x[1]).sort((p,q)=>q[1]-p[1]).slice(0,10);
-  if(rr.length)h+='<div class="card"><h2>বেশি ব্যবহৃত রিফাইন্ড POI</h2>'+rr.map(x=>`<div class="ins">${x[0]} — ${x[1]} ট্রেড • জয় ${x[2]==null?'—':x[2]+'%'}</div>`).join('')+'</div>';
-
-  const netF=x=>x.filter(t=>t.pnl!=null).reduce((q,t)=>q+t.pnl-(t.comm||0),0);
-  const cp=cl.filter(t=>t.pnl!=null),gw=cp.filter(t=>t.pnl>0).reduce((q,t)=>q+t.pnl,0),gl=Math.abs(cp.filter(t=>t.pnl<0).reduce((q,t)=>q+t.pnl,0)),
-   pf=gl?(gw/gl).toFixed(2):gw?'∞':'—',Rs=cp.filter(t=>t.risk).map(t=>t.pnl/t.risk),avR=Rs.length?(Rs.reduce((q,x)=>q+x,0)/Rs.length):null,
-   ch=[...cl].sort((x,y)=>x.id-y.id);let mx=0,cu=0,cw=0;ch.forEach(t=>{if(t.result==='loss'){cu++;mx=Math.max(mx,cu)}else cu=0});
-   for(let k=ch.length-1;k>=0&&ch[k].result==='win';k--)cw++;
-  const bs=tg.filter(x=>x[2]!=null).sort((p,q)=>q[2]-p[2]||q[1]-p[1])[0];
-  const LQN={sweep:'🧲 সুইপ করে রিভার্সাল',target:'🧲 লিকুইডিটি টার্গেট (সুইপ হয়নি)',poi:'📦 শুধু POI রিঅ্যাকশন'};
-  let X=`<div class="hero"><h3>🎯 ICT স্কোরকার্ড</h3><div class="stats">
-   <div class="stat"><b class="${pf!=='—'&&parseFloat(pf)>=1.5?'g':'y'}">${pf}</b><i>প্রফিট ফ্যাক্টর</i></div>
-   <div class="stat"><b class="${avR>=0?'g':'r'}">${avR==null?'—':(avR>=0?'+':'')+avR.toFixed(2)+'R'}</b><i>গড় R / ট্রেড</i></div>
-   <div class="stat"><b class="g">${cw}</b><i>চলতি জয়ের ধারা</i></div>
-   <div class="stat"><b class="${mx>=3?'r':'y'}">${mx}</b><i>সর্বোচ্চ টানা লস</i></div></div>
-   ${bs?`<div class="sm2" style="margin-top:8px">⭐ সেরা সেটআপ: <b>${bs[0]}</b> — জয় ${bs[2]}% (${bs[1]}টি)</div>`:''}
-   ${Rs.length?`<div class="sm2" style="margin:8px 0 4px">সাম্প্রতিক ট্রেডের R:</div><div class="rbs">`+cp.filter(t=>t.risk).slice(0,12).map(t=>{const r=t.pnl/t.risk;return `<span class="rb ${r>=0?'g':'r'}">${r>=0?'+':''}${r.toFixed(1)}R</span>`}).join('')+'</div>':''}</div>`;
-  let TRD=`<div class="card"><h2>📖 ট্রেডসমূহ — ট্যাপ করলে পুরো কাহিনি</h2>`+a.slice(0,15).map(t=>{const Rr=t.pnl!=null&&t.risk?t.pnl/t.risk:null,res=t.result==='win'?'<b class="g">জয়</b>':t.result==='loss'?'<b class="r">লস</b>':t.result==='be'?'<b class="y">ব্রেক ইভেন</b>':'<span class="y">চলমান</span>';return `<details class="td ${t.result==='win'?'good':t.result==='loss'?'bad':''}"><summary><b>${t.pair}</b> ${t.dir==='Sell'?'সেল':'বাই'} • ${res}${Rr!=null?` <b class="${Rr>=0?'g':'r'}">${Rr>=0?'+':''}${Rr.toFixed(1)}R</b>`:''} <span class="sm2">• ${t.date}</span></summary>${storyHtml(t)}${broken(t).length?`<div class="r sm2">⚠ ভাঙা নিয়ম: ${broken(t).map(r=>r[1]).join(' | ')}</div>`:''}${t.note?`<div class="sm2" style="margin-top:4px">📝 ${esc(t.note)}</div>`:''}</details>`}).join('')+'</div>';
-  const gcard=(title,note,rows)=>rows.length?`<div class="card"><h2>${title}</h2>${note?`<div class="sm2" style="margin-bottom:6px">${note}</div>`:''}`+rows.map(([k,u])=>{const c=u.filter(t=>(t.result==='win'||t.result==='loss')),w=c.filter(t=>t.result==='win').length,p=c.length?pct(w,c.length):null,col=p==null?'#475569':p>=60?'#22c55e':p>=40?'#eab308':'#ef4444';return `<div class="ins" style="border-left-color:${col}"><div style="display:flex;justify-content:space-between;gap:8px"><b>${k}</b><b style="color:${col}">${p==null?'—':p+'%'}</b></div><div class="wb"><div style="width:${p||0}%;background:${col}"></div></div><div class="sm2" style="margin-top:4px">${u.length}টি ট্রেড • জয় ${c.length?w+'/'+c.length:'—'}${hasPnl?` • নিট ${netF(u)>=0?'+':''}${netF(u).toFixed(1)}$`:''}</div></div>`}).join('')+'</div>':'';
-  let MG=gcard('🗺 প্ল্যান অনুযায়ী ফলাফল','রিফাইন প্ল্যান নাকি ডিসপ্লেসমেন্ট চেইন প্ল্যান — কোনটা ভালো চলছে',grpBy(a,t=>PN[t.plan]||''))+gcard('🧲 লিকুইডিটির ভূমিকা — কোনটা কাজ করছে?','সুইপ করে রিভার্সাল নাকি শুধু POI রিঅ্যাকশন',grpBy(a,t=>LQN[t.lqm]||'নির্বাচন করা হয়নি'));
-  X+=gcard('⚡ এন্ট্রি কন্ডিশন','',grpBy(a,t=>{const E={en_disp:'ডিসপ্লেসমেন্ট',en_retest:'রিটেস্ট',en_exp:'এক্সপ্যানশন',en_sweep:'লিকুইডিটি সুইপ'};return Object.keys(E).filter(k=>t.c[k]).map(k=>E[k])[0]}));
-  X+=gcard('⏱ ট্রিগার টাইমফ্রেম','',grpBy(a,t=>t.etf&&(TFN[t.etf]||t.etf)));
-  X+=gcard('💰 টেক প্রফিট R:R অনুযায়ী','প্ল্যান করা R:R এর সাথে ফলাফল',grpBy(a,t=>t.rr?'১:'+(Math.round(t.rr*2)/2):''));
-  MG+=gcard('🔗 লিকুইডিটি → POI → টার্গেট চেইন','কোন কম্বিনেশনে কেমন ফল',grpBy(a,t=>{const f=L=>L.filter(x=>t.c[x[0]]).map(x=>x[1]).join('+');const q=[f(TAGS.filter(x=>x[0][0]==='L')),f(TAGS.filter(x=>x[0][0]==='P')),f(TR),f(TT)];return q[0]||q[1]?`${q[0]||'—'} → ${q[1]||'—'}${q[2]?' → '+q[2]:''} ⇒ 🎯 ${q[3]||'—'}`:''}).slice(0,5));
-  X+=gcard('↕ দিক ও পেয়ার','',[...grpBy(a,t=>t.dir==='Sell'?'সেল (Sell)':'বাই (Buy)'),...grpBy(a,t=>t.pair)]);
-  h=H0+aiCard()+TRD+MG+'<details class="more"><summary>📊 আরও বিশ্লেষণ (স্কোরকার্ড, নিয়ম, অন্যান্য)</summary>'+X+h+'</details>';
   $('ana').innerHTML=h;
 }
 
-const AK='tc_v3_acc';let A=[];
-try{A=JSON.parse(localStorage.getItem(AK))||[]}catch(e){}
-const saveA=()=>{try{localStorage.setItem(AK,JSON.stringify(A))}catch(e){alert('সেভ করা যায়নি')}};
-const fm=n=>(n<0?'-':'')+'$'+Math.abs(n).toFixed(2);
-function bal(){const s=y=>A.filter(x=>x.type===y).reduce((a,x)=>a+x.amt,0);
-  const dep=s('dep'),wd=s('wd'),cm=s('com')+T.reduce((a,t)=>a+(t.comm||0),0),pl=T.reduce((a,t)=>a+(t.pnl||0),0);
-  return {dep,wd,cm,pl,b:dep+pl-cm-wd};}
-function addTx(y,ai,ni){const v=+$(ai).value;if(!(v>0))return alert('সঠিক পরিমাণ দিন');
-  if(y==='wd'&&v>bal().b+1e-9)return alert('ব্যালেন্সের বেশি তোলা যাবে না। ব্যালেন্স: '+fm(bal().b));
-  A.unshift({id:Date.now(),type:y,amt:v,date:ds(),note:$(ni).value.trim()});saveA();$(ai).value='';$(ni).value='';render();}
-function delTx(id){if(confirm('এটি মুছবেন? ব্যালেন্স নতুন করে হিসাব হবে।')){A=A.filter(x=>x.id!==id);saveA();render();}}
-window.delTx=delTx;
-$('depB').onclick=()=>addTx('dep','amt','amtN');$('wdB').onclick=()=>addTx('wd','amt','amtN');$('cmB').onclick=()=>addTx('com','cm','cmN');
-function renderAcc(){const b=bal(),c=b.b>=0?'g':'r';
-  $('balTop').textContent=fm(b.b);$('balTop').className=c;
-  $('accStats').innerHTML=`<div class="stat" style="flex-basis:100%"><b class="acc ${c}">${fm(b.b)}</b><i>বর্তমান ব্যালেন্স</i></div>
-   <div class="stat"><b>${fm(b.dep)}</b><i>মোট জমা</i></div><div class="stat"><b class="${b.pl>=0?'g':'r'}">${fm(b.pl)}</b><i>ট্রেড লাভ/লস</i></div>
-   <div class="stat"><b class="y">${fm(b.cm)}</b><i>মোট কমিশন</i></div><div class="stat"><b>${fm(b.wd)}</b><i>মোট উত্তোলন</i></div>`;
-  const N={dep:'জমা',wd:'উত্তোলন',com:'কমিশন'};
-  $('accList').innerHTML=A.length?A.map(x=>`<div class="tr ${x.type==='dep'?'good':'bad'}"><b>${N[x.type]}</b> • <span class="${x.type==='dep'?'g':'r'}">${x.type==='dep'?'+':'−'}$${x.amt.toFixed(2)}</span> <span class="sm2">• ${x.date}</span>${x.note?`<div class="sm2">${esc(x.note)}</div>`:''}<button class="sm s" style="margin-top:6px" onclick="delTx(${x.id})">মুছুন</button></div>`).join(''):'<p class="sm2">এখনো কোনো লেনদেন নেই। আগে শুরুর ব্যালেন্স জমা দিন।</p>';}
-const PK='tc_v3_pred';let PD=[];
-try{PD=JSON.parse(localStorage.getItem(PK))||[]}catch(e){}
-const savePD=()=>{try{localStorage.setItem(PK,JSON.stringify(PD))}catch(e){alert('সেভ করা যায়নি')}};
-$('pbias').innerHTML=mkBias('pb');wireBias('pb');$('pdate').value=ds();$('ptime').value=nowT();$('ptc').innerHTML=tchips('ptime');
-$('pSave').onclick=()=>{const b=getBias('pb'),pl=$('pplan').value.trim();if(!b&&!pl)return alert('অন্তত একটি বায়াস বা প্ল্যান লিখুন');
-  PD.unshift({id:Date.now(),date:$('pdate').value||ds(),time:$('ptime').value||nowT(),pair:$('ppair').value.trim(),bias:b,plan:pl,out:'pending'});savePD();clearBias('pb');$('pplan').value='';$('ppair').value='';render();};
-function setPT(id,k,v){const x=PD.find(p=>p.id===id);if(!x)return;if(k==='d'){if(v)x.date=v}else if(k==='t')x.time=v;else x.at=v;savePD();render()}
-window.setPT=setPT;
-function setOut(id,o){const x=PD.find(p=>p.id===id);if(x){x.out=o;savePD();render();}}
-function delP(id){if(confirm('এই প্রেডিকশন মুছবেন?')){PD=PD.filter(x=>x.id!==id);savePD();render();}}
-window.setOut=setOut;window.delP=delP;
-const AR={up:'↑ উপরে',down:'↓ নিচে',range:'↔ রেঞ্জ'},OUTL={pending:'⏳ চলমান',right:'✓ সঠিক',part:'◐ আংশিক',wrong:'✗ ভুল'};
-function resHtml(L,groups){
- const d=L.filter(x=>x.out&&x.out!=='pending'),c=o=>d.filter(x=>x.out===o).length,r=c('right'),p=c('part'),w=c('wrong'),days={};
- d.forEach(x=>(days[x.date]=days[x.date]||[]).push(x));
- const st=Object.keys(days).sort().map(k=>{const a=days[k],g=a.filter(x=>x.out==='right').length,b=a.filter(x=>x.out==='wrong').length;return[k,g>b?'g':b>g?'r':'y']});
- const gd=st.filter(x=>x[1]==='g').length,bd=st.filter(x=>x[1]==='r').length;let cw=0;for(let i=st.length-1;i>=0&&st[i][1]==='g';i--)cw++;
- const acc=d.length?Math.round((r+p/2)/d.length*100):null,pend=L.length-d.length;
- const gr=(key,title)=>{const m={};d.forEach(x=>{const k=x[key];if(k)(m[k]=m[k]||[]).push(x)});const rows=Object.entries(m).sort((a,b)=>b[1].length-a[1].length).slice(0,6);
-  return rows.length?`<div class="card"><h2>${title}</h2>`+rows.map(([k,u])=>{const q=Math.round((u.filter(x=>x.out==='right').length+u.filter(x=>x.out==='part').length/2)/u.length*100),col=q>=60?'#22c55e':q>=40?'#eab308':'#ef4444';return `<div class="ins" style="border-left-color:${col}"><div style="display:flex;justify-content:space-between"><b>${esc(k)}</b><b style="color:${col}">${q}%</b></div><div class="wb"><div style="width:${q}%;background:${col}"></div></div><div class="sm2">${u.length}টি • সঠিক ${u.filter(x=>x.out==='right').length} • ভুল ${u.filter(x=>x.out==='wrong').length}</div></div>`}).join('')+'</div>':''};
- return `<div class="hero"><h3>📊 ফলাফল বিশ্লেষণ</h3><div class="stats"><div class="stat"><b class="${acc==null?'':acc>=60?'g':acc>=40?'y':'r'}">${acc==null?'—':acc+'%'}</b><i>নির্ভুলতা</i></div><div class="stat"><b class="g">${gd}</b><i>ভালো দিন</i></div><div class="stat"><b class="r">${bd}</b><i>খারাপ দিন</i></div><div class="stat"><b>${cw}</b><i>টানা ভালো দিন</i></div></div>
- <div class="sm2" style="margin-top:8px">সঠিক ${r} • আংশিক ${p} • ভুল ${w}${pend?` • ফলাফল বাকি ${pend}টি`:''}${st.length?` • মিশ্র দিন ${st.length-gd-bd}`:''}</div>
- ${st.length?`<div style="margin-top:8px">`+st.slice(-21).map(x=>`<span class="dd ${x[1]}" title="${x[0]}">${+x[0].slice(8)}</span>`).join('')+`</div><div class="sm2">🟩 ভালো দিন • 🟥 খারাপ দিন • 🟨 মিশ্র (তারিখ দেখানো হয়েছে)</div>`:'<div class="sm2" style="margin-top:8px">ফলাফল যোগ করলে এখানে ভালো/খারাপ দিনের হিসাব আসবে।</div>'}</div>`+groups.map(g=>gr(g[0],g[1])).join('');}
-const expDir=x=>{const b=x.bias||{};for(const k of ['D','W','M'])if(b[k]){const v=b[k].s||b[k].o;if(v)return v}return ''};
-const btnR=(fn,id,cur)=>[['right','সঠিক','gr'],['part','আংশিক',''],['wrong','ভুল','rd'],['pending','চলমান','s']].map(o=>`<button class="sm ${o[2]} ${cur===o[0]?'sel':''}" onclick="${fn}(${id},'${o[0]}')">${o[1]}</button>`).join(' ');
-const btnA=(fn,id,cur)=>['up','down','range'].map(a=>`<button class="sm s ${cur===a?'sel':''}" onclick="${fn}(${id},'${a}')">${AR[a]}</button>`).join(' ');
-function setAct(id,v){const x=PD.find(p=>p.id===id);if(!x)return;x.act=x.act===v?'':v;const e=expDir(x);if(x.act&&e)x.out=x.act===e?'right':'wrong';else if(!x.act&&e)x.out='pending';savePD();render()}
-function setRn(id){const x=PD.find(p=>p.id===id);const v=prompt('ফলাফলের নোট (কী হলো / কেন ঠিক-ভুল)',x.rn||'');if(v!==null){x.rn=v.trim();savePD();render()}}
-window.setAct=setAct;window.setRn=setRn;
-function renderPred(){const L=PD.filter(x=>inP(x.date,P)).sort((a,b)=>(b.date+(b.time||'')).localeCompare(a.date+(a.time||'')));
-  $('pStats').innerHTML=resHtml(L,[['pair','পেয়ার অনুযায়ী নির্ভুলতা']]);
-  $('pList').innerHTML=L.length?L.map(x=>`<div class="tr ${x.out==='right'?'good':x.out==='wrong'?'bad':''}"><b>${esc(x.pair||'—')}</b> <span class="sm2">• ${x.date}${x.time?' '+x.time:''} • ${OUTL[x.out||'pending']}${expDir(x)?' • আমার প্রেডিকশন '+AR[expDir(x)]:''}${x.act?' • আসলে '+AR[x.act]:''}</span>${biasHtml(x)}${x.plan?`<div style="margin-top:4px">${esc(x.plan)}</div>`:''}${x.rn?`<div class="sm2" style="margin-top:4px">📝 ${esc(x.rn)}</div>`:''}
-  ${tmHtml('setPT',x.id,[['তারিখ','d','date',x.date],['প্রেডিকশনের সময়','t','time',x.time],['মার্কেট কখন চলল','a','time',x.at]],gapM(x.time,x.at))}<div class="sm2" style="margin-top:8px">আসলে মার্কেট কী করল? (বাছলে অটো ফলাফল বসবে)</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${btnA('setAct',x.id,x.act)}</div>
-  <div class="sm2" style="margin-top:8px">ফলাফল</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${btnR('setOut',x.id,x.out||'pending')} <button class="sm s" onclick="setRn(${x.id})">📝 নোট</button> <button class="sm s" onclick="delP(${x.id})">মুছুন</button></div></div>`).join(''):'<p class="sm2">এই সময়ে কোনো প্রেডিকশন নেই।</p>';}
-const NK='tc_v3_news';let NWS=[],nf='ALL';
-try{NWS=JSON.parse(localStorage.getItem(NK))||[]}catch(e){}
-const saveN=()=>{try{localStorage.setItem(NK,JSON.stringify(NWS))}catch(e){alert('সেভ করা যায়নি')}};
-const EVT={USD:['Non-Farm Payrolls (NFP)','CPI','Core CPI','FOMC Rate Decision','FOMC Minutes','Fed Chair Speech','Core PCE','PPI','GDP','Retail Sales','ISM PMI','Unemployment Claims','ADP Employment'],EUR:['ECB Rate Decision','ECB Press Conference','CPI Flash Estimate','GDP','PMI','ZEW Economic Sentiment','German Ifo'],GBP:['BoE Rate Decision','CPI','GDP','Employment / Claimant Count','Retail Sales','PMI','BoE Governor Speech']};
-function fillEv(){$('nEv').innerHTML=(EVT[$('nCur').value]||[]).map(e=>`<option>${e}</option>`).join('')+'<option value="__c">অন্য (নিজে লিখুন)…</option>';$('nCustW').style.display=(EVT[$('nCur').value]||[]).length?'none':'block'}
-$('nCur').onchange=fillEv;$('nEv').onchange=()=>{$('nCustW').style.display=$('nEv').value==='__c'?'block':'none'};
-fillEv();$('nDate').value=ds();$('nPT').value=nowT();$('nptc').innerHTML=tchips('nPT');
-
-const LK='tc_lists';let LS={pairs:[],curs:[]};
-try{const x=JSON.parse(localStorage.getItem(LK));if(x&&Array.isArray(x.pairs)&&Array.isArray(x.curs))LS=x}catch(e){}
-const saveL=()=>{try{localStorage.setItem(LK,JSON.stringify(LS))}catch(e){}};
-const DP=['EURUSD','GBPUSD','XAUUSD','USDJPY','AUDUSD','NZDUSD','USDCAD','USDCHF','EURJPY','GBPJPY','EURGBP','EURAUD','EURCAD','EURCHF','EURNZD','GBPAUD','GBPCAD','GBPCHF','GBPNZD','AUDJPY','AUDCAD','AUDCHF','AUDNZD','NZDJPY','CADJPY','CHFJPY','XAGUSD','NAS100','USTEC','US100','US30','US500','SPX500','GER40','UK100','JP225','USOIL','UKOIL','BTCUSD','ETHUSD'];
-const DC=['USD','EUR','GBP','JPY','AUD','NZD','CAD','CHF'];
-Object.assign(EVT,{JPY:['BoJ Rate Decision','BoJ Press Conference','National CPI','Tokyo CPI','Tankan Survey','GDP','Trade Balance','Unemployment Rate'],AUD:['RBA Rate Decision','RBA Press Conference','Employment Change','CPI','GDP','Retail Sales','Trade Balance','PMI'],NZD:['RBNZ Rate Decision','RBNZ Press Conference','CPI','GDP','Employment Change','Trade Balance','GDT Price Index'],CAD:['BoC Rate Decision','BoC Press Conference','Employment Change','CPI','GDP','Retail Sales','Ivey PMI'],CHF:['SNB Rate Decision','CPI','GDP','Retail Sales','KOF Economic Barometer','Trade Balance']});
-const allPairs=()=>[...DP,...LS.pairs.filter(p=>!DP.includes(p))];
-const allCurs=()=>{const u=[...DC,...LS.curs];NWS.forEach(n=>{if(n.cur&&!u.includes(n.cur))u.push(n.cur)});return [...new Set(u)]};
-function mkList(o){
-  const sel=$(o.sel);
-  const chk=()=>{$(o.box).style.display=sel.value==='__add'?'block':'none';$(o.del).style.display=LS[o.extra].includes(sel.value)?'inline-block':'none';if(o.after)o.after()};
-  const paint=keep=>{const v=keep||sel.value,l=o.list();sel.innerHTML=l.map(x=>`<option>${x}</option>`).join('')+`<option value="__add">${o.lbl}</option>`;sel.value=l.includes(v)?v:l[0];chk()};
-  sel.addEventListener('change',()=>{chk();if(sel.value==='__add')$(o.inp).focus()});
-  $(o.ok).onclick=()=>{const v=$(o.inp).value.trim().toUpperCase().replace(/[^A-Z0-9._-]/g,'');if(!v)return;if(!o.list().includes(v)){LS[o.extra].push(v);saveL()}$(o.inp).value='';paint(v);if(o.changed)o.changed()};
-  $(o.del).onclick=()=>{const v=sel.value;LS[o.extra]=LS[o.extra].filter(x=>x!==v);saveL();paint();if(o.changed)o.changed()};
-  paint();return paint;
+function curBal(){return ACC.start+ACC.adj.reduce((s,x)=>s+x.amt,0)+T.reduce((s,t)=>s+net1(t),0);}
+function renderBal(){
+  const c=curBal(),tn=T.reduce((s,t)=>s+net1(t),0),tc=T.reduce((s,t)=>s+(t.comm||0),0);
+  $('bal').innerHTML=`<h2>অ্যাকাউন্ট ব্যালেন্স</h2><div class="stats">
+   <div class="stat"><b>${f$(ACC.start)}</b><i>শুরুর ব্যালেন্স</i></div>
+   <div class="stat"><b class="${tn>=0?'g':'r'}">${f$(tn)}</b><i>ট্রেড থেকে নেট</i></div>
+   <div class="stat"><b class="y">-$${tc.toFixed(2)}</b><i>মোট কমিশন</i></div>
+   <div class="stat"><b style="color:#93c5fd">${f$(c)}</b><i>বর্তমান ব্যালেন্স</i></div></div>
+   <div class="row" style="align-items:flex-end"><div class="f"><span>শুরুর ব্যালেন্স ($)</span><input type="number" id="bs" step="0.01" value="${ACC.start||''}" placeholder="যেমন 1000"></div><button class="sm" onclick="setStart()">সেভ</button></div>
+   <div class="row" style="align-items:flex-end"><div class="f"><span>ডিপোজিট / উইথড্র পরিমাণ ($)</span><input type="number" id="ba" step="0.01" min="0" placeholder="যেমন 200"></div><button class="sm gr" onclick="addAdj(1)">+ ডিপোজিট</button><button class="sm rd" onclick="addAdj(-1)">− উইথড্র</button></div>
+   ${ACC.adj.length?`<div class="sm2" style="margin-top:4px">ডিপোজিট/উইথড্র তালিকা:</div>`+ACC.adj.map((x,i)=>`<div class="sm2">${x.date} • <b class="${x.amt>=0?'g':'r'}">${x.amt>=0?'ডিপোজিট':'উইথড্র'} ${f$(Math.abs(x.amt))}</b> <a href="#" onclick="delAdj(${i});return false" style="color:#93c5fd">মুছো</a></div>`).join(''):''}`;
 }
-const plistFill=()=>{$('plist').innerHTML=allPairs().map(p=>`<option value="${p}">`).join('')};
-const pairPaint=mkList({sel:'pair',box:'pairAdd',inp:'pairNew',ok:'pairOk',del:'pairDel',list:allPairs,extra:'pairs',lbl:'➕ নতুন পেয়ার যোগ করুন…',changed:plistFill});
-const curPaint=mkList({sel:'nCur',box:'curAdd',inp:'curNew',ok:'curOk',del:'curDel',list:allCurs,extra:'curs',lbl:'➕ নতুন কারেন্সি যোগ করুন…',after:()=>fillEv(),changed:()=>renderNews()});
-plistFill();
-$('nSave').onclick=()=>{const ev=$('nEv').value==='__c'?$('nCust').value.trim():$('nEv').value;if($('nCur').value==='__add')return alert('নতুন কারেন্সির নাম লিখে আগে "যোগ" চাপুন');if(!ev||!$('nDate').value)return alert('তারিখ ও ইভেন্ট দিন');
-  NWS.push({id:Date.now(),date:$('nDate').value,time:$('nTime').value,pt:$('nPT').value||nowT(),cur:$('nCur').value,ev,fc:$('nFc').value.trim(),pv:$('nPv').value.trim(),ac:$('nAc').value.trim(),note:$('nNote').value.trim(),my:$('nMy').value,out:'pending',rx:''});
-  saveN();$('nMy').value='';['nFc','nPv','nAc','nNote','nCust','nTime'].forEach(i=>$(i).value='');render();};
-function delN(id){if(confirm('এই নিউজ মুছবেন?')){NWS=NWS.filter(x=>x.id!==id);saveN();render();}}
-function actN(id){const x=NWS.find(n=>n.id===id);if(!x)return;const v=prompt('আসল রেজাল্ট',x.ac||'');if(v!==null){x.ac=v.trim();saveN();render();}}
-window.delN=delN;window.actN=actN;
-function setNo(id,o){const x=NWS.find(n=>n.id===id);if(x){x.out=o;saveN();render()}}
-function setRx(id,v){const x=NWS.find(n=>n.id===id);if(!x)return;x.rx=x.rx===v?'':v;if(x.rx&&x.my)x.out=x.rx===x.my?'right':'wrong';else if(!x.rx&&x.my)x.out='pending';saveN();render()}
-function setNT(id,k,v){const x=NWS.find(n=>n.id===id);if(!x)return;if(k==='e')x.time=v;else if(k==='t')x.pt=v;else x.rxt=v;saveN();render()}
-function setMy(id,v){const x=NWS.find(n=>n.id===id);if(!x)return;x.my=x.my===v?'':v;if(x.rx&&x.my)x.out=x.rx===x.my?'right':'wrong';saveN();render()}
-window.setNT=setNT;window.setMy=setMy;
-function rnN(id){const x=NWS.find(n=>n.id===id);const v=prompt('ফলাফলের নোট (নিউজে মার্কেট কী করল)',x.rn||'');if(v!==null){x.rn=v.trim();saveN();render()}}
-window.setNo=setNo;window.setRx=setRx;window.rnN=rnN;
-function renderNews(){const td=ds();
-  $('nPills').innerHTML=['ALL',...allCurs()].map(c=>`<div class="pill ${nf===c?'on':''}" data-c="${c}">${c==='ALL'?'সব':c}</div>`).join('');
-  $('nPills').querySelectorAll('.pill').forEach(e=>e.onclick=()=>{nf=e.dataset.c;renderNews()});
-  const all=NWS.filter(x=>nf==='ALL'||x.cur===nf).sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));
-  $('nStats').innerHTML=resHtml(all.filter(x=>inP(x.date,P)),[['cur','কারেন্সি অনুযায়ী নির্ভুলতা'],['ev','ইভেন্ট অনুযায়ী নির্ভুলতা']]);
-  const L=all.filter(x=>inP(x.date,P)||x.date>=td),up=L.filter(x=>x.date>=td),pa=L.filter(x=>x.date<td).reverse();
-  const row=x=>`<div class="tr ${x.out==='right'?'good':x.out==='wrong'?'bad':''}" style="border-left:4px solid ${x.date===td?'#f59e0b':'#ef4444'}">🔴 <b>${x.cur}</b> — ${esc(x.ev)} <span class="sm2">• ${x.date}${x.time?' '+x.time:''}${x.date===td?' • আজ':''} • ${OUTL[x.out||'pending']}</span><div class="sm2">ফোরকাস্ট: ${esc(x.fc||'—')} • আগের: ${esc(x.pv||'—')} • আসল: <b>${esc(x.ac||'—')}</b></div><div class="sm2">আমার প্রেডিকশন: <b>${x.my?AR[x.my]:'—'}</b>${x.pt?` (${x.pt} এ করা)`:''} • মার্কেট আসলে: <b>${x.rx?AR[x.rx]:'—'}</b></div>${x.note?`<div style="margin-top:4px">${esc(x.note)}</div>`:''}${x.rn?`<div class="sm2" style="margin-top:4px">📝 ${esc(x.rn)}</div>`:''}
-   ${tmHtml('setNT',x.id,[['নিউজের সময়','e','time',x.time],['প্রেডিকশনের সময়','t','time',x.pt],['মার্কেট কখন চলল','a','time',x.rxt]],gapM(x.pt,x.rxt))}<div class="sm2" style="margin-top:8px">আমার প্রেডিকশন (পরে বদলানো যাবে)</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${btnA('setMy',x.id,x.my)}</div><div class="sm2" style="margin-top:8px">মার্কেট আসলে কী করল?</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${btnA('setRx',x.id,x.rx)}</div>
-   <div class="sm2" style="margin-top:8px">ফলাফল</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${btnR('setNo',x.id,x.out||'pending')} <button class="sm s" onclick="actN(${x.id})">আসল দিন</button> <button class="sm s" onclick="rnN(${x.id})">📝 নোট</button> <button class="sm s" onclick="delN(${x.id})">মুছুন</button></div></div>`;
-  $('nList').innerHTML=(up.length?'<div class="card"><h2>আসন্ন ও আজকের</h2>'+up.map(row).join('')+'</div>':'<div class="card"><p class="sm2">কোনো আসন্ন রেড-ফোল্ডার নিউজ নেই।</p></div>')+(pa.length?'<div class="card"><h2>পুরনো — ফলাফল যোগ করুন</h2>'+pa.map(row).join('')+'</div>':'');
-  const t=NWS.filter(x=>x.date===td).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
-  $('newsBar').style.display=t.length?'block':'none';
-  $('newsBar').innerHTML=t.length?'🔴 <b>আজকের রেড নিউজ:</b> '+t.map(x=>`${x.cur} ${esc(x.ev)}${x.time?' @ '+x.time:''}`).join(' • '):'';}
-function render(){pills();renderAlert();renderList();renderAna();renderAcc();renderPred();renderNews();}
-$('exp').onclick=async()=>{try{const data=JSON.stringify({t:T,a:A,p:PD,n:NWS,l:LS}),fn='trading-backup-'+ds()+'.json',d=window.claude?await claude.use('downloads'):null;if(d)await d.save({filename:fn,data});else{const u=URL.createObjectURL(new Blob([data],{type:'application/json'})),l=document.createElement('a');l.href=u;l.download=fn;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}}catch(e){if(!e||e.code!=='declined')alert('ব্যাকআপ সেভ হয়নি')}};
+function setStart(){const v=$('bs').value;ACC.start=v===''?0:+v;saveAcc();render();}
+function addAdj(sg){const v=+$('ba').value;if(!(v>0))return;ACC.adj.push({date:ds(),amt:sg*v});saveAcc();render();}
+function delAdj(i){ACC.adj.splice(i,1);saveAcc();render();}
+window.setStart=setStart;window.addAdj=addAdj;window.delAdj=delAdj;
+function render(){renderBal();pills();renderAlert();renderList();renderAna();renderPlan();showAuto();}
+$('exp').onclick=()=>{const b=new Blob([JSON.stringify({trades:T,acc:ACC,plans:D.plans,news:D.news})],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='trading-backup-'+ds()+'.json';a.click();URL.revokeObjectURL(u);};
 $('impB').onclick=()=>$('imp').click();
-$('imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);const nt=Array.isArray(d)?d:d.t,na=Array.isArray(d)?A:(d.a||[]);if(!Array.isArray(nt))throw 0;if(confirm('বর্তমান ডেটা এই ব্যাকআপ দিয়ে বদলে যাবে। চালিয়ে যাবেন?')){T=nt;A=na;PD=(!Array.isArray(d)&&Array.isArray(d.p))?d.p:PD;NWS=(!Array.isArray(d)&&Array.isArray(d.n))?d.n:NWS;if(!Array.isArray(d)&&d.l&&Array.isArray(d.l.pairs)&&Array.isArray(d.l.curs)){LS=d.l;saveL();pairPaint();curPaint();plistFill()}save();saveA();savePD();saveN();render();showAuto();}}catch(x){alert('ফাইলটি সঠিক নয়')}};r.readAsText(f);};
+$('imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(Array.isArray(d))d={trades:d};if(!Array.isArray(d.trades))throw 0;PEND=d;$('impMsg').innerHTML=`ব্যাকআপে ${d.trades.length}টি ট্রেড আছে। বর্তমান ডাটা এটা দিয়ে বদলে যাবে। <button class="sm gr" onclick="doImp()">হ্যাঁ, লোড করো</button> <button class="sm s" onclick="PEND=null;$('impMsg').textContent=''">বাতিল</button>`;}catch(x){$('impMsg').textContent='ফাইলটি ঠিক নেই'}e.target.value=''};r.readAsText(f);};
+function doImp(){if(!PEND)return;T=PEND.trades;if(PEND.acc)ACC=PEND.acc;if(PEND.plans)D.plans=PEND.plans;if(PEND.news)D.news=PEND.news;PEND=null;save();saveAcc();saveD();$('impMsg').textContent='লোড হয়েছে ✓';render();showAuto();}
+window.doImp=doImp;
 showAuto();render();
-if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script>
 </body>
 </html>
