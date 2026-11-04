@@ -43,6 +43,7 @@ button.s{background:#475569}button.sm{padding:5px 10px;font-size:.8rem}button.gr
 .tcard.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 18%,var(--card))}
 .tcard.on b{color:var(--c)}
 summary{cursor:pointer;color:#93c5fd;font-weight:600}
+.stat b{font-size:clamp(.95rem,4.6vw,1.25rem);overflow-wrap:anywhere}
 </style>
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0b1220"><meta name="mobile-web-app-capable" content="yes"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"></head>
 <body>
@@ -89,10 +90,10 @@ summary{cursor:pointer;color:#93c5fd;font-weight:600}
       <div class="f" style="flex:2"><span>টার্গেট জায়গা / প্রাইস</span><input type="text" id="tnote" placeholder="যেমন Daily high liquidity, 1.0850"></div>
     </div>
     <div class="row">
-      <div class="f"><span>রিস্ক ($)</span><input type="number" id="risk" min="1" max="27" step="0.1" value="25"></div>
+      <div class="f"><span>রিস্ক ($)</span><input type="text" inputmode="decimal" id="risk" min="1" max="27" step="0.1" value="25"></div>
       <div class="f"><span>রেজাল্ট</span><select id="res"><option value="pending">Pending</option><option value="win">Win</option><option value="loss">Loss</option></select></div>
-      <div class="f"><span>প্রফিট/লস পরিমাণ $ (Win/Loss হলে; চিহ্ন অটো)</span><input type="number" id="pnl" step="0.01" min="0" placeholder="যেমন 75"></div>
-      <div class="f"><span>কমিশন কাটা $ (ঐচ্ছিক)</span><input type="number" id="comm" step="0.01" min="0" placeholder="যেমন 3.5"></div>
+      <div class="f"><span>প্রফিট/লস পরিমাণ $ (Win/Loss হলে; চিহ্ন অটো)</span><input type="text" inputmode="decimal" id="pnl" step="0.01" min="0" placeholder="যেমন 75"></div>
+      <div class="f"><span>কমিশন কাটা $ (ঐচ্ছিক)</span><input type="text" inputmode="decimal" id="comm" step="0.01" min="0" placeholder="যেমন 3.5"></div>
     </div>
     <div class="sm2" id="autoInfo"></div><div class="chips" id="autoChips"></div>
   </div>
@@ -191,7 +192,7 @@ const pct=(a,b)=>b?Math.round(a/b*100):0;
 
 const MOTI=['ট্রেডিংয়ে প্রফিট আসে প্রসেস ফলো করার ফল হিসেবে। প্রতিটা ট্রেডে শুধু নিয়ম মানো, ফলাফল নিয়ে তাড়াহুড়ো করো না।','একটা SL এই খেলারই অংশ। রিস্ক ছোট রাখলে এক-দুটো লসে সবকিছু শেষ হয়ে যায় না। নিজের বিশ্লেষণে ভরসা রাখো।','বায়াস ক্লিয়ার না হলে অপেক্ষা করাও একটা সিদ্ধান্ত। ট্রেড না নেওয়া মানে হেরে যাওয়া নয়।','ট্রেডিং প্রবাবিলিটির খেলা। আজকের একটা লস তোমার পুরো পথের গল্প নয়। চেকলিস্ট ধরে এগিয়ে চলো।','লসের পর রিভেঞ্জ ট্রেড নয়। একটু থামো, শ্বাস নাও, তারপর চেকলিস্টে ফিরে এসো।','দ্রুত টাকা বানানোর চিন্তা ছেড়ে শেখা আর প্র্যাকটিসে মন দাও। প্রফিটেবল হওয়া তার ফল হয়ে আসবে।','নিজের ট্রেড লেখো, সপ্তাহে একবার বিশ্লেষণ করো। ভুল ধরতে পারাই উন্নতির আসল রাস্তা।'];
 $('moti').innerHTML='<b>আজকের কথা</b>'+MOTI[Math.floor(Date.now()/864e5)%MOTI.length];
-const PAIRS=[['কারেন্সি',['EURUSD','GBPUSD','USDJPY','AUDUSD','NZDUSD','USDCAD','USDCHF','EURJPY','GBPJPY']],['মেটাল',['XAUUSD']],['ইনডিসেস',['GER40','JP225','US30','NAS100']]];
+const PAIRS=[['কারেন্সি',['EURUSD','GBPUSD','USDJPY','AUDUSD','NZDUSD','USDCAD','USDCHF','EURJPY','GBPJPY']],['মেটাল',['XAUUSD']],['ইনডিসেস',['GER40','JP225','US30','NAS100']],['ক্রিপ্টো',['BTCUSD']]];
 const pairOpts=extra=>(extra?`<option>${extra}</option>`:'')+PAIRS.map(g=>`<optgroup label="${g[0]}">`+g[1].map(x=>`<option>${x}</option>`).join('')+'</optgroup>').join('');
 $('pair').innerHTML=pairOpts();$('ppair').innerHTML=pairOpts();$('npair').innerHTML=pairOpts('সব');
 
@@ -298,7 +299,7 @@ function renderList(){
     ${b.length?'<div class="r" style="margin-top:5px">ভুল: '+b.map(r=>r[1]).join(' | ')+'</div>':'<div class="g" style="margin-top:5px">সব রুল ঠিক ছিল ✓</div>'}
     ${t.note?`<div class="sm2" style="margin-top:4px">📝 ${esc(t.note)}</div>`:''}
     <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${rb}</div>
-    <div class="row" style="margin:8px 0 0;align-items:flex-end"><div class="f"><span>${t.result==='loss'?'লস':'প্রফিট'} পরিমাণ ($)</span><input type="number" step="0.01" min="0" value="${t.pnl==null?'':Math.abs(t.pnl)}" onchange="setAmt(${t.id},this.value)"></div><div class="f"><span>কমিশন ($)</span><input type="number" step="0.01" min="0" value="${t.comm||''}" onchange="setCm(${t.id},this.value)"></div><div class="f"><span>নেট</span><b id="net${t.id}" class="${nv>=0?'g':'r'}" style="display:block;padding:9px 0">${t.result==='pending'&&!t.comm?'—':f$(nv)}</b></div></div>
+    <div class="row" style="margin:8px 0 0;align-items:flex-end"><div class="f"><span>${t.result==='loss'?'লস':'প্রফিট'} পরিমাণ ($)</span><input type="text" inputmode="decimal" step="0.01" min="0" value="${t.pnl==null?'':Math.abs(t.pnl)}" onchange="setAmt(${t.id},this.value)"></div><div class="f"><span>কমিশন ($)</span><input type="text" inputmode="decimal" step="0.01" min="0" value="${t.comm||''}" onchange="setCm(${t.id},this.value)"></div><div class="f"><span>নেট</span><b id="net${t.id}" class="${nv>=0?'g':'r'}" style="display:block;padding:9px 0">${t.result==='pending'&&!t.comm?'—':f$(nv)}</b></div></div>
     <div style="margin-top:7px"><button class="sm ${DELC===t.id?'rd':'s'}" onclick="del(${t.id})">${DELC===t.id?'নিশ্চিত? আবার চাপো':'মুছো'}</button></div></div>`}).join(''):'<p class="sm2">এই সময়ে কোনো ট্রেড নেই।</p>';
 }
 
@@ -371,20 +372,29 @@ function renderAna(){
 }
 
 function curBal(){return ACC.start+ACC.adj.reduce((s,x)=>s+x.amt,0)+T.reduce((s,t)=>s+net1(t),0);}
+const N=v=>{v=String(v==null?'':v).replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/,/g,'.').trim();return v===''?NaN:+v};
+let AMSG='';
 function renderBal(){
-  const c=curBal(),tn=T.reduce((s,t)=>s+net1(t),0),tc=T.reduce((s,t)=>s+(t.comm||0),0);
+  const m=AMSG;AMSG='';
+  const c=curBal(),tn=T.reduce((s,t)=>s+net1(t),0),tc=T.reduce((s,t)=>s+(t.comm||0),0),dep=ACC.adj.filter(x=>x.amt>0).reduce((s,x)=>s+x.amt,0),wd=-ACC.adj.filter(x=>x.amt<0).reduce((s,x)=>s+x.amt,0);
   $('bal').innerHTML=`<h2>অ্যাকাউন্ট ব্যালেন্স</h2><div class="stats">
+   <div class="stat"><b style="color:#93c5fd">${f$(c)}</b><i>বর্তমান ব্যালেন্স</i></div>
    <div class="stat"><b>${f$(ACC.start)}</b><i>শুরুর ব্যালেন্স</i></div>
+   <div class="stat"><b class="g">${f$(dep)}</b><i>মোট ডিপোজিট</i></div>
+   <div class="stat"><b class="r">${f$(wd)}</b><i>মোট উইথড্র</i></div>
    <div class="stat"><b class="${tn>=0?'g':'r'}">${f$(tn)}</b><i>ট্রেড থেকে নেট</i></div>
-   <div class="stat"><b class="y">-$${tc.toFixed(2)}</b><i>মোট কমিশন</i></div>
-   <div class="stat"><b style="color:#93c5fd">${f$(c)}</b><i>বর্তমান ব্যালেন্স</i></div></div>
-   <div class="row" style="align-items:flex-end"><div class="f"><span>শুরুর ব্যালেন্স ($)</span><input type="number" id="bs" step="0.01" value="${ACC.start||''}" placeholder="যেমন 1000"></div><button class="sm" onclick="setStart()">সেভ</button></div>
-   <div class="row" style="align-items:flex-end"><div class="f"><span>ডিপোজিট / উইথড্র পরিমাণ ($)</span><input type="number" id="ba" step="0.01" min="0" placeholder="যেমন 200"></div><button class="sm gr" onclick="addAdj(1)">+ ডিপোজিট</button><button class="sm rd" onclick="addAdj(-1)">− উইথড্র</button></div>
-   ${ACC.adj.length?`<div class="sm2" style="margin-top:4px">ডিপোজিট/উইথড্র তালিকা:</div>`+ACC.adj.map((x,i)=>`<div class="sm2">${x.date} • <b class="${x.amt>=0?'g':'r'}">${x.amt>=0?'ডিপোজিট':'উইথড্র'} ${f$(Math.abs(x.amt))}</b> <a href="#" onclick="delAdj(${i});return false" style="color:#93c5fd">মুছো</a></div>`).join(''):''}`;
+   <div class="stat"><b class="y">-$${tc.toFixed(2)}</b><i>মোট কমিশন</i></div></div>
+   ${m?`<div style="margin-top:10px;padding:9px 12px;border-radius:10px;background:#1e293b;font-size:.88rem">${m}</div>`:''}
+   <div class="sm2" style="margin:12px 0 4px"><b>১) শুরুর ব্যালেন্স</b></div>
+   <div class="row" style="align-items:flex-end"><div class="f"><input type="text" inputmode="decimal" id="bs" value="${ACC.start||''}" placeholder="যেমন 1000"></div><button class="sm" onclick="setStart()">সেভ</button></div>
+   <div class="sm2" style="margin:12px 0 4px"><b>২) ডিপোজিট / উইথড্র</b></div>
+   <div class="row"><div class="f"><span>পরিমাণ ($)</span><input type="text" inputmode="decimal" id="ba" placeholder="যেমন 200"></div><div class="f"><span>নোট (ঐচ্ছিক)</span><input type="text" id="bn" placeholder="যেমন প্রপ ফার্ম পেআউট"></div></div>
+   <div style="display:flex;gap:8px;margin-top:8px"><button class="sm gr" onclick="addAdj(1)">+ ডিপোজিট</button><button class="sm rd" onclick="addAdj(-1)">− উইথড্র</button></div>
+   ${ACC.adj.length?`<div class="sm2" style="margin:12px 0 4px"><b>লেনদেনের তালিকা</b></div>`+ACC.adj.map((x,i)=>`<div class="tr" style="padding:8px 10px"><b class="${x.amt>=0?'g':'r'}">${x.amt>=0?'+ ডিপোজিট':'− উইথড্র'} ${f$(Math.abs(x.amt))}</b> <span class="sm2">• ${x.date}${x.note?' • '+esc(x.note):''}</span> <a href="#" onclick="delAdj(${i});return false" style="color:#93c5fd;float:right">মুছো</a></div>`).reverse().join(''):'<div class="sm2" style="margin-top:10px">এখনো কোনো ডিপোজিট/উইথড্র নেই।</div>'}`;
 }
-function setStart(){const v=$('bs').value;ACC.start=v===''?0:+v;saveAcc();render();}
-function addAdj(sg){const v=+$('ba').value;if(!(v>0))return;ACC.adj.push({date:ds(),amt:sg*v});saveAcc();render();}
-function delAdj(i){ACC.adj.splice(i,1);saveAcc();render();}
+function setStart(){const raw=$('bs').value.trim(),v=N(raw);if(raw===''){ACC.start=0;AMSG='শুরুর ব্যালেন্স ০ করা হলো।'}else if(isNaN(v)||v<0){AMSG='⚠ সঠিক সংখ্যা লিখুন (যেমন 1000)।';render();return}else{ACC.start=v;AMSG='✓ শুরুর ব্যালেন্স সেভ হয়েছে: '+f$(v)}saveAcc();render();}
+function addAdj(sg){const v=N($('ba').value),nt=$('bn').value.trim();if(!(v>0)){AMSG='⚠ আগে পরিমাণ লিখুন (০ এর বেশি, যেমন 200)।';render();return}if(sg<0&&v>curBal()+1e-9){AMSG='⚠ বর্তমান ব্যালেন্স '+f$(curBal())+' এর বেশি তোলা যাবে না।';render();return}ACC.adj.push({id:Date.now(),date:ds(),amt:sg*v,note:nt});AMSG=(sg>0?'✓ ডিপোজিট যোগ হয়েছে: ':'✓ উইথড্র যোগ হয়েছে: ')+f$(v);saveAcc();render();}
+function delAdj(i){ACC.adj.splice(i,1);AMSG='লেনদেনটি মুছে ফেলা হয়েছে।';saveAcc();render();}
 window.setStart=setStart;window.addAdj=addAdj;window.delAdj=delAdj;
 function render(){renderBal();pills();renderAlert();renderList();renderAna();renderPlan();showAuto();}
 $('exp').onclick=()=>{const b=new Blob([JSON.stringify({trades:T,acc:ACC,plans:D.plans,news:D.news})],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='trading-backup-'+ds()+'.json';a.click();URL.revokeObjectURL(u);};
@@ -394,5 +404,5 @@ function doImp(){if(!PEND)return;T=PEND.trades;if(PEND.acc)ACC=PEND.acc;if(PEND.
 window.doImp=doImp;
 showAuto();render();
 </script>
-<script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))</script></body>
+<script>document.addEventListener('input',e=>{const t=e.target;if(t.matches&&t.matches('input[inputmode=decimal]')){const v=t.value,n=v.replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/,/g,'.');if(n!==v)t.value=n}},true)</script><script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))</script></body>
 </html>
