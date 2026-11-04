@@ -44,7 +44,7 @@ button.s{background:#475569}button.sm{padding:5px 10px;font-size:.8rem}button.gr
 .tcard.on b{color:var(--c)}
 summary{cursor:pointer;color:#93c5fd;font-weight:600}
 </style>
-</head>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0b1220"><meta name="mobile-web-app-capable" content="yes"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"></head>
 <body>
 <div id="moti" class="moti"></div>
 <div id="alert" class="alert"></div>
@@ -394,5 +394,5 @@ function doImp(){if(!PEND)return;T=PEND.trades;if(PEND.acc)ACC=PEND.acc;if(PEND.
 window.doImp=doImp;
 showAuto();render();
 </script>
-</body>
+<script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))</script></body>
 </html>
