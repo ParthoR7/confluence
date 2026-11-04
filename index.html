@@ -173,11 +173,15 @@ let T=[],P='week';
 let ACC={start:0,adj:[]};
 try{T=JSON.parse(localStorage.getItem(K))||[]}catch(e){}
 try{ACC=JSON.parse(localStorage.getItem(K+'_acc'))||ACC}catch(e){}
+if(Array.isArray(ACC))ACC={start:0,adj:ACC.filter(x=>x&&(x.type==='dep'||x.type==='wd')&&isFinite(+x.amt)).map(x=>({id:x.id||Date.now(),date:x.date||'',amt:(x.type==='wd'?-1:1)*Math.abs(+x.amt),note:x.note||''}))};
+if(!ACC||typeof ACC!=='object')ACC={start:0,adj:[]};ACC.start=+ACC.start||0;if(!Array.isArray(ACC.adj))ACC.adj=[];ACC.adj=ACC.adj.filter(x=>x&&isFinite(+x.amt)).map(x=>({...x,amt:+x.amt}));
+if(!Array.isArray(T))T=[];T=T.filter(t=>t&&typeof t==='object'&&t.c&&typeof t.c==='object');
 T.forEach(t=>{if(t.c&&t.c.a1!==undefined)t.c.a1=t.risk>=1&&t.risk<=27;});
 const saveAcc=()=>{try{localStorage.setItem(K+'_acc',JSON.stringify(ACC))}catch(e){}};
 let D={plans:[],news:[]};
 try{D=Object.assign(D,JSON.parse(localStorage.getItem(K+'_plan'))||{})}catch(e){}
 const saveD=()=>{try{localStorage.setItem(K+'_plan',JSON.stringify(D))}catch(e){}};
+if(!D||typeof D!=='object')D={plans:[],news:[]};if(!Array.isArray(D.plans))D.plans=[];if(!Array.isArray(D.news))D.news=[];
 const net1=t=>(t.result==='pending'?0:(t.pnl||0))-(t.comm||0);
 const f$=n=>(n>=0?'':'-')+'$'+Math.abs(n).toFixed(2);
 const save=()=>{try{localStorage.setItem(K,JSON.stringify(T))}catch(e){msg('সেভ করা যায়নি — ব্রাউজারে স্টোরেজ বন্ধ আছে')}};
@@ -396,7 +400,7 @@ function setStart(){const raw=$('bs').value.trim(),v=N(raw);if(raw===''){ACC.sta
 function addAdj(sg){const v=N($('ba').value),nt=$('bn').value.trim();if(!(v>0)){AMSG='⚠ আগে পরিমাণ লিখুন (০ এর বেশি, যেমন 200)।';render();return}if(sg<0&&v>curBal()+1e-9){AMSG='⚠ বর্তমান ব্যালেন্স '+f$(curBal())+' এর বেশি তোলা যাবে না।';render();return}ACC.adj.push({id:Date.now(),date:ds(),amt:sg*v,note:nt});AMSG=(sg>0?'✓ ডিপোজিট যোগ হয়েছে: ':'✓ উইথড্র যোগ হয়েছে: ')+f$(v);saveAcc();render();}
 function delAdj(i){ACC.adj.splice(i,1);AMSG='লেনদেনটি মুছে ফেলা হয়েছে।';saveAcc();render();}
 window.setStart=setStart;window.addAdj=addAdj;window.delAdj=delAdj;
-function render(){renderBal();pills();renderAlert();renderList();renderAna();renderPlan();showAuto();}
+function render(){[renderBal,pills,renderAlert,renderList,renderAna,renderPlan,showAuto].forEach(f=>{try{f()}catch(e){console.error(f.name,e)}});}
 $('exp').onclick=()=>{const b=new Blob([JSON.stringify({trades:T,acc:ACC,plans:D.plans,news:D.news})],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='trading-backup-'+ds()+'.json';a.click();URL.revokeObjectURL(u);};
 $('impB').onclick=()=>$('imp').click();
 $('imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(Array.isArray(d))d={trades:d};if(!Array.isArray(d.trades))throw 0;PEND=d;$('impMsg').innerHTML=`ব্যাকআপে ${d.trades.length}টি ট্রেড আছে। বর্তমান ডাটা এটা দিয়ে বদলে যাবে। <button class="sm gr" onclick="doImp()">হ্যাঁ, লোড করো</button> <button class="sm s" onclick="PEND=null;$('impMsg').textContent=''">বাতিল</button>`;}catch(x){$('impMsg').textContent='ফাইলটি ঠিক নেই'}e.target.value=''};r.readAsText(f);};
