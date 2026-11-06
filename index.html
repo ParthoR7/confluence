@@ -2,12 +2,20 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Trading Checklist v3</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f1419">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TradeCheck">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Trading Checklist</title>
 <style>
 :root{--bg:#0f1419;--card:#1a2332;--bd:#2d3a4f;--tx:#e2e8f0;--mut:#94a3b8;--ac:#3b82f6;--g:#10b981;--r:#ef4444;--y:#f59e0b;--in:#0f172a}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--tx);padding:14px;max-width:820px;margin:0 auto;font-size:15px}
+body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--tx);padding:max(14px,env(safe-area-inset-top)) 14px max(24px,env(safe-area-inset-bottom));max-width:820px;margin:0 auto;font-size:15px}
 h1{font-size:1.3rem}.sub{color:var(--mut);font-size:.8rem;margin-bottom:12px}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:14px}
 .card h2{font-size:.95rem;color:#93c5fd;border-bottom:1px solid var(--bd);padding-bottom:6px;margin-bottom:8px}
@@ -43,16 +51,18 @@ button.s{background:#475569}button.sm{padding:5px 10px;font-size:.8rem}button.gr
 .tcard.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 18%,var(--card))}
 .tcard.on b{color:var(--c)}
 summary{cursor:pointer;color:#93c5fd;font-weight:600}
-.stat b{font-size:clamp(.95rem,4.6vw,1.25rem);overflow-wrap:anywhere}
+.dg{width:100%;height:auto;background:#0b1220;border-radius:10px;display:block}
 </style>
-<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0b1220"><meta name="mobile-web-app-capable" content="yes"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"></head>
+</head>
 <body>
 <div id="moti" class="moti"></div>
+<div id="instRow" style="display:none;margin-bottom:12px"><button class="sm" id="instBtn">📲 অ্যাপ হিসেবে ইনস্টল করো</button></div>
 <div id="alert" class="alert"></div>
 <div id="newsBar"></div>
 <div class="tabs">
   <div class="tab on" data-t="new">নতুন ট্রেড</div>
   <div class="tab" data-t="plan">ডেইলি প্ল্যান</div>
+  <div class="tab" data-t="learn">লার্নিং</div>
   <div class="tab" data-t="list">ট্রেড লিস্ট</div>
   <div class="tab" data-t="ana">অ্যানালাইসিস</div>
   <div class="tab" data-t="acc">অ্যাকাউন্ট</div>
@@ -90,10 +100,10 @@ summary{cursor:pointer;color:#93c5fd;font-weight:600}
       <div class="f" style="flex:2"><span>টার্গেট জায়গা / প্রাইস</span><input type="text" id="tnote" placeholder="যেমন Daily high liquidity, 1.0850"></div>
     </div>
     <div class="row">
-      <div class="f"><span>রিস্ক ($)</span><input type="text" inputmode="decimal" id="risk" min="1" max="27" step="0.1" value="25"></div>
+      <div class="f"><span>রিস্ক ($)</span><input type="number" id="risk" min="1" max="27" step="0.1" value="25"></div>
       <div class="f"><span>রেজাল্ট</span><select id="res"><option value="pending">Pending</option><option value="win">Win</option><option value="loss">Loss</option></select></div>
-      <div class="f"><span>প্রফিট/লস পরিমাণ $ (Win/Loss হলে; চিহ্ন অটো)</span><input type="text" inputmode="decimal" id="pnl" step="0.01" min="0" placeholder="যেমন 75"></div>
-      <div class="f"><span>কমিশন কাটা $ (ঐচ্ছিক)</span><input type="text" inputmode="decimal" id="comm" step="0.01" min="0" placeholder="যেমন 3.5"></div>
+      <div class="f"><span>প্রফিট/লস পরিমাণ $ (Win/Loss হলে; চিহ্ন অটো)</span><input type="number" id="pnl" step="0.01" min="0" placeholder="যেমন 75"></div>
+      <div class="f"><span>কমিশন কাটা $ (ঐচ্ছিক)</span><input type="number" id="comm" step="0.01" min="0" placeholder="যেমন 3.5"></div>
     </div>
     <div class="sm2" id="autoInfo"></div><div class="chips" id="autoChips"></div>
   </div>
@@ -134,9 +144,21 @@ summary{cursor:pointer;color:#93c5fd;font-weight:600}
   <div class="pills" data-p></div><div id="planList"></div>
 </div>
 
+<div id="t-learn" style="display:none"><div id="learn"></div></div>
+
 <div id="t-list" style="display:none"><div class="pills" data-p></div><div id="list"></div></div>
 
-<div id="t-acc" style="display:none"><div class="card" id="bal"></div></div>
+<div id="t-acc" style="display:none">
+  <div class="card"><h2>অ্যাকাউন্ট ব্যালেন্স</h2><div class="stats" id="balStats"></div></div>
+  <div class="card"><h2>শুরুর ব্যালেন্স</h2>
+    <div class="row" style="align-items:flex-end"><div class="f"><span>ট্রেড লেখা শুরুর আগে অ্যাকাউন্টে কত ছিল ($)</span><input type="number" id="bs" step="0.01" inputmode="decimal" placeholder="যেমন 1000"></div><button id="bsB">সেভ করো</button></div>
+    <div class="row" style="align-items:flex-end;margin-top:6px"><div class="f"><span>অথবা ব্রোকারে এখন আসল ব্যালেন্স কত ($) — অ্যাপের হিসাব মেলাতে</span><input type="number" id="ab" step="0.01" inputmode="decimal" placeholder="যেমন 980"></div><button class="s" id="syncB">মিলিয়ে নাও</button></div></div>
+  <div class="card"><h2>ডিপোজিট / উইথড্র</h2>
+    <div class="row"><div class="f"><span>পরিমাণ ($)</span><input type="number" id="ba" step="0.01" min="0" inputmode="decimal" placeholder="যেমন 200"></div><div class="f"><span>নোট (ঐচ্ছিক)</span><input type="text" id="an" placeholder="যেমন নতুন ফান্ড"></div></div>
+    <div style="display:flex;gap:8px"><button class="gr" id="depB" style="flex:1">+ ডিপোজিট</button><button class="rd" id="wdB" style="flex:1">− উইথড্র</button></div>
+    <div id="accMsg" class="sm2" style="margin-top:10px;min-height:1.3em"></div></div>
+  <div class="card"><h2>ডিপোজিট / উইথড্র তালিকা</h2><div id="adjList"></div></div>
+</div>
 
 <div id="t-ana" style="display:none">
   <div class="pills" data-p></div><div id="ana"></div>
@@ -173,15 +195,12 @@ let T=[],P='week';
 let ACC={start:0,adj:[]};
 try{T=JSON.parse(localStorage.getItem(K))||[]}catch(e){}
 try{ACC=JSON.parse(localStorage.getItem(K+'_acc'))||ACC}catch(e){}
-if(Array.isArray(ACC))ACC={start:0,adj:ACC.filter(x=>x&&(x.type==='dep'||x.type==='wd')&&isFinite(+x.amt)).map(x=>({id:x.id||Date.now(),date:x.date||'',amt:(x.type==='wd'?-1:1)*Math.abs(+x.amt),note:x.note||''}))};
-if(!ACC||typeof ACC!=='object')ACC={start:0,adj:[]};ACC.start=+ACC.start||0;if(!Array.isArray(ACC.adj))ACC.adj=[];ACC.adj=ACC.adj.filter(x=>x&&isFinite(+x.amt)).map(x=>({...x,amt:+x.amt}));
-if(!Array.isArray(T))T=[];T=T.filter(t=>t&&typeof t==='object'&&t.c&&typeof t.c==='object');
 T.forEach(t=>{if(t.c&&t.c.a1!==undefined)t.c.a1=t.risk>=1&&t.risk<=27;});
 const saveAcc=()=>{try{localStorage.setItem(K+'_acc',JSON.stringify(ACC))}catch(e){}};
 let D={plans:[],news:[]};
 try{D=Object.assign(D,JSON.parse(localStorage.getItem(K+'_plan'))||{})}catch(e){}
+D.learn=Object.assign({read:{},notes:{}},D.learn||{});
 const saveD=()=>{try{localStorage.setItem(K+'_plan',JSON.stringify(D))}catch(e){}};
-if(!D||typeof D!=='object')D={plans:[],news:[]};if(!Array.isArray(D.plans))D.plans=[];if(!Array.isArray(D.news))D.news=[];
 const net1=t=>(t.result==='pending'?0:(t.pnl||0))-(t.comm||0);
 const f$=n=>(n>=0?'':'-')+'$'+Math.abs(n).toFixed(2);
 const save=()=>{try{localStorage.setItem(K,JSON.stringify(T))}catch(e){msg('সেভ করা যায়নি — ব্রাউজারে স্টোরেজ বন্ধ আছে')}};
@@ -196,7 +215,7 @@ const pct=(a,b)=>b?Math.round(a/b*100):0;
 
 const MOTI=['ট্রেডিংয়ে প্রফিট আসে প্রসেস ফলো করার ফল হিসেবে। প্রতিটা ট্রেডে শুধু নিয়ম মানো, ফলাফল নিয়ে তাড়াহুড়ো করো না।','একটা SL এই খেলারই অংশ। রিস্ক ছোট রাখলে এক-দুটো লসে সবকিছু শেষ হয়ে যায় না। নিজের বিশ্লেষণে ভরসা রাখো।','বায়াস ক্লিয়ার না হলে অপেক্ষা করাও একটা সিদ্ধান্ত। ট্রেড না নেওয়া মানে হেরে যাওয়া নয়।','ট্রেডিং প্রবাবিলিটির খেলা। আজকের একটা লস তোমার পুরো পথের গল্প নয়। চেকলিস্ট ধরে এগিয়ে চলো।','লসের পর রিভেঞ্জ ট্রেড নয়। একটু থামো, শ্বাস নাও, তারপর চেকলিস্টে ফিরে এসো।','দ্রুত টাকা বানানোর চিন্তা ছেড়ে শেখা আর প্র্যাকটিসে মন দাও। প্রফিটেবল হওয়া তার ফল হয়ে আসবে।','নিজের ট্রেড লেখো, সপ্তাহে একবার বিশ্লেষণ করো। ভুল ধরতে পারাই উন্নতির আসল রাস্তা।'];
 $('moti').innerHTML='<b>আজকের কথা</b>'+MOTI[Math.floor(Date.now()/864e5)%MOTI.length];
-const PAIRS=[['কারেন্সি',['EURUSD','GBPUSD','USDJPY','AUDUSD','NZDUSD','USDCAD','USDCHF','EURJPY','GBPJPY']],['মেটাল',['XAUUSD']],['ইনডিসেস',['GER40','JP225','US30','NAS100']],['ক্রিপ্টো',['BTCUSD']]];
+const PAIRS=[['কারেন্সি',['EURUSD','GBPUSD','USDJPY','AUDUSD','NZDUSD','USDCAD','USDCHF','EURJPY','GBPJPY']],['মেটাল',['XAUUSD']],['ইনডিসেস',['GER40','JP225','US30','NAS100']]];
 const pairOpts=extra=>(extra?`<option>${extra}</option>`:'')+PAIRS.map(g=>`<optgroup label="${g[0]}">`+g[1].map(x=>`<option>${x}</option>`).join('')+'</optgroup>').join('');
 $('pair').innerHTML=pairOpts();$('ppair').innerHTML=pairOpts();$('npair').innerHTML=pairOpts('সব');
 
@@ -250,7 +269,7 @@ function pills(){document.querySelectorAll('[data-p]').forEach(e=>{e.innerHTML=P
 // tabs & pills
 document.addEventListener('click',e=>{
   const t=e.target.closest('.tab'),p=e.target.closest('.pill');
-  if(t){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));['new','plan','list','ana','acc'].forEach(k=>$('t-'+k).style.display=k===t.dataset.t?'block':'none');render();}
+  if(t){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));['new','plan','learn','list','ana','acc'].forEach(k=>$('t-'+k).style.display=k===t.dataset.t?'block':'none');render();}
   const tc=e.target.closest('.tcard');if(tc){$('type').value=tc.dataset.k;renderForm();}
   if(p){P=p.dataset.pp;render();}
 });
@@ -303,7 +322,7 @@ function renderList(){
     ${b.length?'<div class="r" style="margin-top:5px">ভুল: '+b.map(r=>r[1]).join(' | ')+'</div>':'<div class="g" style="margin-top:5px">সব রুল ঠিক ছিল ✓</div>'}
     ${t.note?`<div class="sm2" style="margin-top:4px">📝 ${esc(t.note)}</div>`:''}
     <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${rb}</div>
-    <div class="row" style="margin:8px 0 0;align-items:flex-end"><div class="f"><span>${t.result==='loss'?'লস':'প্রফিট'} পরিমাণ ($)</span><input type="text" inputmode="decimal" step="0.01" min="0" value="${t.pnl==null?'':Math.abs(t.pnl)}" onchange="setAmt(${t.id},this.value)"></div><div class="f"><span>কমিশন ($)</span><input type="text" inputmode="decimal" step="0.01" min="0" value="${t.comm||''}" onchange="setCm(${t.id},this.value)"></div><div class="f"><span>নেট</span><b id="net${t.id}" class="${nv>=0?'g':'r'}" style="display:block;padding:9px 0">${t.result==='pending'&&!t.comm?'—':f$(nv)}</b></div></div>
+    <div class="row" style="margin:8px 0 0;align-items:flex-end"><div class="f"><span>${t.result==='loss'?'লস':'প্রফিট'} পরিমাণ ($)</span><input type="number" step="0.01" min="0" value="${t.pnl==null?'':Math.abs(t.pnl)}" onchange="setAmt(${t.id},this.value)"></div><div class="f"><span>কমিশন ($)</span><input type="number" step="0.01" min="0" value="${t.comm||''}" onchange="setCm(${t.id},this.value)"></div><div class="f"><span>নেট</span><b id="net${t.id}" class="${nv>=0?'g':'r'}" style="display:block;padding:9px 0">${t.result==='pending'&&!t.comm?'—':f$(nv)}</b></div></div>
     <div style="margin-top:7px"><button class="sm ${DELC===t.id?'rd':'s'}" onclick="del(${t.id})">${DELC===t.id?'নিশ্চিত? আবার চাপো':'মুছো'}</button></div></div>`}).join(''):'<p class="sm2">এই সময়ে কোনো ট্রেড নেই।</p>';
 }
 
@@ -376,37 +395,195 @@ function renderAna(){
 }
 
 function curBal(){return ACC.start+ACC.adj.reduce((s,x)=>s+x.amt,0)+T.reduce((s,t)=>s+net1(t),0);}
-const N=v=>{v=String(v==null?'':v).replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/,/g,'.').trim();return v===''?NaN:+v};
-let AMSG='';
+const adjSum=()=>ACC.adj.reduce((s,x)=>s+x.amt,0),tradeNet=()=>T.reduce((s,t)=>s+net1(t),0);
+function accMsg(t,c){const e=$('accMsg');e.className='sm2 '+(c||'');e.textContent=t;}
 function renderBal(){
-  const m=AMSG;AMSG='';
-  const c=curBal(),tn=T.reduce((s,t)=>s+net1(t),0),tc=T.reduce((s,t)=>s+(t.comm||0),0),dep=ACC.adj.filter(x=>x.amt>0).reduce((s,x)=>s+x.amt,0),wd=-ACC.adj.filter(x=>x.amt<0).reduce((s,x)=>s+x.amt,0);
-  $('bal').innerHTML=`<h2>অ্যাকাউন্ট ব্যালেন্স</h2><div class="stats">
-   <div class="stat"><b style="color:#93c5fd">${f$(c)}</b><i>বর্তমান ব্যালেন্স</i></div>
+  const c=curBal(),tn=tradeNet(),tc=T.reduce((s,t)=>s+(t.comm||0),0),dp=ACC.adj.filter(x=>x.amt>0).reduce((s,x)=>s+x.amt,0),wd=-ACC.adj.filter(x=>x.amt<0).reduce((s,x)=>s+x.amt,0);
+  $('balStats').innerHTML=`<div class="stat" style="min-width:100%"><b style="color:#93c5fd;font-size:1.7rem">${f$(c)}</b><i>বর্তমান ব্যালেন্স</i></div>
    <div class="stat"><b>${f$(ACC.start)}</b><i>শুরুর ব্যালেন্স</i></div>
-   <div class="stat"><b class="g">${f$(dep)}</b><i>মোট ডিপোজিট</i></div>
+   <div class="stat"><b class="g">${f$(dp)}</b><i>মোট ডিপোজিট</i></div>
    <div class="stat"><b class="r">${f$(wd)}</b><i>মোট উইথড্র</i></div>
    <div class="stat"><b class="${tn>=0?'g':'r'}">${f$(tn)}</b><i>ট্রেড থেকে নেট</i></div>
-   <div class="stat"><b class="y">-$${tc.toFixed(2)}</b><i>মোট কমিশন</i></div></div>
-   ${m?`<div style="margin-top:10px;padding:9px 12px;border-radius:10px;background:#1e293b;font-size:.88rem">${m}</div>`:''}
-   <div class="sm2" style="margin:12px 0 4px"><b>১) শুরুর ব্যালেন্স</b></div>
-   <div class="row" style="align-items:flex-end"><div class="f"><input type="text" inputmode="decimal" id="bs" value="${ACC.start||''}" placeholder="যেমন 1000"></div><button class="sm" onclick="setStart()">সেভ</button></div>
-   <div class="sm2" style="margin:12px 0 4px"><b>২) ডিপোজিট / উইথড্র</b></div>
-   <div class="row"><div class="f"><span>পরিমাণ ($)</span><input type="text" inputmode="decimal" id="ba" placeholder="যেমন 200"></div><div class="f"><span>নোট (ঐচ্ছিক)</span><input type="text" id="bn" placeholder="যেমন প্রপ ফার্ম পেআউট"></div></div>
-   <div style="display:flex;gap:8px;margin-top:8px"><button class="sm gr" onclick="addAdj(1)">+ ডিপোজিট</button><button class="sm rd" onclick="addAdj(-1)">− উইথড্র</button></div>
-   ${ACC.adj.length?`<div class="sm2" style="margin:12px 0 4px"><b>লেনদেনের তালিকা</b></div>`+ACC.adj.map((x,i)=>`<div class="tr" style="padding:8px 10px"><b class="${x.amt>=0?'g':'r'}">${x.amt>=0?'+ ডিপোজিট':'− উইথড্র'} ${f$(Math.abs(x.amt))}</b> <span class="sm2">• ${x.date}${x.note?' • '+esc(x.note):''}</span> <a href="#" onclick="delAdj(${i});return false" style="color:#93c5fd;float:right">মুছো</a></div>`).reverse().join(''):'<div class="sm2" style="margin-top:10px">এখনো কোনো ডিপোজিট/উইথড্র নেই।</div>'}`;
+   <div class="stat"><b class="y">${f$(tc)}</b><i>মোট কমিশন</i></div>`;
+  if(document.activeElement!==$('bs'))$('bs').value=ACC.start||'';
+  $('adjList').innerHTML=ACC.adj.length?ACC.adj.map((x,i)=>`<div class="tr" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div><b class="${x.amt>=0?'g':'r'}">${x.amt>=0?'ডিপোজিট':'উইথড্র'} ${f$(Math.abs(x.amt))}</b><div class="sm2">${x.date}${x.note?' • '+esc(x.note):''}</div></div><button class="sm ${DELC==='adj'+i?'rd':'s'}" data-adj="${i}">${DELC==='adj'+i?'নিশ্চিত?':'মুছো'}</button></div>`).reverse().join(''):'<p class="sm2">এখনো কোনো ডিপোজিট বা উইথড্র নেই।</p>';
 }
-function setStart(){const raw=$('bs').value.trim(),v=N(raw);if(raw===''){ACC.start=0;AMSG='শুরুর ব্যালেন্স ০ করা হলো।'}else if(isNaN(v)||v<0){AMSG='⚠ সঠিক সংখ্যা লিখুন (যেমন 1000)।';render();return}else{ACC.start=v;AMSG='✓ শুরুর ব্যালেন্স সেভ হয়েছে: '+f$(v)}saveAcc();render();}
-function addAdj(sg){const v=N($('ba').value),nt=$('bn').value.trim();if(!(v>0)){AMSG='⚠ আগে পরিমাণ লিখুন (০ এর বেশি, যেমন 200)।';render();return}if(sg<0&&v>curBal()+1e-9){AMSG='⚠ বর্তমান ব্যালেন্স '+f$(curBal())+' এর বেশি তোলা যাবে না।';render();return}ACC.adj.push({id:Date.now(),date:ds(),amt:sg*v,note:nt});AMSG=(sg>0?'✓ ডিপোজিট যোগ হয়েছে: ':'✓ উইথড্র যোগ হয়েছে: ')+f$(v);saveAcc();render();}
-function delAdj(i){ACC.adj.splice(i,1);AMSG='লেনদেনটি মুছে ফেলা হয়েছে।';saveAcc();render();}
-window.setStart=setStart;window.addAdj=addAdj;window.delAdj=delAdj;
-function render(){[renderBal,pills,renderAlert,renderList,renderAna,renderPlan,showAuto].forEach(f=>{try{f()}catch(e){console.error(f.name,e)}});}
-$('exp').onclick=()=>{const b=new Blob([JSON.stringify({trades:T,acc:ACC,plans:D.plans,news:D.news})],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='trading-backup-'+ds()+'.json';a.click();URL.revokeObjectURL(u);};
+$('bsB').onclick=()=>{const v=$('bs').value;if(v===''||isNaN(+v)){accMsg('সংখ্যা লেখো','r');return}ACC.start=+v;saveAcc();render();accMsg('✓ শুরুর ব্যালেন্স '+f$(ACC.start)+' সেভ হয়েছে','g');};
+$('syncB').onclick=()=>{const v=$('ab').value;if(v===''||isNaN(+v)){accMsg('ব্রোকারের ব্যালেন্স লেখো','r');return}ACC.start=+v-adjSum()-tradeNet();saveAcc();$('ab').value='';render();accMsg('✓ মেলানো হয়েছে। বর্তমান ব্যালেন্স '+f$(+v),'g');};
+function adj(sg){const v=+$('ba').value;if(!(v>0)){accMsg('আগে পরিমাণ লেখো (০-এর বেশি)','r');return}ACC.adj.push({date:ds(),amt:sg*v,note:$('an').value.trim()});saveAcc();$('ba').value='';$('an').value='';render();const c=curBal();accMsg((sg>0?'✓ ডিপোজিট ':'✓ উইথড্র ')+f$(v)+' যোগ হয়েছে। বর্তমান ব্যালেন্স '+f$(c)+(c<0?' (সতর্কতা: ব্যালেন্স ০-এর নিচে)':''),c<0?'y':'g');}
+$('depB').onclick=()=>adj(1);$('wdB').onclick=()=>adj(-1);
+$('adjList').addEventListener('click',e=>{const b=e.target.closest('[data-adj]');if(!b)return;const i=+b.dataset.adj,k='adj'+i;if(DELC===k){ACC.adj.splice(i,1);DELC=null;saveAcc();render();accMsg('মুছে ফেলা হয়েছে','');}else{DELC=k;renderBal();setTimeout(()=>{if(DELC===k){DELC=null;renderBal();}},4000);}});
+
+const LESSONS=[
+{id:'3b',g:'বায়াস',i:'🧠',t:'থ্রি বি (নারেটিভ)',b:[
+'নারেটিভ মানে চার্টের গল্প পড়া। প্রতিটা ক্যান্ডেলের পেছনে একটা গল্প আছে, আর থ্রি বি-র প্রশ্নগুলো নিজেকে করে সেই গল্প বোঝা যায়। B মানে Based on: মার্কেট যা করেছে তার ভিত্তিতে এখন কী করতে পারে।',
+'এটা Daily বা তার ওপরের TF-এ করবে, Daily-র নিচে নয়। প্রতিটা Daily ক্যান্ডেলের পর প্রশ্নগুলো করো।',
+'<b>B১: মার্কেট আগে কী করেছে?</b> (১) কোনো লিকুইডিটি নিয়েছে কি, Sweep নাকি Run? (২) না নিলে কোনো POI (FVG, Order Block, Breaker, Mitigation) ফিল করেছে কি? (৩) তাও না হলে কোনো স্ট্রাকচার ব্রেক (BOS) করেছে কি?',
+'<b>B২: এখন কী করতে পারে?</b> (১) কোন দিকে যেতে পারে? (২) সেই দিকে কোথা পর্যন্ত? (৩) পথে কোন কোন হার্ডল (লিকুইডিটি, স্বিং, পেন্ডিং POI) তাকে থামাতে পারে?',
+'<b>Sweep:</b> লিকুইডিটি নিয়ে উল্টো দিকে ক্লোজ। হাই সুইপ হলে নিচে, লো সুইপ হলে ওপরে ফেরার ইঙ্গিত।',
+'<b>Run:</b> ক্যান্ডেল লিকুইডিটির ওপারে ক্লোজ করে। সাথে সাথে দিক বদলায় না। পরের ক্যান্ডেল আগের ক্যান্ডেলের লিকুইডিটি নিয়ে উল্টো ক্লোজ করলে (থ্রি ক্যান্ডেল স্বিং) তবে দিক বদলাতে পারে।',
+'মার্কেট POI থেকে বেরোলে লিকুইডিটির দিকে যায়, লিকুইডিটি থেকে এলে POI-র দিকে। কিন্তু সরাসরি নয়, মাঝে হার্ডল থাকে।',
+'দুই দিকেই POI থাকলে বড় TF (যেমন Weekly) যে দিক বলছে সেই দিকের POI-কে বেশি গুরুত্ব দাও। তবে শুধু Weekly দেখে নিশ্চিত হয়ো না, Daily-র কনফার্মেশনও লাগবে।',
+'দিক পরিষ্কার জানা থাকলে ট্রেড হোল্ড করার আত্মবিশ্বাস আসে। দিক না জানলে সামান্য লাভেই ভয়ে বের হয়ে যাওয়ার প্রবণতা থাকে।',
+'তৃতীয় B এই লেকচার অংশে আসেনি। লেকচার পেলে নিচের নোটে লিখে রাখো।']},
+{id:'wb',g:'বায়াস',i:'📅',t:'উইকলি বায়াস',b:[
+'শনি-রবিবার মার্কেট বন্ধ থাকলে পরের সপ্তাহের বায়াস ঠিক করো। ইন্ট্রাডে বা স্বিং যেটাই করো, উইকলি বায়াস থাকলে এক্যুরেসি বাড়ে।',
+'শুধু এটুকু প্রেডিক্ট করো: পরের সপ্তাহের ক্যান্ডেল Bullish হবে নাকি Bearish। কোথা পর্যন্ত যাবে, তা এখানে দেখার দরকার নেই।',
+'উপায়: Weekly-তে আশেপাশের লিকুইডিটি (আগের সপ্তাহের হাই/লো, চলতি সপ্তাহের হাই/লো, স্বিং) আর POI মার্ক করো। লিকুইডিটি Sweep হলে মার্কেট কোনো POI-র দিকে যেতে চায়। সেই দিকেই বায়াস।',
+'উদাহরণ: মার্কেট আগের সপ্তাহের ক্যান্ডেলের ওপরে ক্লোজ দিলে পরের সপ্তাহও Bullish ধরা হয়, অন্তত পরের লিকুইডিটি পর্যন্ত।',
+'ভুল হবেই, তাতে ভয় পেও না। ৫ দিনের Daily ক্যান্ডেল প্রতিদিন আপডেট দেয়, তাই পাঁচ দিনই SL খাবে এমন নয়। ওভারে বল ধরে ধরে রান গোনার মতো।',
+'<b>মাল্টি TF অ্যালাইনমেন্ট:</b> Weekly, Daily, 4H আর 1H সবাই একদিকে বললে ট্রেডের এক্যুরেসি অনেক বাড়ে। 4H/1H-এ প্রথমে বড় TF-এর দিক ধরে বায়াস দেখো।',
+'মার্কেট দুই দিকেই POI বানায়, যাতে শুধু ছোট TF দেখা ট্রেডাররা কনফিউজ হয়। বড় TF-এর উল্টো দিকের POI তাই ভেঙে যেতে পারে।']},
+{id:'db',g:'বায়াস',i:'🌅',t:'ডেইলি বায়াস',b:[
+'উইকলি বায়াস একবার ঠিক করো। এরপর রোজকার বিশ্লেষণ Daily (বা 4H) চার্টে করো, ওরাই উইকলি বায়াসের আপডেট দেয়।',
+'Daily ক্যান্ডেল লিকুইডিটি নিয়ে উল্টো দিকে ক্লোজ করলে পরের দিনের বায়াস উল্টো দিকে হতে পারে (যেমন হাই সুইপ করে নিচে ক্লোজ হলে পরদিন নিচের দিকে)।',
+'রোজ থ্রি বি-র প্রশ্নগুলো করো। বায়াস ক্লিয়ার না হলে সেদিন ট্রেড নয়, অপেক্ষা করো।',
+'বায়াসের দিকে 4H বা 1H POI তৈরি আছে কিনা দেখো। তারপর রিটেস্ট আর লোয়ার TF কনফার্মেশন।',
+'Telegram পোল দেখে বায়াস ঠিক করো না। আগে চার্ট দেখে নিজের বায়াস ঠিক করো, তারপর ভোট দাও। পোল উল্টো হলেও চার্ট যা বলে সেটাই ঠিক। চার্ট উল্টো দেখালে তবেই বায়াস বদলাও।',
+'ট্রেন্ড শুধু Weekly/Daily-তে খোঁজো। 15m-এ উল্টো ট্রেন্ডও দেখা যায়।',
+'প্র্যাকটিসের জন্য ১০টা পেয়ারে বায়াস খুঁজো (ট্রেড না নিয়েও)। কতটা ঠিক আর কতটা ভুল হলো, কেন ভুল হলো লিখে রাখো।',
+'এই অ্যাপের "ডেইলি প্ল্যান" ট্যাবে বায়াস লিখে রাখো, দিন শেষে ✓/✗ মেলাও।']},
+{id:'fr',g:'ট্রেড টাইপ ও প্রসেস',i:'🔁',t:'ফ্র্যাক্টাল',b:[
+'ফ্র্যাক্টাল মানে বড় TF-এ যে আকার, ছোট TF-এও সেই একই আকার বারবার। সব TF-এ ক্যান্ডেলই দেখা যায়, শুধু আচরণ আলাদা (যেমন Weekly-তে রিট্রেসমেন্ট, 1H-এ এক্সপেনশন হতে পারে)।',
+'লক্ষ্য: প্রতিটা TF-এ মার্কেটের বায়াস বোঝা। বায়াস পেতে শুধু দুটো জিনিস লাগে: লিকুইডিটি আর POI।',
+'লেকচারে মার্কেটের তিন ধরনের চলন বলা হয়েছে: এক্সপেনশন (লাস্ট POI-কে পাত্তা দেয় না), সব POI ফেল করে যাওয়া, আর অনেক সাইডওয়েজ। প্রতিটায় ট্রেড নেওয়ার ধরন আলাদা।',
+'ট্রেন্ড কেবল Weekly ও Daily-তে খোঁজো, নিচের TF-এ কখনো নয়। বায়াস আলাদা: সেটা প্রতিটা TF-এ বের করবে।',
+'প্রাইস ডেলিভারি সাইকেল: মার্কেট এক প্রান্ত থেকে আরেক প্রান্তে গেলে এক সাইকেল। এটা বিভিন্ন TF-এ দেখাকেই প্রাইস ডেলিভারি সাইকেল বলে।',
+'লিকুইডিটি→POI, POI→লিকুইডিটি, POI→POI বা লিকুইডিটি→লিকুইডিটি, মার্কেট এর বাইরে চলে না।']},
+{id:'tcs',g:'ট্রেড টাইপ ও প্রসেস',i:'🕯️',t:'থ্রি ক্যান্ডেল স্বিং (প্রসেস)',b:[
+'বড় TF-এর POI-তে তিন ধাপ: ১) ট্যাপ ২) ডিসপ্লেসমেন্ট ৩) রিটেস্ট (ডিসপ্লেসমেন্টের ভেতরের ছোট TF-এর লাস্ট POI)। এরপরের ক্যান্ডেলই এক্সপেনশন।',
+'ক্যান্ডেল সংখ্যা নয়, প্রসেস দেখো। এটা এক, দুই, চার বা পাঁচ ক্যান্ডেলেও কমপ্লিট হতে পারে।',
+'Weekly POI হলে প্রসেস 4H-তে, Daily POI হলে প্রসেস 1H-তে দেখো।',
+'শুধু নাম মুখস্থ করে "ঠিক তিনটা ক্যান্ডেল" খুঁজো না।']},
+{id:'dp',g:'ট্রেড টাইপ ও প্রসেস',i:'🎯',t:'ডিসপ্লেসমেন্ট ও POI রিফাইন',b:[
+'ডিসপ্লেসমেন্ট ট্রেড: Daily/Weekly POI ট্যাপের পর প্রথম যে মুভ আসে সেটা ধরা। রিটেস্টের পর দ্বিতীয় এন্ট্রি নেওয়া যায়, অথবা চলমান ট্রেড হোল্ড করা যায়।',
+'এই মুভ ধরতে <b>POI Refine করতে হবে</b>। এক্সপেনশন ধরতে Refine করা হয় না। নোটে বোল্ড করে লিখে রাখো।',
+'Refine: বড় POI-র ভেতরে ছোট TF-এর POI খোঁজো। আগে 4H, না পেলে 1H। একাধিক POI মিলতে পারে (কোনটাকে গুরুত্ব দেবে, সে নিয়ম পরের লেকচারে)।',
+'বড় POI-র বাইরের 4H/1H POI গোনা হবে না।',
+'লেকচারে বলা আছে, 4H POI-র নিচে বড় TF-এর POI থাকলে সেই POI ভেঙে যায়। এই অংশটা অসম্পূর্ণ এসেছে, তাই পুরোটা নিজের নোটে মিলিয়ে নাও।',
+'ডিসপ্লেসমেন্ট ট্রেডের টার্গেট কোথায় হবে, তা পরের অংশে আসবে বলা হয়েছে। নোটে লিখে রাখো।']},
+{id:'ex',g:'ট্রেড টাইপ ও প্রসেস',i:'🚀',t:'এক্সপেনশন',b:[
+'এক্সপেনশনে মার্কেট লাস্ট POI-কে পাত্তা না দিয়ে প্রথম পাওয়া POI থেকেই সোজা ছুটতে থাকে।',
+'এখানে POI Refine করা হয় না।',
+'শেখার ক্রম: আগে এক্সপেনশন মাস্টার, তারপর ডিসপ্লেসমেন্ট, তারপর পুলব্যাক।',
+'স্বিংয়ে মার্কেট এক্সপেনশন → পুলব্যাক → এক্সপেনশন বানিয়ে এগোয়। প্রতিটা এক্সপেনশনের পর ব্রেক অফ স্ট্রাকচার হয়।']},
+{id:'pb',g:'ট্রেড টাইপ ও প্রসেস',i:'↩️',t:'পুলব্যাক',b:[
+'দুই ধরনের পুলব্যাক: <b>আফটার ডিসপ্লেসমেন্ট</b> (ডিসপ্লেসমেন্টের লাস্ট POI পর্যন্ত, সেখান থেকে এক্সপেনশন) আর <b>আফটার এক্সপেনশন</b> (এক্সপেনশনের পর, পরের এক্সপেনশনের আগে)।',
+'সবসময় দুটো প্রশ্ন: পুলব্যাক কোথা থেকে আসছে? আর কোথা পর্যন্ত আসবে? উত্তর ঠিক না করে এন্ট্রি নয়।',
+'আফটার এক্সপেনশন পুলব্যাক TP হিট হওয়া পর্যন্ত বারবার দেখা যায়: এক্সপেনশন, পুলব্যাক, এক্সপেনশন, পুলব্যাক।',
+'লো রেজিস্ট্যান্স লিকুইডিটি থাকলে টার্গেট একদিনেই আসতে পারে। হার্ডল বেশি থাকলে মার্কেট স্বিং বানিয়ে ধীরে চলে।',
+'একটা ট্রেড অনেক দিন হোল্ড করা যায় না। স্বিংয়ে প্রতিটা এক্সপেনশনের লাস্ট POI (1H/4H) থেকে আলাদা ট্রেড নিয়ে ওই দিন ক্লোজ করো।']},
+{id:'ck',g:'এন্ট্রি ও মাইন্ডসেট',i:'✅',t:'এন্ট্রি চেকলিস্ট',b:[
+'১. বায়াস ক্লিয়ার? না হলে অপেক্ষা করো, ট্রেড নয়।',
+'২. বায়াসের দিকে 4H বা 1H POI আছে? না থাকলে POI তৈরির অপেক্ষা।',
+'৩. POI-তে রিটেস্টের অপেক্ষা করো। ৫ মিনিটের স্ট্রাকচার দেখে ঝাঁপ দিও না।',
+'৪. লোয়ার TF কনফার্মেশন: CISD, ডিসপ্লেসমেন্ট বা MSS, যেকোনো একটা। দুই এন্ট্রি নিলে ডিসপ্লেসমেন্ট আর MSS।',
+'৫. MSS থেকে ঢুকে SL গেলে সাথে সাথে আবার ঢুকো না, অপেক্ষা করো।',
+'৬. পুরো দিন চার্টে বসে থেকো না। তাড়াহুড়োর ট্রেড বেশির ভাগই ভুল হয়। প্র্যাকটিসের জন্য দেখলে সমস্যা নেই।',
+'লোয়ার TF আর সেশন পরে আসবে। তখন এই তালিকা বদলাবে।']},
+{id:'mn',g:'এন্ট্রি ও মাইন্ডসেট',i:'💪',t:'মাইন্ডসেট',b:[
+'একই লেকচার সবাই পায়, ফল আলাদা হয়। যারা প্রসেস ফলো করে তারাই এগোয়। প্রফিট প্রসেসের বাই-প্রোডাক্ট।',
+'দ্রুত টাকার আশায় রুল ভাঙলে প্রফিটেবল হতে অনেক বছর লাগতে পারে, বা কখনোই না।',
+'SL যাবেই। ভাবো প্রফিটে সেটা কতটা কভার হবে। ভালো রিস্ক ম্যানেজমেন্ট আর ঠিক RR থাকলে পাঁচটার মধ্যে একটা ঠিক হলেও লাভে থাকা সম্ভব।',
+'অন্যের বায়াসের ওপর নির্ভর করো না। নিজে প্র্যাকটিস করো, ভুল থেকেই শিখবে।',
+'সব শেখার পর ট্রেড করব, এমন ভেবো না। যা শিখেছ সেটাই মাস্টার করো। একটা কনসেপ্টে লাভ হলে তাতেই স্টিক রাখো।',
+'একটা SL-এর পর হতাশ হয়ে স্ট্র্যাটেজি পাল্টিও না।',
+'প্রতিটা ট্রেড লেখো, সপ্তাহে একবার বিশ্লেষণ করো। এই অ্যাপ সেজন্যই বানানো।',
+'শুরুতে কিছু লস দেওয়ার জন্য তৈরি থাকো।']}
+];
+
+const CG='#10b981',CR='#ef4444',CB='#3b82f6',CY='#f59e0b',CP='#a78bfa',CS='#94a3b8';
+const dT=(x,y,t,c,a,z)=>`<text x="${x}" y="${y}" fill="${c||'#cbd5e1'}" font-size="${z||9.5}" text-anchor="${a||'middle'}">${t}</text>`;
+function dflow(d){const n=d.f.length,h=28,g=14,H=n*h+(n-1)*g+(d.res?34:6)+6;let s='';
+  d.f.forEach((t,i)=>{const y=3+i*(h+g),c=(d.cols&&d.cols[i])||d.col||CB;s+=`<rect x="10" y="${y}" width="320" height="${h}" rx="7" fill="${c}" fill-opacity=".18" stroke="${c}"/>`+dT(170,y+18,t,'#e2e8f0','middle',11)+(i<n-1?`<polygon points="170,${y+h+11} 163,${y+h+3} 177,${y+h+3}" fill="${CS}"/>`:'')});
+  if(d.res)s+=dT(170,H-8,d.res,CG,'middle',11);
+  return `<svg viewBox="0 0 340 ${H}" class="dg">${s}</svg>`;}
+function dbars(d){const v=d.bars,n=v.length,W=340,H=190,bw=40,sx=(W-20)/n,mid=110;let s=`<line x1="10" x2="330" y1="${mid}" y2="${mid}" stroke="${CS}"/>`;
+  v.forEach((x,i)=>{const h=Math.abs(x)*16,c=x>=0?CG:CR,xx=10+i*sx+(sx-bw)/2,y=x>=0?mid-h:mid;s+=`<rect x="${xx}" y="${y}" width="${bw}" height="${h}" fill="${c}" rx="3"/>`+dT(xx+bw/2,x>=0?y-4:y+h+12,(x>0?'+':'')+x+'R',c,'middle',11)+dT(xx+bw/2,180,d.lb[i],CS)});
+  s+=dT(170,16,d.res,CG,'middle',11);return `<svg viewBox="0 0 ${W} ${H}" class="dg">${s}</svg>`;}
+function dnest(d){const cols=[CB,CP,CG];let s='';d.nest.forEach((t,i)=>{const m=i*28;s+=`<rect x="${14+m}" y="${6+m*.7}" width="${312-m*2}" height="${178-m*1.4}" rx="8" fill="${cols[i]}" fill-opacity=".12" stroke="${cols[i]}"/>`+dT(24+m,22+m*.7,t,cols[i],'start',11)});
+  return `<svg viewBox="0 0 340 190" class="dg">${s}</svg>`;}
+function dsvg(d){
+  if(d.f)return dflow(d);if(d.bars)return dbars(d);if(d.nest)return dnest(d);
+  const W=340,H=190,N=d.N||d.c.length,sx=(W-24)/N,X=i=>12+i*sx+sx/2,Y=p=>H-16-p*1.6;let s='';
+  (d.z||[]).forEach(z=>{s+=`<rect x="${X(z[0])-sx/2}" y="${Y(z[2])}" width="${(z[1]-z[0]+1)*sx}" height="${Y(z[3])-Y(z[2])}" fill="${z[4]}" fill-opacity=".2" stroke="${z[4]}" stroke-dasharray="3 2"/>`+(z[5]?dT(X(z[0])-sx/2+3,Y(z[2])+10,z[5],z[4],'start',9):'')});
+  (d.l||[]).forEach(l=>{s+=`<line x1="${X(l[1])-sx/2}" x2="${X(l[2])+sx/2}" y1="${Y(l[0])}" y2="${Y(l[0])}" stroke="${l[4]}" stroke-dasharray="4 3"/>`+(l[3]?dT(X(l[2])+sx/2-2,Y(l[0])-3,l[3],l[4],'end',9):'')});
+  d.c.forEach((k,i)=>{if(!k)return;const o=k[0],c=k[1],h=k[2]!=null?k[2]:Math.max(o,c)+2,lo=k[3]!=null?k[3]:Math.min(o,c)-2,col=c>=o?CG:CR,bh=Math.max(2,Math.abs(Y(o)-Y(c)));
+    s+=`<line x1="${X(i)}" x2="${X(i)}" y1="${Y(h)}" y2="${Y(lo)}" stroke="${col}" stroke-width="1.5"/><rect x="${X(i)-sx*.3}" y="${Y(Math.max(o,c))}" width="${sx*.6}" height="${bh}" fill="${col}" rx="1.5"/>`});
+  (d.a||[]).forEach(a=>{const x1=X(a[0]),y1=Y(a[1]),x2=X(a[2]),y2=Y(a[3]),an=Math.atan2(y2-y1,x2-x1),hx=x2-9*Math.cos(an-.45),hy=y2-9*Math.sin(an-.45),jx=x2-9*Math.cos(an+.45),jy=y2-9*Math.sin(an+.45);
+    s+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${a[4]}" stroke-width="2" ${a[5]?'stroke-dasharray="5 3"':''}/><polygon points="${x2},${y2} ${hx},${hy} ${jx},${jy}" fill="${a[4]}"/>`});
+  (d.n||[]).forEach(n=>{s+=dT(X(n[0]),Y(n[1]),n[2],n[3],n[4])});
+  return `<svg viewBox="0 0 ${W} ${H}" class="dg">${s}</svg>`;}
+const DIAG={
+'3b':[
+{t:'B১: মার্কেট আগে কী করেছে? (লিকুইডিটি স্বীপ)',cap:'আগের হাইয়ের লিকুইডিটি (হলুদ লাইন) ছুঁয়ে মার্কেট উপরে উঠে আবার নিচে ক্লোজ করেছে। একে স্বীপ বলে। প্রথম B-র প্রথম প্রশ্নের উত্তর: হ্যাঁ, লিকুইডিটি নেওয়া হয়েছে। হাই স্বীপ হলে নিচের দিকের ইঙ্গিত।',c:[[40,47],[47,54],[54,51],[51,60],[60,65],[65,62],[66,60,76,57],[60,52],[52,44],[44,38]],l:[[68,4,9,'Liquidity (আগের হাই)',CY]],a:[[7,60,9,36,CR]],n:[[6,84,'Sweep',CY],[9,24,'উপরে গিয়ে নিচে ক্লোজ → নিচের ইঙ্গিত',CR,'end']]},
+{t:'B২: কোন দিকে, কতদূর, পথে কী হার্ডল?',cap:'মার্কেট বাইং POI ছুঁয়েছে, তাই দিক উপরের। টার্গেট ওপরের লিকুইডিটি। কিন্তু সোজা যাবে না: পথে দুটো সুইং লাইন (হার্ডল) আর একটা পেন্ডিং সেলিং অর্ডার ব্লক আছে। এগুলো আগে থেকে মার্ক করে রাখাই দ্বিতীয় B-র তিন প্রশ্নের উত্তর।',c:[[62,55],[55,47],[47,40],[40,36,38,32],[36,42],[42,47],[47,45],[45,52]],N:10,z:[[2,4,41,31,CG,'Buy POI'],[6,8,82,76,CR,'Pending OB']],l:[[56,5,9,'হার্ডল ১ (স্বিং)',CY],[68,5,9,'হার্ডল ২',CY],[92,5,9,'টার্গেট Liquidity',CB]],a:[[4,44,8,89,CB,1]],n:[[0,26,'১ দিক: উপরে (POI থেকে)',CG,'start'],[0,16,'২ কতদূর: টার্গেট Liquidity',CY,'start'],[0,6,'৩ হার্ডল: পথের লাইন ও OB',CR,'start']]},
+{t:'Sweep বনাম Run',cap:'বামে স্বীপ: লিকুইডিটির ওপারে গিয়ে ক্যান্ডেল উল্টো দিকে ক্লোজ করেছে, তাই দিক বদলাতে পারে। ডানে রান: ক্যান্ডেল লিকুইডিটির ওপারেই ক্লোজ করেছে, তাই সাথে সাথে দিক বদলায় না। তখন থ্রি ক্যান্ডেল স্বিংয়ের অপেক্ষা: পরের ক্যান্ডেল আগের ক্যান্ডেলের লিকুইডিটি নিয়ে উল্টো ক্লোজ করলে তবেই দিক বদলায়।',c:[[40,50],[50,56],[56,54],[56,53,66,50],[53,44],null,[40,50],[50,56],[56,66,68,55],[66,64],[64,58]],l:[[60,0,4,'Liquidity',CY],[60,6,10,'Liquidity',CY]],n:[[2,86,'Sweep: উল্টো ক্লোজ',CR],[8,86,'Run: ওপারে ক্লোজ',CG],[10,22,'থ্রি ক্যান্ডেল স্বিংয়ের অপেক্ষা',CP,'end']]}],
+'wb':[
+{t:'উদাহরণ ১: স্বীপের পর নিচের দিকের বায়াস',cap:'আগের সপ্তাহের হাই স্বীপ করে সপ্তাহ নিচে ক্লোজ করেছে। নিচে একটা অর্ডার ব্লক ও FVG (POI) আছে। তাই পরের সপ্তাহের ক্যান্ডেল বিয়ারিশ হতে পারে, অন্তত ওই POI পর্যন্ত। কোথায় শেষ হবে তা এখন দেখার দরকার নেই, শুধু দিকটা ঠিক করো। ১০০% নিশ্চিত নয়, এটা প্রেডিকশন।',c:[[38,48],[48,57],[57,55,73,52],[55,70,72,54],[70,64,79,62]],N:10,l:[[73,2,9,'আগের সপ্তাহের হাই',CY]],z:[[5,9,48,40,CG,'OB + FVG (POI)']],a:[[4,62,8,46,CR]],n:[[4,88,'Sweep',CY],[7,28,'পরের সপ্তাহ: Bearish',CR]]},
+{t:'উদাহরণ ২: ওপরে ক্লোজ মানে বুলিশ বায়াস',cap:'এই সপ্তাহ আগের সপ্তাহের হাইয়ের ওপরে ক্লোজ করেছে। তাই পরের সপ্তাহও বুলিশ ধরা হয়। অন্তত পরের লিকুইডিটি (নীল লাইন) পর্যন্ত।',c:[[40,46],[46,54],[54,50],[50,62]],N:10,l:[[56,2,9,'আগের সপ্তাহের হাই',CY],[88,4,9,'পরের Liquidity',CB]],a:[[4,62,8,86,CG,1]],n:[[3,32,'ওপরে ক্লোজ → Bullish',CG]]},
+{t:'৫টা Daily ক্যান্ডেল = ১টা Weekly ক্যান্ডেল',cap:'উইকলি বায়াস একবার ঠিক করলেই হয়। এরপর প্রতিদিনের Daily ক্যান্ডেল তোমাকে আপডেট দেয় সপ্তাহের ক্যান্ডেল কেমন বানাচ্ছে। যেমন ক্রিকেটে ওভারের প্রতিটা বলে রান বোঝা যায়। তাই বায়াস ভুল হলেও পাঁচ দিনই SL যাবে না।',c:[[40,50],[50,46],[46,58],[58,64],[64,70]],z:[[0,4,76,34,CP,'১টা Weekly ক্যান্ডেল']],n:[[0,8,'সোম',CS],[1,8,'মঙ্গল',CS],[2,8,'বুধ',CS],[3,8,'বৃহ',CS],[4,8,'শুক্র',CS]]}],
+'db':[
+{t:'Daily স্বীপ হলে পরদিনের বায়াস',cap:'সোমবার ক্যান্ডেল আগের হাইয়ের লিকুইডিটি নিয়ে নিচে ক্লোজ করেছে। তাই পরের দিনের বায়াস নিচের দিকে। উইকলি বায়াসে যা ভেবেছিলে, Daily প্রতিদিন তা যাচাই করে।',c:[[40,48],[48,56],[56,60],[66,60,75,57]],N:8,l:[[64,2,7,'আগের Daily হাই',CY]],a:[[4,56,7,34,CR]],n:[[3,84,'সোমবার: Sweep',CY],[6,22,'পরদিন বায়াস: নিচে',CR]]},
+{t:'টাইমফ্রেম অ্যালাইনমেন্ট',cap:'Weekly, Daily, 4H আর 1H সবাই একই দিক দেখালে একে অ্যালাইনমেন্ট বলে। তখন যে ট্রেড পাবে, তার একুরেসি অনেক বেশি। ট্রেন্ড শুধু Weekly/Daily-তে, আর 4H/1H-তে বড় TF-এর দিকে বায়াস দেখো।',f:['Weekly  ↑  Bullish','Daily  ↑  Bullish','4H  ↑  Bullish','1H  ↑  Bullish'],col:CG,res:'সব TF একদিকে → একুরেসি বেশি'},
+{t:'বড় TF উপরে, ছোট TF-এর উল্টো POI ভাঙে',cap:'1H-তে একটা সেলিং অর্ডার ব্লক তৈরি হলো। কিন্তু Weekly ও Daily বুলিশ, তাই ওটা ভেঙে গেল আর মার্কেট উপরে গেল। মার্কেট দুই দিকেই POI বানায়, যাতে যারা শুধু ছোট TF দেখে তারা বিভ্রান্ত হয়। তুমি বড় TF-এর দিকে ট্রেড নাও।',c:[[40,46],[46,54],[54,60],[60,58],[58,66],[66,72],[72,76],[76,82]],N:10,z:[[3,7,62,56,CR,'1H সেলিং OB']],a:[[5,68,9,90,CG]],n:[[7,28,'বড় TF ↑ → উল্টো POI ভাঙে',CG]]}],
+'fr':[
+{t:'বড়র ভেতরে ছোট, একই আকার',cap:'দেশের ভেতরে রাজ্য, রাজ্যের ভেতরে শহর। বাড়ির ভেতরে ঘর, ঘরের ভেতরে বাথরুম। সবার গঠন এক। চার্টেও Weekly-র ভেতরে Daily-র আর Daily-র ভেতরে 1H-এর একই ধরনের গঠন বারবার দেখা যায়।',nest:['Weekly','Daily','1H']},
+{t:'একই ছবি, আলাদা টাইমফ্রেম',cap:'তিনটা TF-এ একই রকম গঠন: POI ট্যাপ, ডিসপ্লেসমেন্ট, পুলব্যাক, এক্সপেনশন। শুধু আচরণ আলাদা হতে পারে। যেমন Weekly-তে পুলব্যাক চললে 1H-এ এক্সপেনশন দেখা যেতে পারে। তাই প্রতিটা TF-এ আলাদা করে বায়াস বোঝো।',c:[[56,44],[44,62],[62,56],[56,74],null,[56,44],[44,62],[62,56],[56,74],null,[56,44],[44,62],[62,56],[56,74]],z:[[0,0,47,40,CB,''],[5,5,47,40,CB,''],[10,10,47,40,CB,'']],n:[[1.5,16,'Weekly',CS],[6.5,16,'Daily',CS],[11.5,16,'1H',CS],[6.5,92,'একই আকার, আলাদা TF',CY]]},
+{t:'ট্রেন্ড শুধু Weekly/Daily-তে',cap:'বড় ছবিতে মার্কেট উপরের দিকে (সবুজ তীর)। কিন্তু 15 মিনিটে ঢুকলে মাঝের অংশে নিচের ট্রেন্ডও দেখা যায় (লাল তীর)। তাই ট্রেন্ড কখনো লোয়ার TF-এ খুঁজো না। বড় TF-এ ট্রেন্ড ঠিক করো, তারপর প্রতিটা TF-এ বায়াস দেখো।',c:[[35,42],[42,50],[50,58],[58,56],[56,52],[52,48],[48,44],[44,52],[52,60],[60,68],[68,66],[66,62],[62,70],[70,80]],a:[[0,30,13,90,CG,1],[3,62,6,44,CR]],n:[[2,84,'Weekly/Daily: ট্রেন্ড ↑',CG,'start'],[5,30,'15m: ডাউন ট্রেন্ড দেখা যায়',CR],[13,20,'তাই ট্রেন্ড শুধু Weekly/Daily-তে',CY,'end']]}],
+'tcs':[
+{t:'তিন ধাপ: ট্যাপ → ডিসপ্লেসমেন্ট → রিটেস্ট',cap:'১) ক্যান্ডেল বড় TF POI ছুঁয়েছে (ট্যাপ)। ২) POI থেকে জোরালো মুভ (ডিসপ্লেসমেন্ট)। ৩) ডিসপ্লেসমেন্টের ভেতরের ছোট POI (বেগুনি) আবার ছুঁয়েছে (রিটেস্ট)। এরপরের ক্যান্ডেলই এক্সপেনশন।',c:[[64,58],[58,50],[48,40,50,37],[40,62,64,38],[62,54,64,48],[54,78,80,52]],N:8,z:[[2,2,46,36,CB,'HTF POI'],[3,4,54,48,CP,'লাস্ট POI']],n:[[2,28,'১ ট্যাপ',CB],[3,18,'২ ডিসপ্লেসমেন্ট',CG],[4,28,'৩ রিটেস্ট',CP],[5,8,'৪ Expansion',CG]]},
+{t:'এক ক্যান্ডেলেই দুই কাজ',cap:'ক্যান্ডেল সংখ্যা গোনা জরুরি নয়। এখানে একটাই ক্যান্ডেল POI ট্যাপও করেছে, ডিসপ্লেসমেন্টও দিয়েছে। বাকি রইল রিটেস্ট। পরের ক্যান্ডেল রিটেস্ট করলে প্রসেস কমপ্লিট, আর তার পরেরটা এক্সপেনশন। প্রসেস কমপ্লিট হলো কি না, শুধু সেটাই দেখো।',c:[[64,58],[58,50],[48,62,64,37],[62,54,64,50],[54,78,80,52]],N:8,z:[[2,2,46,36,CB,'HTF POI'],[2,3,56,50,CP,'লাস্ট POI']],n:[[0,26,'১+২ একই ক্যান্ডেলে ট্যাপ ও ডিসপ্লেসমেন্ট',CG,'start'],[3,14,'৩ রিটেস্ট',CP],[4,88,'৪ Expansion',CG]]},
+{t:'কোন POI হলে কোন TF-এ দেখবে',cap:'POI Weekly-র হলে ট্যাপ, ডিসপ্লেসমেন্ট আর রিটেস্টের প্রসেস 4H চার্টে দেখো। POI Daily-র হলে প্রসেস 1H চার্টে দেখো।',f:['Weekly POI  →  প্রসেস দেখো 4H-তে','Daily POI  →  প্রসেস দেখো 1H-তে'],cols:[CB,CG],res:'ট্যাপ → ডিসপ্লেসমেন্ট → রিটেস্ট → Expansion'}],
+'dp':[
+{t:'POI Refine: বড় POI-র ভেতরে ছোট POI',cap:'Daily POI-র (নীল) ভেতরে আগে 4H-এর POI খোঁজো। না পেলে 1H। এখানে সবুজ ছোট বক্সটা Refined POI। মার্কেট ওখানে এসে ডিসপ্লেসমেন্ট দিল। এই মুভ ধরতেই Refine করা হয়।',c:[[72,66],[66,58],[56,48],[48,34,50,30],[34,54,56,32],[54,60]],N:8,z:[[2,6,50,20,CB,'Daily POI'],[3,4,37,29,CG,'']],a:[[4,56,7,86,CG,1]],n:[[3,12,'Refined 4H POI (না পেলে 1H)',CG,'start'],[6,90,'ডিসপ্লেসমেন্ট ↑',CG]]},
+{t:'শুধু বড় POI-র ভেতরেরটা গোনা হবে',cap:'বড় POI-র ভেতরের ছোট POI-ই (সবুজ) ধরো। বড় POI-র বাইরে থাকা 4H/1H POI (লাল) ধরবে না। ভেতরে একাধিক POI মিললে কোনটাকে গুরুত্ব দেবে, সেটা লেকচারে পরে আসবে।',c:[[72,66],[66,58],[56,48],[48,34,50,30],[34,54,56,32],[54,64]],N:8,z:[[2,6,50,20,CB,'Daily POI'],[3,4,37,29,CG,'ভেতরে ✓'],[1,2,80,72,CR,'বাইরে ✗']],n:[[5,12,'শুধু বড় POI-র ভেতরের POI',CG]]},
+{t:'দুই এন্ট্রি: Refined POI ও রিটেস্ট',cap:'প্রথম এন্ট্রি Refined POI থেকে। মার্কেট উপরে গিয়ে আবার POI-তে রিটেস্ট করলে দ্বিতীয় এন্ট্রি নিতে পারো, অথবা চলমান ট্রেড ধরে রাখতে পারো। সর্বোচ্চ দুটো এন্ট্রি। টার্গেট কোথায় হবে লেকচারে পরে বলা হবে, তাই সেটা নিজে লিখে রাখো।',c:[[70,64],[64,56],[56,44],[44,34,46,31],[34,54,56,32],[54,44,56,40],[44,64]],N:9,z:[[3,5,40,30,CG,'Refined POI']],a:[[6,66,8,88,CS,1]],n:[[3,22,'▲ এন্ট্রি ১',CG],[5,10,'▲ এন্ট্রি ২ (রিটেস্ট)',CG],[8,94,'TP: লেকচার দেখে লেখো',CS,'end']]}],
+'ex':[
+{t:'এক্সপেনশন: লাস্ট POI-কে পাত্তা দেয় না',cap:'মার্কেট প্রথম POI থেকে সরাসরি ছুটছে। পথে ছোট একটা লাস্ট POI (ধূসর) রেখে গেল, কিন্তু রিটেস্ট করতে ফিরল না। এই ধরনের মুভে POI Refine করা হয় না।',c:[[42,48,50,38],[48,58],[58,56],[56,70],[70,84],[84,94]],N:8,z:[[0,0,50,38,CG,'প্রথম POI'],[2,2,58,52,CS,'লাস্ট POI']],a:[[1,50,6,96,CG,1]],n:[[0,24,'লাস্ট POI-কে পাত্তা না দিয়ে সোজা ছুটছে',CG,'start'],[0,12,'এখানে POI Refine করা হয় না',CY,'start']]},
+{t:'স্বিংয়ে এক্সপেনশন ও পুলব্যাক',cap:'মার্কেট এক্সপেনশন দেয়, ব্রেক অফ স্ট্রাকচার (BOS) করে, পুলব্যাক করে, আবার এক্সপেনশন দেয়। এভাবে ধাপে ধাপে টার্গেটের দিকে যায়। সবুজ বক্সগুলো প্রতিটা এক্সপেনশনের লাস্ট POI।',c:[[30,40],[40,52],[52,48],[48,46],[46,60],[60,72],[72,68],[68,66],[66,80],[80,90]],z:[[3,3,50,44,CG,''],[7,7,70,64,CG,'']],n:[[1,60,'BOS',CY],[5,80,'BOS',CY],[9,98,'BOS',CY],[3,34,'পুলব্যাক',CP],[7,54,'পুলব্যাক',CP]]},
+{t:'শেখার ক্রম',cap:'মাস্টার করার ক্রম: আগে Expansion, তারপর Displacement, তারপর Pullback। তিনটা আলাদা আলাদা আয়ত্তে এলে তারপর একসাথে মিলিয়ে লোয়ার টাইমফ্রেমে যাওয়া হবে।',f:['১ Expansion — আগে মাস্টার করো','২ Displacement — তারপর','৩ Pullback — সবশেষে'],cols:[CG,CB,CY],res:'তারপর তিনটা মিলিয়ে লোয়ার TF-এ'}],
+'pb':[
+{t:'পুলব্যাক আফটার ডিসপ্লেসমেন্ট',cap:'বড় POI ট্যাপের পর ডিসপ্লেসমেন্ট। তারপর পুলব্যাক আসে ডিসপ্লেসমেন্টের লাস্ট POI পর্যন্ত। সেখান থেকে এক্সপেনশন। দুটো প্রশ্ন আগে ঠিক করো: পুলব্যাক কোথা থেকে আসছে আর কোথা পর্যন্ত যাবে। উত্তর ঠিক না করে এন্ট্রি নয়।',c:[[60,50],[50,40,52,36],[40,64,66,38],[64,56,66,52],[56,76,78,54]],N:7,z:[[1,2,44,34,CB,'HTF POI'],[2,4,58,52,CG,'লাস্ট POI']],a:[[2,70,3,58,CR]],n:[[2,86,'কোথা থেকে: ডিসপ্লেসমেন্টের হাই',CY,'start'],[4,26,'কোথা পর্যন্ত: লাস্ট POI',CG,'end']]},
+{t:'পুলব্যাক আফটার এক্সপেনশন',cap:'প্রতিটা এক্সপেনশনের পর BOS দেখে তার লাস্ট POI (1H বা 4H) পর্যন্ত পুলব্যাকের অপেক্ষা করো। সেখান থেকে এন্ট্রি। এভাবে স্বিংয়ে একাধিক ট্রেড পাওয়া যায়। TP হিট না হওয়া পর্যন্ত এই ধারা চলে। প্রতিটা ট্রেড ওই দিনেই বা টার্গেটে বন্ধ করো, বেশি দিন হোল্ড নয়।',c:[[30,40],[40,52],[52,48],[48,46],[46,60],[60,72],[72,68],[68,66],[66,80],[80,90]],z:[[3,3,50,44,CG,''],[7,7,70,64,CG,'']],n:[[1,60,'BOS',CY],[5,80,'BOS',CY],[3,32,'▲ এন্ট্রি ১',CG],[7,52,'▲ এন্ট্রি ২',CG],[9,98,'TP',CB]]},
+{t:'টার্গেটের পথ: লো রেজিস্ট্যান্স বনাম হার্ডল',cap:'বামে পথে কোনো বাধা নেই (লো রেজিস্ট্যান্স লিকুইডিটি), তাই একদিনেই টার্গেট আসতে পারে। ডানে অনেক হার্ডল, তাই মার্কেট সুইং বানিয়ে ধীরে এগোয়। দ্বিতীয় ক্ষেত্রে একটা ট্রেড অনেক দিন ধরে রাখা যায় না, প্রতিটা সুইং আলাদা ট্রেড হিসেবে নাও।',c:[[30,42],[42,56],[56,70],[70,82],[82,92],null,[30,40],[40,36],[36,52],[52,46],[46,62]],l:[[96,0,10,'TP',CB],[50,6,10,'হার্ডল',CY],[64,6,10,'হার্ডল',CY]],n:[[0,22,'লো রেজিস্ট্যান্স: একদিনেই TP',CG,'start'],[10,10,'হার্ডল বেশি: ধীরে, সুইং বানিয়ে',CR,'end']]}],
+'ck':[
+{t:'এন্ট্রির ধাপ',cap:'উপর থেকে নিচে একটা একটা করে ধাপ পার হতে হবে। কোনো একটা ধাপ না মিললে এন্ট্রি নয়, অপেক্ষা। বায়াস ক্লিয়ার না হলে প্রথম ধাপেই থেমে যাও।',f:['১ বায়াস ক্লিয়ার? না হলে ট্রেড নয়','২ বায়াসের দিকে 4H/1H POI আছে?','৩ POI-তে রিটেস্টের অপেক্ষা','৪ লোয়ার TF কনফার্মেশন (CISD/Disp/MSS)','৫ এন্ট্রি + SL + টার্গেট'],cols:[CB,CB,CP,CP,CG]},
+{t:'রিটেস্ট, কনফার্মেশন, তারপর এন্ট্রি',cap:'মার্কেট নিচে 4H/1H POI-তে এসে রিটেস্ট করল। এরপর লোয়ার TF-এ কনফার্মেশন (এখানে MSS/CISD লাইন ভাঙা) এলে তবেই এন্ট্রি। SL POI-র নিচে। কনফার্মেশনের আগে ঝাঁপ দিও না। একটার বেশি এন্ট্রি নিলে ডিসপ্লেসমেন্ট ও MSS থেকে নাও।',c:[[70,64],[64,56],[56,50,58,46],[50,46,52,42],[46,56,58,44],[56,64],[64,76]],N:9,z:[[1,3,52,44,CB,'4H/1H POI']],l:[[40,1,8,'SL (POI-র নিচে)',CR],[88,5,8,'TP',CG],[58,3,8,'MSS / CISD লাইন',CP]],n:[[4,20,'▲ এন্ট্রি (কনফার্মেশনের পর)',CG,'start']]},
+{t:'SL গেলে কী করবে',cap:'MSS থেকে এন্ট্রি নিয়ে SL গেলে সাথে সাথে আবার ঢুকো না। থামো, অপেক্ষা করো, চার্ট ঠান্ডা মাথায় দেখো। তারপর নতুন করে চেকলিস্ট থেকে শুরু করো। রিভেঞ্জ ট্রেড থেকে বারবার SL আসে।',f:['MSS থেকে এন্ট্রি','SL হিট ✗','থামো, শ্বাস নাও, অপেক্ষা করো','নতুন সেটআপ: আবার চেকলিস্ট থেকে শুরু'],cols:[CB,CR,CY,CG],res:'সাথে সাথে রিভেঞ্জ এন্ট্রি নয়'}],
+'mn':[
+{t:'কম জিতলেও লাভ: রিস্ক ম্যানেজমেন্টের শক্তি',cap:'রিস্ক:রিওয়ার্ড ১:৫ হলে পাঁচটার মধ্যে চারটা SL খেয়েও একটা TP-তে মোট লাভ থাকে। (এখানে ১:৫ ধরা, তোমার টার্গেট ১:৩ হলে প্রতি ৪টা SL-এর জন্য দুটো TP লাগবে।) তাই SL এই খেলারই অংশ, আর ভালো RR-এর ট্রেড বেছে নেওয়াই আসল।',bars:[-1,-1,-1,-1,5],lb:['SL','SL','SL','SL','TP (1:5)'],res:'মোট +1R: পাঁচে একটা জিতলেও লাভ'},
+{t:'প্রসেস আগে, প্রফিট তার বাই-প্রোডাক্ট',cap:'জিমে নিয়মিত যাওয়া আর ঠিকঠাক খাওয়ার ফল ভালো শরীর, নিয়ম মানলেই সেটা আসবে। ট্রেডিংয়েও তাই: নিয়ম মানা, প্র্যাকটিস, ট্রেড লিখে রাখা, ধৈর্য। প্রফিট এগুলোর ফল হয়ে আসে। ফলাফলের পেছনে ছুটলে নিয়ম ভাঙে।',f:['প্রসেস: নিয়ম মানা + প্র্যাকটিস + লেখা','ধৈর্য (জিম + ডায়েট নিয়মিত করার মতো)','বাই-প্রোডাক্ট: প্রফিটেবল হওয়া'],cols:[CB,CY,CG],res:'ফলাফলের পেছনে নয়, প্রসেসের পেছনে চলো'}]
+};
+const dgs=id=>(DIAG[id]||[]).map(d=>`<div class="card"><h2>📊 ${d.t}</h2>${dsvg(d)}<div style="font-size:.86rem;line-height:1.75;margin-top:10px;color:#cbd5e1">${d.cap}</div></div>`).join('');
+let LS=null;
+function renderLearn(){
+  const Lr=D.learn,el=$('learn');
+  if(LS){const x=LESSONS.find(l=>l.id===LS);
+    el.innerHTML=`<button class="sm s" data-back="1">← সব লেসন</button><div class="card" style="margin-top:10px"><h2>${x.i} ${x.t}</h2><ul style="padding-left:18px;line-height:1.75;font-size:.92rem">${x.b.map(b=>`<li style="margin-bottom:7px">${b}</li>`).join('')}</ul></div>${dgs(x.id)}<div class="card"><h2>আমার নোট</h2><textarea id="lnote" rows="4" placeholder="নিজের কথায় লিখে রাখো">${esc(Lr.notes[x.id]||'')}</textarea><div style="margin-top:8px"><button class="sm ${Lr.read[x.id]?'gr':'s'}" data-read="${x.id}">${Lr.read[x.id]?'✓ পড়া হয়েছে':'পড়া হয়েছে চিহ্ন দাও'}</button></div></div>`;return;}
+  let h=`<div class="stats"><div class="stat"><b>${LESSONS.filter(l=>Lr.read[l.id]).length}/${LESSONS.length}</b><i>লেসন পড়া হয়েছে</i></div></div>`;
+  [...new Set(LESSONS.map(l=>l.g))].forEach(g=>{h+=`<div class="card"><h2>${g}</h2>`+LESSONS.filter(l=>l.g===g).map(l=>`<div class="tr" data-open="${l.id}" style="cursor:pointer">${l.i} <b>${l.t}</b> ${Lr.read[l.id]?'<span class="g">✓</span>':''}</div>`).join('')+'</div>';});
+  el.innerHTML=h;
+}
+$('learn').addEventListener('click',e=>{
+  const o=e.target.closest('[data-open]'),b=e.target.closest('[data-back]'),r=e.target.closest('[data-read]');
+  if(o){LS=o.dataset.open;renderLearn();window.scrollTo(0,0);}
+  else if(b){LS=null;renderLearn();window.scrollTo(0,0);}
+  else if(r){const k=r.dataset.read;D.learn.read[k]=!D.learn.read[k];saveD();renderLearn();}
+});
+$('learn').addEventListener('change',e=>{if(e.target.id==='lnote'&&LS){D.learn.notes[LS]=e.target.value;saveD();}});
+function render(){renderBal();pills();renderAlert();renderList();renderAna();renderPlan();renderLearn();showAuto();}
+$('exp').onclick=()=>{const b=new Blob([JSON.stringify({trades:T,acc:ACC,plans:D.plans,news:D.news,learn:D.learn})],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='trading-backup-'+ds()+'.json';a.click();URL.revokeObjectURL(u);};
 $('impB').onclick=()=>$('imp').click();
 $('imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(Array.isArray(d))d={trades:d};if(!Array.isArray(d.trades))throw 0;PEND=d;$('impMsg').innerHTML=`ব্যাকআপে ${d.trades.length}টি ট্রেড আছে। বর্তমান ডাটা এটা দিয়ে বদলে যাবে। <button class="sm gr" onclick="doImp()">হ্যাঁ, লোড করো</button> <button class="sm s" onclick="PEND=null;$('impMsg').textContent=''">বাতিল</button>`;}catch(x){$('impMsg').textContent='ফাইলটি ঠিক নেই'}e.target.value=''};r.readAsText(f);};
-function doImp(){if(!PEND)return;T=PEND.trades;if(PEND.acc)ACC=PEND.acc;if(PEND.plans)D.plans=PEND.plans;if(PEND.news)D.news=PEND.news;PEND=null;save();saveAcc();saveD();$('impMsg').textContent='লোড হয়েছে ✓';render();showAuto();}
+function doImp(){if(!PEND)return;T=PEND.trades;if(PEND.acc)ACC=PEND.acc;if(PEND.plans)D.plans=PEND.plans;if(PEND.news)D.news=PEND.news;if(PEND.learn)D.learn=PEND.learn;PEND=null;save();saveAcc();saveD();$('impMsg').textContent='লোড হয়েছে ✓';render();showAuto();}
 window.doImp=doImp;
+let DEF=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();DEF=e;$('instRow').style.display='block';});
+window.addEventListener('appinstalled',()=>{$('instRow').style.display='none';});
+$('instBtn').onclick=async()=>{if(!DEF)return;DEF.prompt();try{await DEF.userChoice}catch(e){}DEF=null;$('instRow').style.display='none';};
+if('serviceWorker' in navigator&&location.protocol!=='file:')window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 showAuto();render();
 </script>
-<script>document.addEventListener('input',e=>{const t=e.target;if(t.matches&&t.matches('input[inputmode=decimal]')){const v=t.value,n=v.replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/,/g,'.');if(n!==v)t.value=n}},true)</script><script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))</script></body>
+</body>
 </html>
