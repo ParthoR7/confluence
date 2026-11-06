@@ -158,6 +158,7 @@ summary{cursor:pointer;color:#93c5fd;font-weight:600}
     <div style="display:flex;gap:8px"><button class="gr" id="depB" style="flex:1">+ ডিপোজিট</button><button class="rd" id="wdB" style="flex:1">− উইথড্র</button></div>
     <div id="accMsg" class="sm2" style="margin-top:10px;min-height:1.3em"></div></div>
   <div class="card"><h2>ডিপোজিট / উইথড্র তালিকা</h2><div id="adjList"></div></div>
+  <div class="card"><h2>অ্যাপ ভার্সন</h2><div class="sm2" style="margin-bottom:8px">ভার্সন v3.4। কিছু পুরনো বা ফাঁকা দেখালে নিচের বাটন চাপো। তোমার ট্রেড, ব্যালেন্স আর নোট মুছবে না।</div><button class="sm" id="refB">🔄 নতুন ভার্সন লোড করো</button></div>
 </div>
 
 <div id="t-ana" style="display:none">
@@ -199,7 +200,16 @@ T.forEach(t=>{if(t.c&&t.c.a1!==undefined)t.c.a1=t.risk>=1&&t.risk<=27;});
 const saveAcc=()=>{try{localStorage.setItem(K+'_acc',JSON.stringify(ACC))}catch(e){}};
 let D={plans:[],news:[]};
 try{D=Object.assign(D,JSON.parse(localStorage.getItem(K+'_plan'))||{})}catch(e){}
-D.learn=Object.assign({read:{},notes:{}},D.learn||{});
+function fixD(){
+  D.plans=Array.isArray(D.plans)?D.plans:[];D.news=Array.isArray(D.news)?D.news:[];
+  const lr=(D.learn&&typeof D.learn==='object'&&!Array.isArray(D.learn))?D.learn:{};
+  D.learn={read:(lr.read&&typeof lr.read==='object')?lr.read:{},notes:(lr.notes&&typeof lr.notes==='object')?lr.notes:{}};
+  if(!Array.isArray(T))T=[];
+  if(!ACC||typeof ACC!=='object')ACC={start:0,adj:[]};
+  ACC.start=+ACC.start||0;ACC.adj=Array.isArray(ACC.adj)?ACC.adj:[];
+}
+fixD();
+function resetLearn(){D.learn={read:{},notes:{}};saveD();render();}
 const saveD=()=>{try{localStorage.setItem(K+'_plan',JSON.stringify(D))}catch(e){}};
 const net1=t=>(t.result==='pending'?0:(t.pnl||0))-(t.comm||0);
 const f$=n=>(n>=0?'':'-')+'$'+Math.abs(n).toFixed(2);
@@ -572,12 +582,18 @@ $('learn').addEventListener('click',e=>{
   else if(r){const k=r.dataset.read;D.learn.read[k]=!D.learn.read[k];saveD();renderLearn();}
 });
 $('learn').addEventListener('change',e=>{if(e.target.id==='lnote'&&LS){D.learn.notes[LS]=e.target.value;saveD();}});
-function render(){renderBal();pills();renderAlert();renderList();renderAna();renderPlan();renderLearn();showAuto();}
+function render(){
+  [renderBal,pills,renderAlert,renderList,renderAna,renderPlan,renderLearn,showAuto].forEach(f=>{
+    try{f();}catch(e){console.error(f.name,e);
+      if(f===renderLearn){const el=$('learn');if(el)el.innerHTML='<div class="card"><h2>লেসন লোড হয়নি</h2><div class="sm2" style="margin-bottom:10px">'+esc(String(e))+'</div><button class="sm rd" onclick="resetLearn()">লেসনের সেভ করা ডাটা রিসেট করো</button></div>';}}
+  });
+}
 $('exp').onclick=()=>{const b=new Blob([JSON.stringify({trades:T,acc:ACC,plans:D.plans,news:D.news,learn:D.learn})],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='trading-backup-'+ds()+'.json';a.click();URL.revokeObjectURL(u);};
 $('impB').onclick=()=>$('imp').click();
 $('imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(Array.isArray(d))d={trades:d};if(!Array.isArray(d.trades))throw 0;PEND=d;$('impMsg').innerHTML=`ব্যাকআপে ${d.trades.length}টি ট্রেড আছে। বর্তমান ডাটা এটা দিয়ে বদলে যাবে। <button class="sm gr" onclick="doImp()">হ্যাঁ, লোড করো</button> <button class="sm s" onclick="PEND=null;$('impMsg').textContent=''">বাতিল</button>`;}catch(x){$('impMsg').textContent='ফাইলটি ঠিক নেই'}e.target.value=''};r.readAsText(f);};
-function doImp(){if(!PEND)return;T=PEND.trades;if(PEND.acc)ACC=PEND.acc;if(PEND.plans)D.plans=PEND.plans;if(PEND.news)D.news=PEND.news;if(PEND.learn)D.learn=PEND.learn;PEND=null;save();saveAcc();saveD();$('impMsg').textContent='লোড হয়েছে ✓';render();showAuto();}
+function doImp(){if(!PEND)return;T=PEND.trades;if(PEND.acc)ACC=PEND.acc;if(PEND.plans)D.plans=PEND.plans;if(PEND.news)D.news=PEND.news;if(PEND.learn)D.learn=PEND.learn;fixD();PEND=null;save();saveAcc();saveD();$('impMsg').textContent='লোড হয়েছে ✓';render();showAuto();}
 window.doImp=doImp;
+$('refB').onclick=async()=>{try{const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.unregister()));const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)));}catch(e){}location.reload();};
 let DEF=null;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();DEF=e;$('instRow').style.display='block';});
 window.addEventListener('appinstalled',()=>{$('instRow').style.display='none';});
